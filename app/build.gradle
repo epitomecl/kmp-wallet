@@ -93,6 +93,6 @@ dependencies {
 
     // network
     implementation "com.amitshekhar.android:rx2-android-networking:${rx2FastAndroidNetworking}"
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
