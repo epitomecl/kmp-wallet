@@ -18,11 +18,10 @@ class CreateWalletPresenter : BasePresenterImpl<CreateWalletContract.View>(),
 
     override fun createWallet(label: String) {
         var param : NetworkParameters? = null
-        param = BitcoinTestNet3Params.get()
+        param = NetworkParameters.testNet();
 
         wallet = HDWalletFactory
                 .createWallet(param, HDWalletFactory.Language.US,
                         DEFAULT_MNEMONIC_LENGTH, DEFAULT_PASSPHRASE, DEFAULT_NEW_WALLET_SIZE)
-
     }
 }
