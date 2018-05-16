@@ -21,9 +21,9 @@
         </activity>
 
         <activity
-            android:name=".mvp.createwallet.CreateWalletFragment" />
+            android:name=".mvp.createwallet.CreateWalletActivity" />
         <activity
-            android:name=".mvp.wallet.WalletFragment" />
+            android:name=".mvp.wallet.WalletActivity" />
 
         <meta-data
             android:name="io.fabric.ApiKey"

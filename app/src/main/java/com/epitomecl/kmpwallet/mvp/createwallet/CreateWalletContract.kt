@@ -9,6 +9,6 @@ object CreateWalletContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        //
+        fun createWallet(label : String)
     }
 }

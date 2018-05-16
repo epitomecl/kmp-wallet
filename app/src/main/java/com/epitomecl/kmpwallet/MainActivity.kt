@@ -3,7 +3,7 @@ package com.epitomecl.kmpwallet
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.epitomecl.kmpwallet.mvp.wallet.WalletFragment
+import com.epitomecl.kmpwallet.mvp.wallet.WalletActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onClickCreateWallet() {
-        val intent = Intent(this, WalletFragment::class.java)
+        val intent = Intent(this, WalletActivity::class.java)
         startActivity(intent)
     }
 }
