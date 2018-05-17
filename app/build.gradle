@@ -88,14 +88,17 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-moshi:2.1.0'
     implementation 'com.android.support:multidex:1.0.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$rootProject.ext.kotlin_version"
+
     // dependency injection
     implementation "com.google.dagger:dagger:${dagger2Version}"
     kapt "com.google.dagger:dagger-compiler:${dagger2Version}"
     kapt "com.google.dagger:dagger-android-processor:${dagger2Version}"
     implementation "com.google.dagger:dagger-android-support:${dagger2Version}"
+
     // network
     implementation "com.amitshekhar.android:rx2-android-networking:${rx2FastAndroidNetworking}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
     //wallet
     implementation "com.madgag.spongycastle:bcpkix-jdk15on:$spongycastleVersion"
     implementation "com.madgag.spongycastle:bcpg-jdk15on:$spongycastleVersion"
