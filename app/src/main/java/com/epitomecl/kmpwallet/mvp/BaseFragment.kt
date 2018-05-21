@@ -2,15 +2,15 @@ package com.epitomecl.kmpwallet.mvp
 
 import android.content.Context
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import com.epitomecl.kmpwallet.di.component.ActivityComponent
 
 abstract class BaseFragment<in V : BaseView, T : BasePresenter<V>>
     : Fragment(), BaseView {
 
     protected abstract var mPresenter: T
+    private lateinit var mActivity: BaseActivity<V, T>
 
     override fun getContext(): Context = context
 
@@ -19,6 +19,12 @@ abstract class BaseFragment<in V : BaseView, T : BasePresenter<V>>
         mPresenter.attachView(this as V)
     }
 
+    override fun onAttach(context : Context) {
+        super.onAttach(context)
+        if(context is BaseActivity<*,*>) {
+            this.mActivity = context as BaseActivity<V, T>
+        }
+    }
 
     override fun showLoading() {
         //
@@ -40,9 +46,17 @@ abstract class BaseFragment<in V : BaseView, T : BasePresenter<V>>
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 
+
     override fun onDestroy() {
         super.onDestroy()
         mPresenter.detachView()
+    }
+
+    fun getActivityComponent() : ActivityComponent? {
+        if(mActivity != null){
+            return mActivity.getActivityComponent()
+        }
+        return null
     }
 
 }
