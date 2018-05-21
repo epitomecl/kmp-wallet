@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
@@ -105,4 +106,8 @@ dependencies {
     implementation "org.bouncycastle:bcprov-jdk16:$bouncycastleVersion"
     implementation "org.slf4j:slf4j-simple:$slf4jVersion"
     implementation "com.google.guava:guava:$guavaVersion"
+}
+
+kapt {
+    generateStubs = true
 }
