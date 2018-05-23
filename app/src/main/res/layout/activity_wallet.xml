@@ -6,53 +6,52 @@
     android:orientation="vertical"
     tools:context=".mvp.wallet.WalletActivity">
 
-    <android.support.v7.widget.RecyclerView
+    <fragment
+        android:id="@+id/fragment_wallet"
+        android:name="com.epitomecl.kmpwallet.mvp.wallet.wallets.WalletsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
-
-    </android.support.v7.widget.RecyclerView>
+        android:layout_weight="1"
+        tools:layout="@layout/fragment_wallets" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="5">
+        android:layout_weight="9">
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:text="Select create wallet below"
-            android:textSize="18sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnShowWalletList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Wallets" />
+
+            <Button
+                android:id="@+id/btnCreateWallet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Create" />
+
+            <Button
+                android:id="@+id/btnBackupWallet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Backup" />
+
+            <Button
+                android:id="@+id/btnAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Account" />
+        </LinearLayout>
     </FrameLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="5"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnCreateWalletBTC"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="BTC" />
-
-        <Button
-            android:id="@+id/btnCreateWalletBCH"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="BCH" />
-
-        <Button
-            android:id="@+id/btnCreateWalletETH"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="ETH" />
-    </LinearLayout>
 
 </LinearLayout>

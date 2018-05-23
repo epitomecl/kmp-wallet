@@ -18,7 +18,7 @@ class CreateWalletPresenter : BasePresenterImpl<CreateWalletContract.View>(),
 
     override fun createWallet(label: String) {
         var param : NetworkParameters? = null
-        param = NetworkParameters.testNet();
+        param = BitcoinTestNet3Params.get()
 
         wallet = HDWalletFactory
                 .createWallet(param, HDWalletFactory.Language.US,

@@ -1,10 +1,10 @@
 package com.epitomecl.kmpwallet.mvp.wallet
 
-import android.content.Intent
 import android.os.Bundle
 import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.mvp.BaseActivity
-import com.epitomecl.kmpwallet.mvp.createwallet.CreateWalletActivity
+import com.epitomecl.kmpwallet.mvp.wallet.create.CreateWalletFragment
+import com.epitomecl.kmpwallet.mvp.wallet.wallets.WalletsFragment
 import kotlinx.android.synthetic.main.activity_wallet.*
 
 class WalletActivity : BaseActivity<WalletContract.View, WalletContract.Presenter>(),
@@ -16,14 +16,23 @@ class WalletActivity : BaseActivity<WalletContract.View, WalletContract.Presente
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wallet)
 
-        btnCreateWalletBTC.setOnClickListener { onCreateWallet() }
-        btnCreateWalletBCH.setOnClickListener { onCreateWallet() }
-        btnCreateWalletETH.setOnClickListener { onCreateWallet() }
+        val fragment = WalletsFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_wallet, fragment)?.commit()
+
+        btnShowWalletList.setOnClickListener { onShowWalletList() }
+        btnCreateWallet.setOnClickListener { onCreateWallet() }
+    }
+
+    private fun onShowWalletList()
+    {
+        val fragment = WalletsFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_wallet, fragment)?.commit()
     }
 
     private fun onCreateWallet()
     {
-        val intent = Intent(this, CreateWalletActivity::class.java)
-        startActivity(intent)
+        val fragment = CreateWalletFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_wallet, fragment)?.commit()
     }
+
 }
