@@ -1,6 +1,6 @@
 package com.epitomecl.kmpwallet.mvp.login
 
-import com.epitomecl.kmpwallet.mvp.BasePresenterImpl
+import com.epitomecl.kmpwallet.mvp.base.BasePresenterImpl
 
 class LoginPresenter : BasePresenterImpl<LoginContract.View>(),
         LoginContract.Presenter {

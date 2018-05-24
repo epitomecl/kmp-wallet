@@ -1,11 +1,8 @@
 package com.epitomecl.kmpwallet.mvp.login
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import com.epitomecl.kmpwallet.R
-import com.epitomecl.kmpwallet.mvp.BaseActivity
-import com.epitomecl.kmpwallet.mvp.home.HomeContract
-import com.epitomecl.kmpwallet.mvp.home.HomePresenter
+import com.epitomecl.kmpwallet.mvp.base.BaseActivity
 
 class LoginActivity : BaseActivity<LoginContract.View, LoginContract.Presenter>(), LoginContract.View {
 

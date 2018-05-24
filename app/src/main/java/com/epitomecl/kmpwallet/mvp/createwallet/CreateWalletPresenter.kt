@@ -1,11 +1,9 @@
 package com.epitomecl.kmpwallet.mvp.createwallet
 
-import com.epitomecl.kmpwallet.api.APIManager
-import com.epitomecl.kmpwallet.mvp.BasePresenterImpl
+import com.epitomecl.kmpwallet.mvp.base.BasePresenterImpl
 import info.blockchain.wallet.bip44.HDWallet
 import info.blockchain.wallet.bip44.HDWalletFactory
 import org.bitcoinj.core.NetworkParameters
-import org.bitcoinj.params.BitcoinTestNet3Params
 
 class CreateWalletPresenter : BasePresenterImpl<CreateWalletContract.View>(),
         CreateWalletContract.Presenter {

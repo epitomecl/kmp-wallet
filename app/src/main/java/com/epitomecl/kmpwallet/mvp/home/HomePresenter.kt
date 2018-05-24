@@ -1,7 +1,7 @@
 package com.epitomecl.kmpwallet.mvp.home
 
 import com.epitomecl.kmpwallet.api.APIManager
-import com.epitomecl.kmpwallet.mvp.BasePresenterImpl
+import com.epitomecl.kmpwallet.mvp.base.BasePresenterImpl
 
 class HomePresenter : BasePresenterImpl<HomeContract.View>(),
         HomeContract.Presenter {

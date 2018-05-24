@@ -1,7 +1,7 @@
 package com.epitomecl.kmpwallet.mvp.login
 
-import com.epitomecl.kmpwallet.mvp.BasePresenter
-import com.epitomecl.kmpwallet.mvp.BaseView
+import com.epitomecl.kmpwallet.mvp.base.BasePresenter
+import com.epitomecl.kmpwallet.mvp.base.BaseView
 
 object LoginContract {
     interface View : BaseView {
