@@ -3,7 +3,7 @@ package com.epitomecl.kmpwallet.mvp.wallet
 import android.content.Intent
 import android.os.Bundle
 import com.epitomecl.kmpwallet.R
-import com.epitomecl.kmpwallet.mvp.BaseActivity
+import com.epitomecl.kmpwallet.mvp.base.BaseActivity
 import com.epitomecl.kmpwallet.mvp.createwallet.CreateWalletActivity
 import kotlinx.android.synthetic.main.activity_wallet.*
 

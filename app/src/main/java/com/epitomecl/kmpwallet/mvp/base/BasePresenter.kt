@@ -1,4 +1,4 @@
-package com.epitomecl.kmpwallet.mvp
+package com.epitomecl.kmpwallet.mvp.base
 
 import io.reactivex.disposables.Disposable
 

@@ -1,6 +1,6 @@
 package com.epitomecl.kmpwallet.mvp.home
 
-import com.epitomecl.kmpwallet.mvp.BaseFragment
+import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 
 class HomeFragment : BaseFragment<HomeContract.View,
         HomeContract.Presenter>(),
