@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.epitomecl.kmpwallet.R
-import com.epitomecl.kmpwallet.mvp.BaseFragment
+import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 
 class SendFragment : BaseFragment<SendContract.View,
         SendContract.Presenter>(),

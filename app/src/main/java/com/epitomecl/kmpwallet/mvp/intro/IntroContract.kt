@@ -1,7 +1,7 @@
 package com.epitomecl.kmpwallet.mvp.intro
 
-import com.epitomecl.kmpwallet.mvp.BasePresenter
-import com.epitomecl.kmpwallet.mvp.BaseView
+import com.epitomecl.kmpwallet.mvp.base.BasePresenter
+import com.epitomecl.kmpwallet.mvp.base.BaseView
 
 object IntroContract {
     interface View : BaseView {

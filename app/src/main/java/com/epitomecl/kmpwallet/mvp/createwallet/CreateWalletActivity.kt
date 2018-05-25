@@ -3,7 +3,7 @@ package com.epitomecl.kmpwallet.mvp.createwallet
 import android.os.Bundle
 import android.widget.Toast
 import com.epitomecl.kmpwallet.R
-import com.epitomecl.kmpwallet.mvp.BaseActivity
+import com.epitomecl.kmpwallet.mvp.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_creatwallet.*
 
 class CreateWalletActivity : BaseActivity<CreateWalletContract.View, CreateWalletContract.Presenter>(),

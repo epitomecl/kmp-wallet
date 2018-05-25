@@ -1,4 +1,4 @@
-package com.epitomecl.kmpwallet.mvp
+package com.epitomecl.kmpwallet.mvp.base
 
 import android.content.Context
 import android.os.Bundle
@@ -21,7 +21,7 @@ abstract class BaseFragment<in V : BaseView, T : BasePresenter<V>>
 
     override fun onAttach(context : Context) {
         super.onAttach(context)
-        if(context is BaseActivity<*,*>) {
+        if(context is BaseActivity<*, *>) {
             this.mActivity = context as BaseActivity<V, T>
         }
     }
