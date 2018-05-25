@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".KMPWalletApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -21,7 +22,8 @@
         </activity>
 
         <activity
-            android:name=".mvp.createwallet.CreateWalletActivity" />
+            android:name=".mvp.intro.IntroActivity"/>
+
         <activity
             android:name=".mvp.wallet.WalletActivity" />
 

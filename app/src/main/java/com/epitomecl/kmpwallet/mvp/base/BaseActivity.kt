@@ -9,7 +9,7 @@ import com.epitomecl.kmpwallet.di.component.ActivityComponent
 import com.epitomecl.kmpwallet.di.component.DaggerActivityComponent
 import com.epitomecl.kmpwallet.di.module.ActivityModule
 
-abstract class BaseActivity<in V : BaseView, T : BasePresenter<V>>
+abstract class BaseActivity<in V : BaseView, T : BasePresenter<in V>>
     : AppCompatActivity(), BaseView {
 
     private lateinit var mActivityComponent: ActivityComponent
@@ -49,7 +49,7 @@ abstract class BaseActivity<in V : BaseView, T : BasePresenter<V>>
     }
 
     fun getActivityComponent() : ActivityComponent {
-        if(mActivityComponent == null){
+        if(!::mActivityComponent.isInitialized){
             mActivityComponent = DaggerActivityComponent.builder()
                     .activityModule(ActivityModule(this))
                     .appComponent( KMPWalletApp.getAppComponent(this) )

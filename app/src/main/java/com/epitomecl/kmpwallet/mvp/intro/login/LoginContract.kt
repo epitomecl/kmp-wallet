@@ -1,14 +1,14 @@
-package com.epitomecl.kmpwallet.mvp.createwallet
+package com.epitomecl.kmpwallet.mvp.intro.login
 
 import com.epitomecl.kmpwallet.mvp.base.BasePresenter
 import com.epitomecl.kmpwallet.mvp.base.BaseView
 
-object CreateWalletContract {
+object LoginContract {
     interface View : BaseView {
         //
     }
 
     interface Presenter : BasePresenter<View> {
-        fun createWallet(label : String)
+        //
     }
 }

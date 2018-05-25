@@ -14,7 +14,7 @@ class SendPresenter : BasePresenterImpl<SendContract.View>(),
         SendContract.Presenter {
 
     @Inject
-    internal var mDataManager: KmpDataManager? = null
+    internal lateinit var mDataManager: KmpDataManager
 
     override fun send(from: String, to: String, amount: String, fee: Long) {
         var amountAsLong = amount.toLongOrNull()

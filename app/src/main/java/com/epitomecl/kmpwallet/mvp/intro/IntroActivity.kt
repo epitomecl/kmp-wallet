@@ -3,6 +3,8 @@ package com.epitomecl.kmpwallet.mvp.intro
 import android.os.Bundle
 import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.mvp.base.BaseActivity
+import com.epitomecl.kmpwallet.mvp.intro.login.LoginFragment
+import com.epitomecl.kmpwallet.mvp.intro.regist.RegistFragment
 
 class IntroActivity : BaseActivity<IntroContract.View, IntroContract.Presenter>(), IntroContract.View {
 
@@ -10,7 +12,7 @@ class IntroActivity : BaseActivity<IntroContract.View, IntroContract.Presenter>(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.activity_intro)
 
         onLogin()
     }
@@ -20,16 +22,16 @@ class IntroActivity : BaseActivity<IntroContract.View, IntroContract.Presenter>(
     }
 
     override fun onLogin() {
-//        supportFragmentManager.beginTransaction()
-//                .replace(R.id.flLogin, LoginFragment())
-//                .addToBackStack(null)
-//                .commit()
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.flIntro, LoginFragment())
+                .addToBackStack(null)
+                .commit()
     }
 
     override fun onRegist() {
-//        supportFragmentManager.beginTransaction()
-//                .replace(R.id.flLogin, RegistFragment())
-//                .addToBackStack(null)
-//                .commit()
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.flIntro, RegistFragment())
+                .addToBackStack(null)
+                .commit()
     }
 }

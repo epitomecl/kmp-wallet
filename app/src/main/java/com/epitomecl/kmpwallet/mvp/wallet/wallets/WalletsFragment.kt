@@ -10,8 +10,6 @@ import android.view.ViewGroup
 import android.view.animation.TranslateAnimation
 import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
-import com.epitomecl.kmpwallet.mvp.wallet.wallets.WalletsContract
-import com.epitomecl.kmpwallet.mvp.wallet.wallets.WalletsPresenter
 import kotlinx.android.synthetic.main.fragment_wallets.*
 import kotlinx.android.synthetic.main.item_wallet.view.*
 
@@ -19,23 +17,15 @@ class WalletsFragment : BaseFragment<WalletsContract.View,
         WalletsContract.Presenter>(),
         WalletsContract.View {
 
-    private var mContext : Context? = null
-
     override var mPresenter: WalletsContract.Presenter = WalletsPresenter()
-
-    override fun onAttach(context : Context) {
-        super.onAttach(context)
-
-        mContext = context
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater.inflate(R.layout.fragment_wallets, container, false)
-        //var component = getActivityComponent()
-        //if(component != null){
-        //    component.inject(this)
-        //    mPresenter.attachView(this)
-        //}
+        var component = getActivityComponent()
+        if(component != null){
+            //component.inject(this)
+            mPresenter.attachView(this)
+        }
 
         return view
     }
@@ -48,8 +38,8 @@ class WalletsFragment : BaseFragment<WalletsContract.View,
         anim.duration = 300
         view.startAnimation(anim)
 
-        rvWallets.layoutManager = LinearLayoutManager(mContext)
-        rvWallets.adapter = WalletItemAdapter(mPresenter.initWallets(), mContext!!)
+        rvWallets.layoutManager = LinearLayoutManager(context)
+        rvWallets.adapter = WalletItemAdapter(mPresenter.initWallets(), context!!)
     }
 
     class WalletItemAdapter(private val items : ArrayList<String>, val context: Context) : RecyclerView.Adapter<ViewHolder>() {

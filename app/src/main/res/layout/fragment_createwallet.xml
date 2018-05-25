@@ -28,9 +28,9 @@
         android:text="Press button it will make 'Bitcoin core' wallet"
         android:textSize="18sp" />
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
@@ -38,15 +38,10 @@
             android:id="@+id/btnCreateWallet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:text="Create Wallet" />
 
-        <Button
-            android:id="@+id/btnCreateWalletCancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Cancel" />
-    </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>

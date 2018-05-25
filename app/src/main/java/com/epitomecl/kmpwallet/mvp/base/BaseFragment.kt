@@ -6,13 +6,13 @@ import android.support.v4.app.Fragment
 import android.widget.Toast
 import com.epitomecl.kmpwallet.di.component.ActivityComponent
 
-abstract class BaseFragment<in V : BaseView, T : BasePresenter<V>>
+abstract class BaseFragment<in V : BaseView, T : BasePresenter<in V>>
     : Fragment(), BaseView {
 
     protected abstract var mPresenter: T
     private lateinit var mActivity: BaseActivity<V, T>
 
-    override fun getContext(): Context = context
+    override fun getContext(): Context = mActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
