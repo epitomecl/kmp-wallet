@@ -5,10 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.epitomecl.kmpwallet.R
-import com.epitomecl.kmpwallet.mvp.BaseFragment
+import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import android.view.animation.TranslateAnimation
-
-
 
 class CreateWalletFragment : BaseFragment<CreateWalletContract.View,
         CreateWalletContract.Presenter>(),

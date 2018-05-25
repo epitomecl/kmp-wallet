@@ -1,7 +1,6 @@
 package com.epitomecl.kmpwallet.mvp.wallet
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import com.epitomecl.kmpwallet.R
 
 import com.epitomecl.kmpwallet.mvp.base.BaseActivity

@@ -2,7 +2,7 @@ package com.epitomecl.kmpwallet.mvp.intro
 
 import android.os.Bundle
 import com.epitomecl.kmpwallet.R
-import com.epitomecl.kmpwallet.mvp.BaseActivity
+import com.epitomecl.kmpwallet.mvp.base.BaseActivity
 
 class IntroActivity : BaseActivity<IntroContract.View, IntroContract.Presenter>(), IntroContract.View {
 

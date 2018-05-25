@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.TranslateAnimation
 import com.epitomecl.kmpwallet.R
-import com.epitomecl.kmpwallet.mvp.BaseFragment
+import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.WalletsContract
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.WalletsPresenter
 import kotlinx.android.synthetic.main.fragment_wallets.*
