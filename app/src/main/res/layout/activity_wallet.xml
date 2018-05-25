@@ -6,13 +6,20 @@
     android:orientation="vertical"
     tools:context=".mvp.wallet.WalletActivity">
 
-    <fragment
-        android:id="@+id/fragment_wallet"
-        android:name="com.epitomecl.kmpwallet.mvp.wallet.wallets.WalletsFragment"
+    <FrameLayout
+        android:id="@+id/flWallet"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        tools:layout="@layout/fragment_wallets" />
+        android:layout_weight="1">
+
+        <!-- <fragment
+            android:id="@+id/fragmentWallet"
+            android:name="com.epitomecl.kmpwallet.mvp.wallet.wallets.WalletsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:layout="@layout/fragment_wallets" /> -->
+    </FrameLayout>
 
     <FrameLayout
         android:layout_width="match_parent"

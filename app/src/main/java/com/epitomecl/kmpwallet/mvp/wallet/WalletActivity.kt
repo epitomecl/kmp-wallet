@@ -1,6 +1,7 @@
 package com.epitomecl.kmpwallet.mvp.wallet
 
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.mvp.BaseActivity
 import com.epitomecl.kmpwallet.mvp.wallet.create.CreateWalletFragment
@@ -16,23 +17,33 @@ class WalletActivity : BaseActivity<WalletContract.View, WalletContract.Presente
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wallet)
 
-        val fragment = WalletsFragment()
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_wallet, fragment)?.commit()
-
         btnShowWalletList.setOnClickListener { onShowWalletList() }
         btnCreateWallet.setOnClickListener { onCreateWallet() }
+
+        onShowWalletList()
     }
 
-    private fun onShowWalletList()
+    override fun onShowWalletList()
     {
-        val fragment = WalletsFragment()
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_wallet, fragment)?.commit()
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.flWallet, WalletsFragment())
+                .addToBackStack(null)
+                .commit()
     }
 
-    private fun onCreateWallet()
+    override fun onCreateWallet()
     {
-        val fragment = CreateWalletFragment()
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_wallet, fragment)?.commit()
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.flWallet, CreateWalletFragment())
+                .addToBackStack(null)
+                .commit()
     }
 
+    override fun onBackupWallet() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onAccount() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

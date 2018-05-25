@@ -9,6 +9,6 @@ object WalletsContract {
     }
 
     interface Presenter : BasePresenter<View> {
-
+        fun initWallets() : ArrayList<String>
     }
 }
