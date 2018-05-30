@@ -46,7 +46,10 @@ class LoginFragment : BaseFragment<LoginContract.View,
             var id = etLoginId.text.toString()
             var pw = etLoginPass.text.toString()
 
-            mPresenter.loginUser(id, pw)
+            if(mPresenter.loginUser(id, pw))
+            {
+                (getContext() as IntroActivity).onChangeWalletActivity()
+            }
         }
     }
 
