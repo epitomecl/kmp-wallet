@@ -9,6 +9,6 @@ object LoginContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        //
+        fun loginUser(id : String, pw : String)
     }
 }

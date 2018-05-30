@@ -6,7 +6,6 @@ import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.mvp.base.BaseActivity
 import com.epitomecl.kmpwallet.mvp.wallet.create.CreateWalletFragment
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.WalletsFragment
-
 import kotlinx.android.synthetic.main.activity_wallet.*
 
 class WalletActivity : BaseActivity<WalletContract.View, WalletContract.Presenter>(),

@@ -8,16 +8,17 @@ import com.epitomecl.kmpwallet.di.component.DaggerAppComponent
 
 class KMPWalletApp : Application() {
 
-    val singleton: AppComponent by lazy {
-        DaggerAppComponent.builder().appModule(AppModule(this)).build()
+    val singleton : AppComponent by lazy {
+        DaggerAppComponent.builder().appModule(AppModule(this, getSharedPreferences(this.getString(R.string.KMP), Context.MODE_PRIVATE ))).build()
     }
 
     override fun onCreate() {
         super.onCreate()
+        singleton.inject(this)
     }
 
     companion object {
-        fun getAppComponent(context : Context): AppComponent {
+        fun getAppComponent(context : Context) : AppComponent {
             return (context.applicationContext as KMPWalletApp).singleton
         }
 

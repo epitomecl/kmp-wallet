@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.TranslateAnimation
+import android.widget.Toast
 import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
+import com.epitomecl.kmpwallet.mvp.intro.IntroActivity
 import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : BaseFragment<LoginContract.View,
@@ -33,6 +35,39 @@ class LoginFragment : BaseFragment<LoginContract.View,
                 0f)// toYDelta
         anim.duration = 300
         view.startAnimation(anim)
+
+        btnLogin.setOnClickListener { onLogin() }
+        btnLoginCancel.setOnClickListener { onLoginCancel() }
+        btnChangeRegist.setOnClickListener { onChangeRegist() }
     }
 
+    fun onLogin() {
+        if(isvalidLoginData()){
+            var id = etLoginId.text.toString()
+            var pw = etLoginPass.text.toString()
+
+            mPresenter.loginUser(id, pw)
+        }
+    }
+
+    fun onLoginCancel() {
+        (getContext() as IntroActivity).onRegist()
+    }
+
+    fun onChangeRegist() {
+        (getContext() as IntroActivity).onRegist()
+    }
+
+    private fun isvalidLoginData(): Boolean {
+        if (etLoginId.text.length < 4) {
+            Toast.makeText(context, "user id is too short.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        else if (etLoginPass.text.length < 4) {
+            Toast.makeText(context, "password is too short.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        return true
+    }
 }
