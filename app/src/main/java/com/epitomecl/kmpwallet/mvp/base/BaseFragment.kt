@@ -46,6 +46,9 @@ abstract class BaseFragment<in V : BaseView, T : BasePresenter<in V>>
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 
+    override fun hideKeyboard() {
+        mActivity.hideKeyboard()
+    }
 
     override fun onDestroy() {
         super.onDestroy()

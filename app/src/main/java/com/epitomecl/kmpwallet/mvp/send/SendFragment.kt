@@ -11,6 +11,15 @@ class SendFragment : BaseFragment<SendContract.View,
         SendContract.Presenter>(),
         SendContract.View {
 
+    companion object {
+        fun newInstance(): SendFragment {
+            val fragment = SendFragment()
+            val bundle = Bundle()
+            fragment.setArguments(bundle)
+            return fragment
+        }
+    }
+
     override var mPresenter: SendContract.Presenter = SendPresenter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

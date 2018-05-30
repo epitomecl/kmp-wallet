@@ -17,4 +17,5 @@ interface BaseView {
 
     fun onFailureRequest(msg: String)
 
+    fun hideKeyboard()
 }

@@ -3,6 +3,7 @@ package com.epitomecl.kmpwallet.mvp.base
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.epitomecl.kmpwallet.KMPWalletApp
 import com.epitomecl.kmpwallet.di.component.ActivityComponent
@@ -46,6 +47,14 @@ abstract class BaseActivity<in V : BaseView, T : BasePresenter<in V>>
     override fun onDestroy() {
         super.onDestroy()
         mPresenter.detachView()
+    }
+
+    override fun hideKeyboard() {
+        val view = this.currentFocus
+        if (view != null) {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+        }
     }
 
     fun getActivityComponent() : ActivityComponent {
