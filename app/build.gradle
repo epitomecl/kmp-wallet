@@ -3,6 +3,13 @@ apply plugin: 'io.fabric'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.novoda.build-properties'
+
+buildProperties {
+    secrets {
+        using project.file('secrets.properties')
+    }
+}
 
 android {
     compileSdkVersion 27
@@ -23,6 +30,15 @@ android {
         debug {
             multiDexEnabled true
         }
+
+        flavorDimensions "environment"
+
+        productFlavors {
+            development {
+                dimension "environment"
+                buildConfigString "SEKRIT", buildProperties.secrets['SEKRIT']
+            }
+        }
     }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -30,7 +46,10 @@ android {
 }
 
 buildscript {
+    ext.buildPropertiesVersion = '0.4.1'
+
     repositories {
+        jcenter()
         maven { url 'https://maven.fabric.io/public' }
     }
 
@@ -41,13 +60,13 @@ buildscript {
         // We recommend changing it to the latest version from our changelog:
         // https://docs.fabric.io/android/changelog.html#fabric-gradle-plugin
         classpath 'io.fabric.tools:gradle:1.+'
+        classpath "com.novoda:gradle-build-properties-plugin:$buildPropertiesVersion"
     }
 }
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
     mavenCentral()
-
 }
 
 ext {
@@ -59,6 +78,7 @@ ext {
     bouncycastleVersion = '1.45'
     slf4jVersion = '1.7.20'
     guavaVersion = '24.0-android'
+    buildPropertiesVersion = '0.4.1'
 }
 
 dependencies {

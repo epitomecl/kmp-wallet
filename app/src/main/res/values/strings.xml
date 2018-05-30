@@ -2,4 +2,13 @@
     <string name="app_name">KMPWallet</string>
 
     <string name="send">Send</string>
+
+    <string name="KMP">KMP</string>
+    <string name="utf8_small">utf-8</string>
+    <string name="pbewithmd5anddes">PBEWithMD5AndDES</string>
+
+    <string name="key_logintype">loginType</string>
+    <string name="key_login_id">loginId</string>
+    <string name="key_login_pw">loginPw</string>
+
 </resources>

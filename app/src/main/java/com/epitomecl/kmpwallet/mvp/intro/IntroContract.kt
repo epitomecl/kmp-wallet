@@ -8,6 +8,7 @@ object IntroContract {
         fun showState(state: String)
         fun onLogin()
         fun onRegist()
+        fun onChangeWalletActivity()
     }
 
     interface Presenter : BasePresenter<View> {

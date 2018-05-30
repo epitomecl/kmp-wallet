@@ -9,6 +9,6 @@ object RegistContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        //
+        fun registUser(id : String, pw : String)
     }
 }
