@@ -4,6 +4,31 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/tvSelectCrypto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="1. Select wallet type"
+        android:textSize="18sp" />
+
+    <Spinner
+        android:id="@+id/spCryptoType"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/tvInputWalletLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="2. Input wallet label"
+        android:textSize="18sp" />
+
     <android.support.design.widget.TextInputLayout
         android:id="@+id/textInputLayout"
         android:layout_width="wrap_content"
@@ -25,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="Press button it will make 'Bitcoin core' wallet"
+        android:text="3. Press button it will make 'Bitcoin core' wallet"
         android:textSize="18sp" />
 
     <FrameLayout

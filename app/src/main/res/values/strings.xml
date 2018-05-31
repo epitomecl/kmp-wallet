@@ -7,8 +7,14 @@
     <string name="utf8_small">utf-8</string>
     <string name="pbewithmd5anddes">PBEWithMD5AndDES</string>
 
+    <string name="crypto_btc_big">BTC</string>
+    <string name="crypto_bch_big">BCH</string>
+    <string name="crypto_eth_big">ETH</string>
+
     <string name="key_logintype">loginType</string>
     <string name="key_login_id">loginId</string>
     <string name="key_login_pw">loginPw</string>
+
+    <string name="msg_select_crypto_type">Select CryptoType</string>
 
 </resources>
