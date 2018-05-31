@@ -79,6 +79,10 @@ ext {
     slf4jVersion = '1.7.20'
     guavaVersion = '24.0-android'
     buildPropertiesVersion = '0.4.1'
+    commonsLang3Version = '3.1'
+    autoValueVersion = '1.4.1'
+    commonsCodecVerson = '1.10'
+    jacksonVersion = '2.9.5'
 }
 
 dependencies {
@@ -126,6 +130,14 @@ dependencies {
     implementation "org.bouncycastle:bcprov-jdk16:$bouncycastleVersion"
     implementation "org.slf4j:slf4j-simple:$slf4jVersion"
     implementation "com.google.guava:guava:$guavaVersion"
+    //implementation 'com.codahale:shamir:0.6.0'
+    implementation "org.apache.commons:commons-lang3:$commonsLang3Version"
+    implementation "com.google.auto.value:auto-value:$autoValueVersion"
+    //Json(fasterxml)
+    implementation "commons-codec:commons-codec:$commonsCodecVerson"
+    implementation "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
+    implementation "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
+    implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
 }
 
 kapt {

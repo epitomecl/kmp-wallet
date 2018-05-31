@@ -18,28 +18,28 @@ class AppData(val application: Application, val sharedPreferences : SharedPrefer
         }
     }
 
-    var prefs : SharedPreferenceSecure
+    private var prefs : SharedPreferenceSecure
 
     init {
         prefs = SharedPreferenceSecure(application, sharedPreferences)
         mAppData = this
     }
 
-    var logintype : Int = 0
+    private var logintype : Int = 0
         get() = prefs.getInt(application.getString(R.string.key_logintype), 0)
         set(value) {
             prefs.edit().putInt(application.getString(R.string.key_logintype), value as Int).commit()
             field = value
         }
 
-    var loginId : String? = ""
+    private var loginId : String? = ""
         get() = prefs.getString(application.getString(R.string.key_login_id), "")
         set(value) {
             prefs.edit().putString(application.getString(R.string.key_login_id), value).commit()
             field = value
         }
 
-    var loginPw : String? = ""
+    private var loginPw : String? = ""
         get() = prefs.getString(application.getString(R.string.key_login_pw), "")
         set(value) {
             prefs.edit().putString(application.getString(R.string.key_login_pw), value).commit()
@@ -47,10 +47,10 @@ class AppData(val application: Application, val sharedPreferences : SharedPrefer
         }
 
     companion object {
-        lateinit var mAppData : AppData
+        private lateinit var mAppData : AppData
 
         fun getLoginType() : LoginType {
-            var ret = mAppData.logintype
+            val ret = mAppData.logintype
             return LoginType.from(ret)
         }
 
