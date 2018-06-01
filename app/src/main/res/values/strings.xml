@@ -8,13 +8,24 @@
     <string name="pbewithmd5anddes">PBEWithMD5AndDES</string>
 
     <string name="crypto_btc_big">BTC</string>
+    <string name="crypto_btc_test_big">BTC TESTNET</string>
     <string name="crypto_bch_big">BCH</string>
+    <string name="crypto_bch_test_big">BCH TESTNET</string>
     <string name="crypto_eth_big">ETH</string>
+    <string name="crypto_eth_test_big">ETH TESTNET</string>
 
     <string name="key_logintype">loginType</string>
     <string name="key_login_id">loginId</string>
     <string name="key_login_pw">loginPw</string>
 
     <string name="msg_select_crypto_type">Select CryptoType</string>
+    <string name="msg_wallet_label_short">wallet label is too short.</string>
+
+    <string name="hint_create_wallet_label">Wallet Label</string>
+
+    <string name="label_create_wallet_step1">1. Select wallet type</string>
+    <string name="label_create_wallet_step2">2. Input wallet label</string>
+    <string name="label_create_wallet_step3">3. Press button it will make \'%s\' wallet</string>
+    <string name="label_create_wallet_button">Create Wallet</string>
 
 </resources>

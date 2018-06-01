@@ -6,5 +6,5 @@ public enum CryptoType {
     BITCOIN_CASH,
     BITCOIN_CASH_TESTNET,
     ETHEREUM,
-    ETHEREUM_TESTNET,
+    ETHEREUM_TESTNET
 }

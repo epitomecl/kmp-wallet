@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="1. Select wallet type"
+        android:text="@string/label_create_wallet_step1"
         android:textSize="18sp" />
 
     <Spinner
@@ -18,7 +18,8 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:prompt="@string/crypto_bch_big"/>
 
     <TextView
         android:id="@+id/tvInputWalletLabel"
@@ -26,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="2. Input wallet label"
+        android:text="@string/label_create_wallet_step2"
         android:textSize="18sp" />
 
     <android.support.design.widget.TextInputLayout
@@ -41,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Wallet Label" />
+            android:hint="@string/hint_create_wallet_label" />
     </android.support.design.widget.TextInputLayout>
 
     <TextView
@@ -50,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="3. Press button it will make 'Bitcoin core' wallet"
+        android:text="@string/label_create_wallet_step3"
         android:textSize="18sp" />
 
     <FrameLayout
@@ -65,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="Create Wallet" />
+            android:text="@string/label_create_wallet_button" />
 
     </FrameLayout>
 
