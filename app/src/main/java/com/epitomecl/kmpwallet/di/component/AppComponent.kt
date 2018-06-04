@@ -3,6 +3,7 @@ package com.epitomecl.kmpwallet.di.component
 import android.app.Application
 import android.content.Context
 import com.epitomecl.kmpwallet.KMPWalletApp
+import com.epitomecl.kmpwallet.data.KmpDataManager
 import com.epitomecl.kmpwallet.di.ApplicationContext
 import com.epitomecl.kmpwallet.di.module.AppModule
 import com.epitomecl.kmpwallet.mvp.send.SendFragment
@@ -17,4 +18,7 @@ interface AppComponent {
 
 //    @ApplicationContext
 //    fun context(): Context
+
+    fun application() : Application
+    fun dataManager() : KmpDataManager
 }
