@@ -44,6 +44,10 @@ android {
             development {
                 dimension "environment"
                 buildConfigString "SEKRIT", buildProperties.secrets['SEKRIT']
+                buildConfigString "BTC_RPC_HOST", buildProperties.secrets['BTC_RPC_HOST']
+                buildConfigString "BTC_RPC_PORT", buildProperties.secrets['BTC_RPC_PORT']
+                buildConfigString "BTC_RPC_ID", buildProperties.secrets['BTC_RPC_ID']
+                buildConfigString "BTC_RPC_PW", buildProperties.secrets['BTC_RPC_PW']
             }
         }
     }
@@ -145,6 +149,9 @@ dependencies {
     implementation "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
     implementation "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
     implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+    //rpc-client
+    implementation 'wf.bitcoin:JavaBitcoindRpcClient:0.9.0'
+
 }
 
 kapt {
