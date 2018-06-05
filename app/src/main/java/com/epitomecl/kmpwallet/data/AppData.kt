@@ -19,10 +19,14 @@ class AppData(val application: Application, val sharedPreferences : SharedPrefer
     }
 
     private var prefs : SharedPreferenceSecure
+    private var walletManager : WalletManager
 
     init {
         prefs = SharedPreferenceSecure(application, sharedPreferences)
+        walletManager = WalletManager()
         mAppData = this
+
+        initWallets()
     }
 
     private var logintype : Int = 0
@@ -45,6 +49,17 @@ class AppData(val application: Application, val sharedPreferences : SharedPrefer
             prefs.edit().putString(application.getString(R.string.key_login_pw), value).commit()
             field = value
         }
+
+    private var wallets : String? = ""
+        get() = prefs.getString(application.getString(R.string.key_wallets), "")
+        set(value) {
+            prefs.edit().putString(application.getString(R.string.key_wallets), value).commit()
+            field = value
+        }
+
+    private fun initWallets() {
+        walletManager.init(wallets)
+    }
 
     companion object {
         private lateinit var mAppData : AppData
@@ -73,6 +88,18 @@ class AppData(val application: Application, val sharedPreferences : SharedPrefer
         fun setLoginPw(loginPw : String) {
             mAppData.loginPw = loginPw
         }
-    }
 
+        fun getWallets() : String? {
+            return mAppData.wallets
+        }
+
+        fun setWallets(json : String) {
+            mAppData.wallets = json
+        }
+
+        fun delWallets() {
+            setWallets("")
+        }
+
+    }
 }
