@@ -18,7 +18,7 @@ class MainPagerAdapter : FragmentPagerAdapter {
 
     private val mActivity: AppCompatActivity
 
-    private val mFragmentInstances = SparseArray<BaseFragment<BaseView, BasePresenter<BaseView>>>()
+    private val mFragmentInstances = SparseArray<Any>()
 
     @Inject
     constructor(activity : AppCompatActivity) : super(activity.supportFragmentManager) {
@@ -30,7 +30,8 @@ class MainPagerAdapter : FragmentPagerAdapter {
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val fragment = super.instantiateItem(container, position) as BaseFragment<BaseView, BasePresenter<BaseView>>
+        val fragment = super.instantiateItem(container, position)
+
         mFragmentInstances.put(position, fragment)
         return fragment
     }
@@ -40,7 +41,7 @@ class MainPagerAdapter : FragmentPagerAdapter {
         super.destroyItem(container, position, `object`)
     }
 
-    fun getFragment(position: Int) : BaseFragment<BaseView, BasePresenter<BaseView>> {
+    fun getFragment(position: Int) : Any {
         return mFragmentInstances.get(position)
     }
 

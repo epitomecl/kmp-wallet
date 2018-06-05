@@ -5,18 +5,13 @@ import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import com.epitomecl.kmpwallet.data.KmpDataManager
-import com.epitomecl.kmpwallet.mvp.base.BaseActivity
-import com.epitomecl.kmpwallet.mvp.base.BasePresenter
-import com.epitomecl.kmpwallet.mvp.base.BaseView
-import com.epitomecl.kmpwallet.mvp.base.MainPagerAdapter
+import com.epitomecl.kmpwallet.mvp.base.*
 import kotlinx.android.synthetic.main.activity_test.*
 import javax.inject.Inject
 
 class TestActivity : BaseActivity<BaseView, BasePresenter<BaseView>>() {
 
-    override var mPresenter: BasePresenter<BaseView>
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
-        set(value) {}
+    override var mPresenter: BasePresenter<BaseView> = BasePresenterImpl<BaseView>()
 
     @Inject
     lateinit var mDataManager: KmpDataManager

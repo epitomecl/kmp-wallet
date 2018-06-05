@@ -25,7 +25,8 @@
         <activity
             android:name=".mvp.wallet.WalletActivity" />
 
-        <activity android:name=".TestActivity">
+        <activity android:name=".TestActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
