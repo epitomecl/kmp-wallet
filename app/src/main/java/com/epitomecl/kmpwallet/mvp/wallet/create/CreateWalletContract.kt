@@ -14,7 +14,6 @@ object CreateWalletContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        fun setCryptoType(type : CryptoType)
-        fun createWallet(label : String)
+        fun createWallet(type : CryptoType, label : String)
     }
 }

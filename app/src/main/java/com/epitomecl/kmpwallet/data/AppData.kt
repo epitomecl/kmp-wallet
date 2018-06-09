@@ -2,6 +2,8 @@ package com.epitomecl.kmpwallet.data
 
 import android.app.Application
 import android.content.SharedPreferences
+import com.epitomecl.kmp.core.wallet.CryptoType
+import com.epitomecl.kmp.core.wallet.HDWalletData
 import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.util.SharedPreferenceSecure
 
@@ -18,13 +20,12 @@ class AppData(val application: Application, val sharedPreferences : SharedPrefer
         }
     }
 
-    private var prefs : SharedPreferenceSecure
+    private var prefs : SharedPreferenceSecure = SharedPreferenceSecure(application, sharedPreferences)
     private var walletManager : WalletManager
 
     init {
-        prefs = SharedPreferenceSecure(application, sharedPreferences)
-        walletManager = WalletManager()
         mAppData = this
+        walletManager = WalletManager()
 
         initWallets()
     }
@@ -61,6 +62,10 @@ class AppData(val application: Application, val sharedPreferences : SharedPrefer
         walletManager.init(wallets)
     }
 
+    private fun createWallet(cryptoType : CryptoType, label : String) {
+        wallets = walletManager.createWallet(cryptoType, label)
+    }
+
     companion object {
         private lateinit var mAppData : AppData
 
@@ -89,17 +94,21 @@ class AppData(val application: Application, val sharedPreferences : SharedPrefer
             mAppData.loginPw = loginPw
         }
 
-        fun getWallets() : String? {
-            return mAppData.wallets
+        fun createWallet(cryptoType : CryptoType, label : String) {
+            mAppData.createWallet(cryptoType, label)
         }
 
-        fun setWallets(json : String) {
-            mAppData.wallets = json
+        fun getHDWallets() : List<HDWalletData> {
+            return mAppData.walletManager.wallets
         }
 
-        fun delWallets() {
-            setWallets("")
-        }
+//        fun getWallets() : String? {
+//            return mAppData.wallets
+//        }
+//
+//        fun delWallets() {
+//            setWallets("")
+//        }
 
     }
 }

@@ -26,7 +26,8 @@ class BitcoinRPCClient : RPCClient {
         }
     }
 
-    override fun blockCount() : Int {
+    override fun getBlockCount() : Int {
         return client.blockCount
     }
+
 }

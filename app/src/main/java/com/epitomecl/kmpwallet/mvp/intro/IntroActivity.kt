@@ -59,7 +59,7 @@ class IntroActivity : BaseActivity<IntroContract.View, IntroContract.Presenter>(
 
     private fun checkBitcoinBlock() {
         thread{
-            var blockCount = KmpRPCClient.get(CryptoType.BITCOIN)?.blockCount()
+            var blockCount = KmpRPCClient.get(CryptoType.BITCOIN)?.getBlockCount()
             blockCount.toString()
         }
     }

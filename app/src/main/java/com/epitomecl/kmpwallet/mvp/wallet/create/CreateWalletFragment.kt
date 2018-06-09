@@ -17,6 +17,8 @@ class CreateWalletFragment : BaseFragment<CreateWalletContract.View,
         CreateWalletContract.Presenter>(),
         CreateWalletContract.View {
 
+    private lateinit var cryptoType : CryptoType
+
     override var mPresenter: CreateWalletContract.Presenter = CreateWalletPresenter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -49,7 +51,8 @@ class CreateWalletFragment : BaseFragment<CreateWalletContract.View,
 
     override fun onClickCreate() {
         if (isValidLabel()) {
-            mPresenter.createWallet(etWalletLabel.text.toString())
+            mPresenter.createWallet(cryptoType, etWalletLabel.text.toString())
+            fragmentManager?.popBackStack()
         }
     }
 
@@ -91,7 +94,7 @@ class CreateWalletFragment : BaseFragment<CreateWalletContract.View,
             CryptoType.ETHEREUM_TESTNET -> create.format(getString(R.string.crypto_eth_test_big))
         }
 
-        mPresenter.setCryptoType(type)
+        cryptoType = type
     }
 
 }
