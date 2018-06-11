@@ -2,41 +2,66 @@ package com.epitomecl.kmpwallet.data
 
 import com.epitomecl.kmp.core.wallet.CryptoType
 import com.epitomecl.kmp.core.wallet.HDWalletData
+import com.google.gson.JsonArray
+import org.json.JSONArray
+import org.json.JSONException
 import org.json.JSONObject
 
 class WalletManager {
 
-    val wallets : List<HDWalletData> = emptyList()
+    var wallets : MutableList<HDWalletData> = mutableListOf()
 
     init {
 
     }
 
     fun init(json : String?) {
-//        //var walletJson = "{ 'Wallets': [ {'Seed': 'KGGKGKUKGGKGKGK', 'AccountNum': '1', 'Label': 'Wallet Name1'}, {'Seed': 'KGGKGKUKGGKGKGK', 'AccountNum': '1', 'Label': 'Wallet Name1'} ] }"
-//        val objects = JSONObject(json)
-//        val walletObjects = objects.optJSONArray("Wallets")
-//        for (jsonIndex in 0..(walletObjects.length() - 1)) {
-//            var walletObject = walletObjects.getJSONObject(jsonIndex)
-//
-//            var seed : String = walletObject.optString("Seed")
-//            var accountNum : String = walletObject.optString("AccountNum")
-//            var label : String = walletObject.optString("Label")
-//            var cryptoType : String = walletObject.optString("CryptoType")
-//        }
+        //var walletJson = "{ 'Wallets': [ {'Seed': 'KGGKGKUKGGKGKGK', 'AccountNum': '1', 'Label': 'Wallet Name1'}, {'Seed': 'KGGKGKUKGGKGKGK', 'AccountNum': '1', 'Label': 'Wallet Name1'} ] }"
+        try {
+            val objects = JSONObject(json)
+            val walletObjects = objects.optJSONArray("Wallets")
+            if(walletObjects == null){
+                restoreFromJson(objects.getJSONObject("Wallets"))
+            }
+            else {
+                for (jsonIndex in 0..(walletObjects.length() - 1)) {
+                    restoreFromJson(walletObjects.getJSONObject(jsonIndex))
+                }
+            }
+        } catch (e : JSONException) {
+            //log
+        }
     }
 
-    fun createWallet(cryptoType : CryptoType, label : String) {
+    private fun restoreFromJson(jsonObject : JSONObject) {
+        var seedHex : String = jsonObject.optString("Seed")
+        var accountNum : String = jsonObject.optString("AccountNum")
+        var label : String = jsonObject.optString("Label")
+        var cryptoType : String = jsonObject.optString("CryptoType")
 
-        val obj = JSONObject()
-        obj.put("Seed","HKHKGKG")
-        obj.put("AccountNum","1")
-        obj.put("Label","NAME")
-        obj.put("CryptoType","BITCOIN")
+        var hdWalletData = HDWalletData.restoreFromSeed(CryptoType.valueOf(cryptoType), seedHex, "", label, accountNum.toInt())
+        wallets.add(hdWalletData)
+    }
 
+    private fun toJson() : String {
         val objects = JSONObject()
-        objects.putOpt("Wallets", obj)
+        val array = JSONArray()
+        wallets.forEach { e -> run {
+            val obj = JSONObject()
+            obj.put("Seed", e.seedHex)
+            obj.put("AccountNum",e.accounts.size)
+            obj.put("Label",e.label)
+            obj.put("CryptoType",e.cryptoType.toString())
 
-        val result = objects.toString()
+            array.put(obj)
+        }}
+        objects.put("Wallets", array)
+        return objects.toString()
+    }
+
+    fun createWallet(cryptoType : CryptoType, label : String) : String {
+        var hdWalletData = HDWalletData(cryptoType, label)
+        wallets.add(hdWalletData)
+        return toJson()
     }
 }

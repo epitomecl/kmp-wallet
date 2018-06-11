@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.TranslateAnimation
+import com.epitomecl.kmp.core.wallet.HDWalletData
 import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_wallets.*
@@ -42,7 +43,7 @@ class WalletsFragment : BaseFragment<WalletsContract.View,
         rvWallets.adapter = WalletItemAdapter(mPresenter.initWallets(), context!!)
     }
 
-    class WalletItemAdapter(private val items : ArrayList<String>, val context: Context) : RecyclerView.Adapter<ViewHolder>() {
+    class WalletItemAdapter(private val items : List<HDWalletData>, val context: Context) : RecyclerView.Adapter<ViewHolder>() {
 
         override fun getItemCount(): Int {
             return items.size
@@ -53,8 +54,8 @@ class WalletsFragment : BaseFragment<WalletsContract.View,
         }
 
         override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-            holder?.tvWalletLabel?.text = items.get(position)
-            //holder?.tvCryptoType...
+            holder?.tvWalletLabel?.text = items[position].label
+            holder?.tvCryptoType?.text = items[position].cryptoType.toString()
         }
     }
 
