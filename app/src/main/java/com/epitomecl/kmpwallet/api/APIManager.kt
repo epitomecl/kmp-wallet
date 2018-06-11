@@ -46,6 +46,7 @@ object APIManager {
 
     private fun initServices(retrofit: Retrofit) {
         mTestService = retrofit.create(TestService::class.java)
+
     }
 
     fun loadTest(param: Number) =

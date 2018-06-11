@@ -21,6 +21,11 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+
         //for google auto-value annotation
         javaCompileOptions {
             annotationProcessorOptions {
@@ -124,6 +129,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-moshi:2.1.0'
     implementation 'com.android.support:multidex:1.0.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$rootProject.ext.kotlin_version"
+    implementation 'com.jakewharton.timber:timber:4.7.0'
+
 
     // dependency injection
     implementation "com.google.dagger:dagger:${dagger2Version}"

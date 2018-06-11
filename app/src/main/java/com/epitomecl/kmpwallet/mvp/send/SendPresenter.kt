@@ -6,15 +6,19 @@ import com.epitomecl.kmpwallet.data.KmpDataManager
 import com.epitomecl.kmpwallet.mvp.base.BasePresenterImpl
 import com.epitomecl.kmpwallet.mvp.base.RxCallbackWrapper
 import com.google.gson.JsonObject
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class SendPresenter : BasePresenterImpl<SendContract.View>(),
+class SendPresenter : BasePresenterImpl<SendContract.View>,
         SendContract.Presenter {
 
     @Inject
     internal lateinit var mDataManager: KmpDataManager
+
+    @Inject
+    constructor()
 
     override fun send(from: String, to: String, amount: String, fee: Long) {
         var amountAsLong = amount.toLongOrNull()
@@ -39,5 +43,11 @@ class SendPresenter : BasePresenterImpl<SendContract.View>(),
                 })
             )
     }
+
+//    fun submitBitcoinTransaction() : Observable<JsonObject> {
+//        mView?.showLoading()
+//
+//
+//    }
 }
 
