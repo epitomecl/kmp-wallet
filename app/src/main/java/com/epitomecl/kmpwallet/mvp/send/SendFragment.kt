@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
+import com.epitomecl.kmpwallet.mvp.base.BaseFragmentv2
+import javax.inject.Inject
 
-class SendFragment : BaseFragment<SendContract.View,
-        SendContract.Presenter>(),
+class SendFragment : BaseFragmentv2(),
         SendContract.View {
 
     companion object {
@@ -20,7 +21,8 @@ class SendFragment : BaseFragment<SendContract.View,
         }
     }
 
-    override var mPresenter: SendContract.Presenter = SendPresenter()
+    @Inject
+    lateinit var mPresenter: SendPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater.inflate(R.layout.fragment_send, container, false)

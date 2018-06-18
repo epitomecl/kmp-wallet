@@ -6,19 +6,23 @@ import com.epitomecl.kmpwallet.data.KmpDataManager
 import com.epitomecl.kmpwallet.mvp.base.BasePresenterImpl
 import com.epitomecl.kmpwallet.mvp.base.RxCallbackWrapper
 import com.google.gson.JsonObject
+import info.blockchain.wallet.payload.data.Account
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import piuk.blockchain.androidcore.utils.helperfunctions.unsafeLazy
+import piuk.blockchain.androidcore.data.payload.PayloadDataManager
 import javax.inject.Inject
 
-class SendPresenter : BasePresenterImpl<SendContract.View>,
+class SendPresenter @Inject constructor(
+): BasePresenterImpl<SendContract.View>(),
         SendContract.Presenter {
+
+    private val pendingTransaction by unsafeLazy { PendingTransaction() }
 
     @Inject
     internal lateinit var mDataManager: KmpDataManager
 
-    @Inject
-    constructor()
 
     override fun send(from: String, to: String, amount: String, fee: Long) {
         var amountAsLong = amount.toLongOrNull()
@@ -49,5 +53,11 @@ class SendPresenter : BasePresenterImpl<SendContract.View>,
 //
 //
 //    }
+
+    private fun getBtcChangeAddress(): Observable<String> {
+        val account = pendingTransaction.sendingObject.accountObject as Account
+//        return payloadDataManager.getNextChangeAddress(account)
+        return Observable.fromArray()
+    }
 }
 

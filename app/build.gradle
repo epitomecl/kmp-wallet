@@ -12,10 +12,19 @@ buildProperties {
 }
 
 android {
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'armeabi-v7a'
+            universalApk true
+        }
+    }
+
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.epitomecl.kmpwallet"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -42,23 +51,29 @@ android {
         debug {
             multiDexEnabled true
         }
-
-        flavorDimensions "environment"
-
-        productFlavors {
-            development {
-                dimension "environment"
-                buildConfigString "SEKRIT", buildProperties.secrets['SEKRIT']
-                buildConfigString "BTC_RPC_HOST", buildProperties.secrets['BTC_RPC_HOST']
-                buildConfigString "BTC_RPC_PORT", buildProperties.secrets['BTC_RPC_PORT']
-                buildConfigString "BTC_RPC_ID", buildProperties.secrets['BTC_RPC_ID']
-                buildConfigString "BTC_RPC_PW", buildProperties.secrets['BTC_RPC_PW']
-            }
+    }
+    flavorDimensions "environment"
+    productFlavors {
+        development {
+            dimension "environment"
+            buildConfigString "SEKRIT", buildProperties.secrets['SEKRIT']
+            buildConfigString "BTC_RPC_HOST", buildProperties.secrets['BTC_RPC_HOST']
+            buildConfigString "BTC_RPC_PORT", buildProperties.secrets['BTC_RPC_PORT']
+            buildConfigString "BTC_RPC_ID", buildProperties.secrets['BTC_RPC_ID']
+            buildConfigString "BTC_RPC_PW", buildProperties.secrets['BTC_RPC_PW']
         }
     }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/rxjava.properties'
+    }
+    buildToolsVersion '27.0.3'
+
 }
 
 buildscript {
@@ -88,7 +103,7 @@ repositories {
 ext {
     supportLibVersion = '27.0.0'
     retrofitVersion = "2.2.0"
-    dagger2Version = '2.11'
+    dagger2Version = '2.14.1'
     rx2FastAndroidNetworking = '1.0.1'
     spongycastleVersion = '1.58.0.0'
     bouncycastleVersion = '1.45'
@@ -102,7 +117,8 @@ ext {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':core-blockinfo')
+//    implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation "com.android.support:support-v13:${supportLibVersion}"
@@ -131,7 +147,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$rootProject.ext.kotlin_version"
     implementation 'com.jakewharton.timber:timber:4.7.0'
 
-
     // dependency injection
     implementation "com.google.dagger:dagger:${dagger2Version}"
     kapt "com.google.dagger:dagger-compiler:${dagger2Version}"
@@ -148,17 +163,19 @@ dependencies {
     implementation "org.bouncycastle:bcprov-jdk16:$bouncycastleVersion"
     implementation "org.slf4j:slf4j-simple:$slf4jVersion"
     implementation "com.google.guava:guava:$guavaVersion"
+
     //implementation 'com.codahale:shamir:0.6.0'
     implementation "org.apache.commons:commons-lang3:$commonsLang3Version"
     implementation "com.google.auto.value:auto-value:$autoValueVersion"
+
     //Json(fasterxml)
     implementation "commons-codec:commons-codec:$commonsCodecVerson"
     implementation "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
     implementation "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
     implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+
     //rpc-client
     implementation 'wf.bitcoin:JavaBitcoindRpcClient:0.9.0'
-
 }
 
 kapt {

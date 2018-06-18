@@ -8,6 +8,8 @@ import com.epitomecl.kmpwallet.di.ApplicationContext
 import com.epitomecl.kmpwallet.di.module.AppModule
 import com.epitomecl.kmpwallet.mvp.send.SendFragment
 import dagger.Component
+import info.blockchain.wallet.payload.PayloadManager
+import piuk.blockchain.androidcore.data.payload.PayloadDataManager
 import javax.inject.Singleton
 
 @Singleton
@@ -21,4 +23,5 @@ interface AppComponent {
 
     fun application() : Application
     fun dataManager() : KmpDataManager
+
 }
