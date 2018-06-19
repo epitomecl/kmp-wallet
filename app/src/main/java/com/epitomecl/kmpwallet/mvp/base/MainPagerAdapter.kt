@@ -46,7 +46,7 @@ class MainPagerAdapter : FragmentPagerAdapter {
     }
 
     override fun getItem(position: Int): Fragment {
-        if (mActivity is BaseActivity<*, *>) {
+        if (mActivity is BaseActivityv2) {
             mActivity.hideKeyboard()
         }
 

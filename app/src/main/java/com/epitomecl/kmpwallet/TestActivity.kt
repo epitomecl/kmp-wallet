@@ -9,9 +9,7 @@ import com.epitomecl.kmpwallet.mvp.base.*
 import kotlinx.android.synthetic.main.activity_test.*
 import javax.inject.Inject
 
-class TestActivity : BaseActivity<BaseView, BasePresenter<BaseView>>() {
-
-    override var mPresenter: BasePresenter<BaseView> = BasePresenterImpl<BaseView>()
+class TestActivity : BaseActivityv2() {
 
     @Inject
     lateinit var mDataManager: KmpDataManager

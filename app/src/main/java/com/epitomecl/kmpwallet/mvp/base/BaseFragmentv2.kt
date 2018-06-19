@@ -15,8 +15,8 @@ abstract class BaseFragmentv2
 
     override fun onAttach(context : Context) {
         super.onAttach(context)
-        if(context is BaseActivity<*, *>) {
-            this.mActivity = context as BaseActivityv2
+        if(context is BaseActivityv2) {
+            this.mActivity = context
         }
     }
 
