@@ -30,4 +30,7 @@ class BitcoinRPCClient : RPCClient {
         return client.blockCount
     }
 
+    override fun validateaddress(address : String) : String {
+        return client.query("validateaddress", address).toString()
+    }
 }

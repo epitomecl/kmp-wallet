@@ -452,10 +452,10 @@ public class HDWalletData {
         hdWalletData.setAccounts(new ArrayList<AccountData>());
 
         //Determine size of wallet accounts
-        //if (accountNum <= 0) {
-        //    accountNum = getDeterminedSizeFromServer(1, 5, 0, bip44Wallet);
-        //}
-        //bip44Wallet = new HDWallet(mc, param, seed, passphrase, accountNum);
+        if (accountNum <= 0) {
+            accountNum = getDeterminedSizeFromServer(1, 5, 0, bip44Wallet);
+        }
+        bip44Wallet = new HDWallet(mc, param, seed, passphrase, accountNum);
 
         //Set accounts
         int accountNumber = 1;
@@ -481,10 +481,53 @@ public class HDWalletData {
         return hdWalletData;
     }
 
-//    private static int getDeterminedSizeFromServer(int walletSize, int trySize, int currentGap, info.blockchain.wallet.bip44.HDWallet bip44Wallet) {
-//        //Todo: determine size of wallet accounts from the result of request with the server
-//        return 0;
-//    }
+    private static int getDeterminedSizeAddress() {
+
+        return 0;
+    }
+
+    private static int getDeterminedSizeFromServer(int walletSize, int trySize, int currentGap, info.blockchain.wallet.bip44.HDWallet bip44Wallet) {
+        //Todo: determine size of wallet accounts from the result of request with the server
+
+        LinkedList<String> xpubs = new LinkedList<>();
+
+        for (int i = 0; i < trySize; i++) {
+            HDAccount account = bip44Wallet.addAccount();
+            xpubs.add(account.getXpub());
+        }
+
+//        Response<HashMap<String, Balance>> exe = blockExplorer
+//                .getBalance(xpubs, FilterType.RemoveUnspendable).execute();
+//
+//        if (!exe.isSuccessful()) {
+//            throw new Exception(exe.code() + " " + exe.errorBody().string());
+//        }
+
+//        HashMap<String, Balance> map = exe.body();
+
+        HashMap<String, Balance> map = new HashMap<>();
+        for (String xpub : xpubs) {
+            //여기서부터 작업
+        }
+
+        final int lookAheadTotal = 10;
+        for (String xpub : xpubs) {
+
+            //If account has txs
+            if (map.get(xpub).getTxCount() > 0L) {
+                walletSize++;
+                currentGap = 0;
+            } else {
+                currentGap++;
+            }
+
+            if (currentGap >= lookAheadTotal) {
+                return walletSize;
+            }
+        }
+
+        return getDeterminedSizeFromServer(walletSize, trySize * 2, currentGap, bip44Wallet);
+    }
 
     private static int getDeterminedSize(int walletSize, int trySize, int currentGap, BlockExplorer blockExplorer, info.blockchain.wallet.bip44.HDWallet bip44Wallet) throws Exception {
 
