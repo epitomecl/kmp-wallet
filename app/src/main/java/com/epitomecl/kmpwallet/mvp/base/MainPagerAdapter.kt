@@ -20,7 +20,6 @@ class MainPagerAdapter : FragmentPagerAdapter {
 
     private val mFragmentInstances = SparseArray<Any>()
 
-    @Inject
     constructor(activity : AppCompatActivity) : super(activity.supportFragmentManager) {
         mActivity = activity
     }

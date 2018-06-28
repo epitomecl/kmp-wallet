@@ -57,7 +57,7 @@ abstract class BaseFragment<in V : BaseView, T : BasePresenter<in V>>
 
     fun getActivityComponent() : ActivityComponent? {
         if(mActivity != null){
-            return mActivity.getActivityComponent()
+            return null //mActivity.getActivityComponent()
         }
         return null
     }

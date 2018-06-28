@@ -44,11 +44,11 @@ abstract class BaseFragmentv2
         mActivity.hideKeyboard()
     }
 
-    fun getActivityComponent() : ActivityComponent? {
-        if(mActivity != null){
-            return mActivity.getActivityComponent()
-        }
-        return null
-    }
+//    fun getActivityComponent() : ActivityComponent? {
+//        if(mActivity != null){
+//            return mActivity.getActivityComponent()
+//        }
+//        return null
+//    }
 
 }

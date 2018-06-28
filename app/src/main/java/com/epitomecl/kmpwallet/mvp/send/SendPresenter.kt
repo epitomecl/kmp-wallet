@@ -14,39 +14,41 @@ import piuk.blockchain.androidcore.utils.helperfunctions.unsafeLazy
 import piuk.blockchain.androidcore.data.payload.PayloadDataManager
 import javax.inject.Inject
 
-class SendPresenter @Inject constructor(
-): BasePresenterImpl<SendContract.View>(),
+class SendPresenter @Inject constructor(): BasePresenterImpl<SendContract.View>(),
         SendContract.Presenter {
 
     private val pendingTransaction by unsafeLazy { PendingTransaction() }
 
+//    @Inject
+//    internal lateinit var mDataManager: KmpDataManager
+
     @Inject
-    internal lateinit var mDataManager: KmpDataManager
+    internal lateinit var payloadDataManager: PayloadDataManager
 
 
-    override fun send(from: String, to: String, amount: String, fee: Long) {
-        var amountAsLong = amount.toLongOrNull()
-        if(amountAsLong==null || amountAsLong < 0){
-            mView?.showError("Invalid amount")
-            return
-        }
-
-        mView?.showLoading()
-
-        addDisposable(mDataManager!!
-                .send(from, to, amountAsLong, fee)
-                .doOnNext({ jsonObject -> Log.d(Constants.TAG, jsonObject.toString()) })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : RxCallbackWrapper<JsonObject>(this) {
-                    override fun onNext(result: JsonObject){
-                        if(!isViewAttached()) return
-                        getBaseView().hideLoading()
-                        Log.d(Constants.TAG, result.toString())
-                    }
-                })
-            )
-    }
+//    override fun send(from: String, to: String, amount: String, fee: Long) {
+//        var amountAsLong = amount.toLongOrNull()
+//        if(amountAsLong==null || amountAsLong < 0){
+//            mView?.showError("Invalid amount")
+//            return
+//        }
+//
+//        mView?.showLoading()
+//
+//        addDisposable(mDataManager!!
+//                .send(from, to, amountAsLong, fee)
+//                .doOnNext({ jsonObject -> Log.d(Constants.TAG, jsonObject.toString()) })
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeWith(object : RxCallbackWrapper<JsonObject>(this) {
+//                    override fun onNext(result: JsonObject){
+//                        if(!isViewAttached()) return
+//                        getBaseView().hideLoading()
+//                        Log.d(Constants.TAG, result.toString())
+//                    }
+//                })
+//            )
+//    }
 
 //    fun submitBitcoinTransaction() : Observable<JsonObject> {
 //        mView?.showLoading()
@@ -56,8 +58,7 @@ class SendPresenter @Inject constructor(
 
     private fun getBtcChangeAddress(): Observable<String> {
         val account = pendingTransaction.sendingObject.accountObject as Account
-//        return payloadDataManager.getNextChangeAddress(account)
-        return Observable.fromArray()
+        return payloadDataManager.getNextChangeAddress(account)
     }
 }
 

@@ -5,15 +5,11 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import com.epitomecl.kmpwallet.KMPWalletApp
-import com.epitomecl.kmpwallet.di.component.ActivityComponent
-import com.epitomecl.kmpwallet.di.component.DaggerActivityComponent
-import com.epitomecl.kmpwallet.di.module.ActivityModule
 
 abstract class BaseActivityv2
     : AppCompatActivity(), BaseView {
 
-    private lateinit var mActivityComponent: ActivityComponent
+//    private lateinit var mActivityComponent: ActivityComponent
 
     override fun getContext(): Context = this
 
@@ -45,14 +41,14 @@ abstract class BaseActivityv2
         }
     }
 
-    fun getActivityComponent() : ActivityComponent {
-        if(!::mActivityComponent.isInitialized){
-            mActivityComponent = DaggerActivityComponent.builder()
-                    .activityModule(ActivityModule(this))
-                    .appComponent( KMPWalletApp.getAppComponent(this) )
-                    .build();
-        }
-
-        return mActivityComponent
-    }
+//    fun getActivityComponent() : ActivityComponent {
+//        if(!::mActivityComponent.isInitialized){
+//            mActivityComponent = DaggerActivityComponent.builder()
+//                    .activityModule(ActivityModule(this))
+//                    .appComponent( KMPWalletApp.getAppComponent(this) )
+//                    .build();
+//        }
+//
+//        return mActivityComponent
+//    }
 }

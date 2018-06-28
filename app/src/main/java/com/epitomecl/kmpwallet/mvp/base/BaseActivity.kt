@@ -7,7 +7,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.epitomecl.kmpwallet.KMPWalletApp
 import com.epitomecl.kmpwallet.di.component.ActivityComponent
-import com.epitomecl.kmpwallet.di.component.DaggerActivityComponent
 import com.epitomecl.kmpwallet.di.module.ActivityModule
 
 abstract class BaseActivity<in V : BaseView, T : BasePresenter<in V>>
@@ -57,14 +56,14 @@ abstract class BaseActivity<in V : BaseView, T : BasePresenter<in V>>
         }
     }
 
-    fun getActivityComponent() : ActivityComponent {
-        if(!::mActivityComponent.isInitialized){
-            mActivityComponent = DaggerActivityComponent.builder()
-                    .activityModule(ActivityModule(this))
-                    .appComponent( KMPWalletApp.getAppComponent(this) )
-                    .build();
-        }
-
-        return mActivityComponent
-    }
+//    fun getActivityComponent() : ActivityComponent {
+//        if(!::mActivityComponent.isInitialized){
+//            mActivityComponent = DaggerActivityComponent.builder()
+//                    .activityModule(ActivityModule(this))
+//                    .appComponent( KMPWalletApp.getAppComponent(this) )
+//                    .build();
+//        }
+//
+//        return mActivityComponent
+//    }
 }

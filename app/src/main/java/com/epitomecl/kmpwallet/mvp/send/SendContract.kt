@@ -9,6 +9,6 @@ object SendContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        fun send(from : String, to: String, amount: String, fee: Long)
+//        fun send(from : String, to: String, amount: String, fee: Long)
     }
 }

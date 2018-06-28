@@ -8,9 +8,11 @@ import com.epitomecl.kmpwallet.mvp.base.BasePresenter
 import com.epitomecl.kmpwallet.mvp.base.BaseView
 import com.epitomecl.kmpwallet.mvp.send.SendFragment
 import dagger.Component
+import piuk.blockchain.androidcore.injection.PresenterScope
+import javax.inject.Singleton
 
 @PerActivity
-@Component( dependencies = arrayOf(AppComponent::class), modules = arrayOf(ActivityModule::class))
+//@Component( dependencies = arrayOf(AppComponent::class), modules = arrayOf(ActivityModule::class))
 interface ActivityComponent {
 
     fun inject(activity : TestActivity)
