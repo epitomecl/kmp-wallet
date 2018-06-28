@@ -2,16 +2,16 @@ package com.epitomecl.kmpwallet.mvp.wallet
 
 import android.os.Bundle
 import com.epitomecl.kmpwallet.R
-
 import com.epitomecl.kmpwallet.mvp.base.BaseActivity
+
 import com.epitomecl.kmpwallet.mvp.wallet.create.CreateWalletFragment
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.WalletsFragment
 import kotlinx.android.synthetic.main.activity_wallet.*
 
-class WalletActivity : BaseActivity<WalletContract.View, WalletContract.Presenter>(),
+class WalletActivity : BaseActivity(),
         WalletContract.View {
 
-    override var mPresenter: WalletContract.Presenter = WalletPresenter()
+    var mPresenter: WalletContract.Presenter = WalletPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

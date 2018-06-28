@@ -6,12 +6,20 @@ import android.support.v7.app.AppCompatActivity
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 
-abstract class BaseActivityv2
+/* deprecated */
+abstract class BaseActivityOld<in V : BaseView, T : BasePresenter<in V>>
     : AppCompatActivity(), BaseView {
 
 //    private lateinit var mActivityComponent: ActivityComponent
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mPresenter.attachView(this as V)
+    }
+
     override fun getContext(): Context = this
+
+    protected abstract var mPresenter: T
 
     override fun showError(error: String?) {
         Toast.makeText(this, error, Toast.LENGTH_LONG).show()
@@ -31,6 +39,11 @@ abstract class BaseActivityv2
 
     override fun onFailureRequest(msg: String) {
         //
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mPresenter.detachView()
     }
 
     override fun hideKeyboard() {

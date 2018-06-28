@@ -14,20 +14,13 @@ import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_wallets.*
 import kotlinx.android.synthetic.main.item_wallet.view.*
 
-class WalletsFragment : BaseFragment<WalletsContract.View,
-        WalletsContract.Presenter>(),
+class WalletsFragment : BaseFragment(),
         WalletsContract.View {
 
-    override var mPresenter: WalletsContract.Presenter = WalletsPresenter()
+    var mPresenter: WalletsContract.Presenter = WalletsPresenter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater.inflate(R.layout.fragment_wallets, container, false)
-        var component = getActivityComponent()
-        if(component != null){
-            //component.inject(this)
-            mPresenter.attachView(this)
-        }
-
         return view
     }
 

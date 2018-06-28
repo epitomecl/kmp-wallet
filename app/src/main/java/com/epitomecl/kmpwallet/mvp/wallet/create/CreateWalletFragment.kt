@@ -5,30 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.epitomecl.kmpwallet.R
-import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import android.view.animation.TranslateAnimation
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.epitomecl.kmp.core.wallet.CryptoType
+import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_createwallet.*
 
-class CreateWalletFragment : BaseFragment<CreateWalletContract.View,
-        CreateWalletContract.Presenter>(),
+class CreateWalletFragment : BaseFragment(),
         CreateWalletContract.View {
 
     private lateinit var cryptoType : CryptoType
 
-    override var mPresenter: CreateWalletContract.Presenter = CreateWalletPresenter()
+    var mPresenter: CreateWalletContract.Presenter = CreateWalletPresenter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater.inflate(R.layout.fragment_createwallet, container, false)
-        var component = getActivityComponent()
-        if(component != null){
-            //component.inject(this)
-            mPresenter.attachView(this)
-        }
-
         return view
     }
 

@@ -4,19 +4,25 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.widget.Toast
-import com.epitomecl.kmpwallet.di.component.ActivityComponent
 
-abstract class BaseFragmentv2
+/* deprecated */
+abstract class BaseFragmentOld<in V : BaseView, T : BasePresenter<in V>>
     : Fragment(), BaseView {
 
-    private lateinit var mActivity: BaseActivityv2
+    protected abstract var mPresenter: T
+    private lateinit var mActivity: BaseActivityOld<V, T>
 
     override fun getContext(): Context = mActivity
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mPresenter.attachView(this as V)
+    }
+
     override fun onAttach(context : Context) {
         super.onAttach(context)
-        if(context is BaseActivityv2) {
-            this.mActivity = context
+        if(context is BaseActivityOld<*, *>) {
+            this.mActivity = context as BaseActivityOld<V, T>
         }
     }
 
@@ -42,6 +48,11 @@ abstract class BaseFragmentv2
 
     override fun hideKeyboard() {
         mActivity.hideKeyboard()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mPresenter.detachView()
     }
 
 //    fun getActivityComponent() : ActivityComponent? {

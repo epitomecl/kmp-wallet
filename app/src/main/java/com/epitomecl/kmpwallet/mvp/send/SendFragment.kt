@@ -7,11 +7,9 @@ import android.view.ViewGroup
 import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.di.Injector
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
-import com.epitomecl.kmpwallet.mvp.base.BaseFragmentv2
-import info.blockchain.wallet.payload.PayloadManager
 import javax.inject.Inject
 
-class SendFragment : BaseFragmentv2(),
+class SendFragment : BaseFragment(),
         SendContract.View {
 
     companion object {

@@ -3,13 +3,9 @@ package com.epitomecl.kmpwallet
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity
-import com.epitomecl.kmpwallet.data.KmpDataManager
 import com.epitomecl.kmpwallet.mvp.base.*
-import kotlinx.android.synthetic.main.activity_test.*
-import javax.inject.Inject
 
-class TestActivity : BaseActivityv2() {
+class TestActivity : BaseActivity() {
 
 //    @Inject
 //    lateinit var mDataManager: KmpDataManager

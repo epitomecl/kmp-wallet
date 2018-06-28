@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity
 import android.util.SparseArray
 import android.view.ViewGroup
 import com.epitomecl.kmpwallet.mvp.send.SendFragment
-import javax.inject.Inject
 
 class MainPagerAdapter : FragmentPagerAdapter {
 
@@ -45,7 +44,7 @@ class MainPagerAdapter : FragmentPagerAdapter {
     }
 
     override fun getItem(position: Int): Fragment {
-        if (mActivity is BaseActivityv2) {
+        if (mActivity is BaseActivity) {
             mActivity.hideKeyboard()
         }
 
