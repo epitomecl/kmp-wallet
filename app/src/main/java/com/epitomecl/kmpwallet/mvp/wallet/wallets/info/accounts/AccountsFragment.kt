@@ -1,0 +1,69 @@
+package com.epitomecl.kmpwallet.mvp.wallet.wallets.info.accounts
+
+import android.content.Context
+import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.animation.TranslateAnimation
+import com.epitomecl.kmp.core.wallet.AccountData
+import com.epitomecl.kmpwallet.R
+import com.epitomecl.kmpwallet.mvp.base.BaseFragment
+import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.InfoActivity
+import kotlinx.android.synthetic.main.fragment_accounts.*
+import kotlinx.android.synthetic.main.item_account.view.*
+
+
+class AccountsFragment : BaseFragment<AccountsContract.View,
+        AccountsContract.Presenter>(),
+            AccountsContract.View {
+
+    override var mPresenter: AccountsContract.Presenter = AccountsPresenter()
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        var view = inflater.inflate(R.layout.fragment_accounts, container, false)
+        var component = getActivityComponent()
+        if(component != null){
+            //component.inject(this)
+            mPresenter.attachView(this)
+        }
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val anim = TranslateAnimation(1000f, // fromXDelta
+                0f, // toXDelta
+                0f, // fromYDelta
+                0f)// toYDelta
+        anim.duration = 300
+        view.startAnimation(anim)
+
+        rvAccounts.layoutManager = LinearLayoutManager(context)
+        rvAccounts.adapter = AccountItemAdapter((context as InfoActivity).getHDWalletData().accounts, context!!)
+    }
+
+    class AccountItemAdapter(private val items : List<AccountData>, val context: Context) : RecyclerView.Adapter<ViewHolder>() {
+
+        override fun getItemCount(): Int {
+            return items.size
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
+            return ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_account, parent, false))
+        }
+
+        override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
+            holder?.tvAccountLabel?.text = items[position].cache.receiveAccount
+            holder?.tvAccountBalance?.text = "0.0"
+        }
+    }
+
+    class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
+        // hold ui elements
+        val tvAccountLabel = view.tvAccountLabel
+        val tvAccountBalance = view.tvAccountBalance
+    }
+}

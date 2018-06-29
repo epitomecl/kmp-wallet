@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.view.animation.TranslateAnimation
 import android.widget.Toast
 import com.epitomecl.kmpwallet.R
+import com.epitomecl.kmpwallet.api.APIManager
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import com.epitomecl.kmpwallet.mvp.intro.IntroActivity
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -46,10 +47,12 @@ class LoginFragment : BaseFragment<LoginContract.View,
             var id = etLoginId.text.toString()
             var pw = etLoginPass.text.toString()
 
-            if(mPresenter.loginUser(id, pw))
-            {
-                (getContext() as IntroActivity).onChangeWalletActivity()
-            }
+            //TODO checck login result
+            mPresenter.loginUser(id, pw)
+                .subscribe { s ->
+                    s.session
+                    (getContext() as IntroActivity).onChangeWalletActivity()
+                }
         }
     }
 

@@ -57,6 +57,7 @@ android {
         development {
             dimension "environment"
             buildConfigString "SEKRIT", buildProperties.secrets['SEKRIT']
+            buildConfigString "SERVER_URI", buildProperties.secrets['SERVER_URI']
             buildConfigString "BTC_RPC_HOST", buildProperties.secrets['BTC_RPC_HOST']
             buildConfigString "BTC_RPC_PORT", buildProperties.secrets['BTC_RPC_PORT']
             buildConfigString "BTC_RPC_ID", buildProperties.secrets['BTC_RPC_ID']

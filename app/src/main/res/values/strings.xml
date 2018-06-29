@@ -20,7 +20,7 @@
     <string name="key_wallets">wallets</string>
 
     <string name="msg_select_crypto_type">Select CryptoType</string>
-    <string name="msg_wallet_label_short">wallet label is too short.</string>
+    <string name="msg_wallet_label_short">label is too short.</string>
 
     <string name="hint_create_wallet_label">Wallet Label</string>
 
@@ -28,5 +28,8 @@
     <string name="label_create_wallet_step2">2. Input wallet label</string>
     <string name="label_create_wallet_step3">3. Press button it will make \'%s\' wallet</string>
     <string name="label_create_wallet_button">Create Wallet</string>
+
+    <string name="label_create_account">Create new address</string>
+    <string name="label_create_account_notice">This label is will not stored when back up wallet address.\nThese labels are temporary.</string>
 
 </resources>

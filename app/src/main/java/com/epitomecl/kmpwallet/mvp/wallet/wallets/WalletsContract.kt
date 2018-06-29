@@ -6,7 +6,7 @@ import com.epitomecl.kmpwallet.mvp.base.BaseView
 
 object WalletsContract {
     interface View : BaseView {
-
+        fun onChangeInfoActivity(item: HDWalletData)
     }
 
     interface Presenter : BasePresenter<View> {
