@@ -5,6 +5,7 @@ import com.epitomecl.kmp.core.data.EnvironmentSettings
 import dagger.Module
 import dagger.Provides
 import info.blockchain.wallet.payload.PayloadManager
+import info.blockchain.wallet.payment.Payment
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -89,5 +90,10 @@ class ApiModule {
                 .addConverterFactory(converterFactory)
                 .addCallAdapterFactory(rxJavaCallFactory)
                 .build()
+    }
+
+    @Provides
+    fun providePayment() : Payment {
+        return Payment()
     }
 }

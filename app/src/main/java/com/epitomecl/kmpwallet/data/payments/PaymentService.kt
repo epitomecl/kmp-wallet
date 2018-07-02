@@ -1,4 +1,4 @@
-package com.epitomecl.kmp.core.data.payments
+package com.epitomecl.kmpwallet.data.payments
 
 import com.epitomecl.kmp.core.data.EnvironmentSettings
 import info.blockchain.wallet.payment.Payment
