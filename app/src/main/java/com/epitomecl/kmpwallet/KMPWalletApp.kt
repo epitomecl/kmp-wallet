@@ -5,6 +5,7 @@ import android.content.Context
 import android.support.multidex.MultiDex
 import com.epitomecl.kmp.core.data.EnvironmentSettings
 import com.epitomecl.kmpwallet.di.Injector
+import com.epitomecl.kmpwallet.util.DialogUtils
 import info.blockchain.wallet.BlockchainFramework
 import info.blockchain.wallet.FrameworkInterface
 import info.blockchain.wallet.api.Environment

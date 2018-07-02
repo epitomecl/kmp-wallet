@@ -125,7 +125,7 @@ class SendPresenter @Inject constructor(
     }
 
     private fun handleSuccessfulPayment(hash: String, currency: String) : String {
-        ///mView.showTransactionSuccess(hash, pendingTransaction.bigIntAmount.toLong(), currency)
+        mView?.showTransactionSuccess(hash, pendingTransaction.bigIntAmount.toLong(), currency)
 
         pendingTransaction.clear()
         return hash
