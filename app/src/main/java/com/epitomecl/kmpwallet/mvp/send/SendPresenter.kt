@@ -4,12 +4,9 @@ import android.util.Log
 import com.epitomecl.kmpwallet.data.Constants
 import com.epitomecl.kmpwallet.data.payments.SendDataManager
 import com.epitomecl.kmpwallet.mvp.base.BasePresenterImpl
-import com.google.gson.JsonObject
-import info.blockchain.api.data.UnspentOutputs
 import info.blockchain.wallet.payload.data.Account
 import io.reactivex.Observable
 import org.bitcoinj.core.ECKey
-import piuk.blockchain.androidcore.data.currency.CryptoCurrencies
 import piuk.blockchain.androidcore.data.payload.PayloadDataManager
 import piuk.blockchain.androidcore.utils.helperfunctions.unsafeLazy
 import timber.log.Timber
@@ -97,7 +94,7 @@ class SendPresenter @Inject constructor(
         val account = pendingTransaction.sendingObject.accountObject as Account
         payloadDataManager.incrementChangeAddress(account)
         payloadDataManager.incrementReceiveAddress(account)
-        //updateInternalBtcBalances()
+        updateInternalBtcBalances()
     }
 
     private fun getBtcKeys(): Observable<List<ECKey>> {
@@ -112,6 +109,19 @@ class SendPresenter @Inject constructor(
                         pendingTransaction.unspentOutputBundle
                 )
         )
+    }
+
+    private fun updateInternalBtcBalances() {
+        try {
+            val totalSent = pendingTransaction.bigIntAmount.add(pendingTransaction.bigIntFee)
+            val account = pendingTransaction.sendingObject.accountObject as Account
+            payloadDataManager.subtractAmountFromAddressBalance(
+                    account.xpub,
+                    totalSent.toLong()
+            )
+        }catch (e: Exception){
+            Timber.e(e)
+        }
     }
 
     private fun handleSuccessfulPayment(hash: String, currency: String) : String {
