@@ -6,6 +6,8 @@ import com.epitomecl.kmpwallet.mvp.base.BaseView
 object SendContract {
     interface View : BaseView {
         fun showTransactionSuccess(hash: String, transactionValue: Long, currency: String)
+
+        fun onSendSuccess(txid: String?)
     }
 
     interface Presenter : BasePresenter<View> {

@@ -17,8 +17,6 @@ abstract class BaseActivityOld<in V : BaseView, T : BasePresenter<in V>>
         mPresenter.attachView(this as V)
     }
 
-    override fun getContext(): Context = this
-
     protected abstract var mPresenter: T
 
     override fun showError(error: String?) {
@@ -46,13 +44,13 @@ abstract class BaseActivityOld<in V : BaseView, T : BasePresenter<in V>>
         mPresenter.detachView()
     }
 
-    override fun hideKeyboard() {
-        val view = this.currentFocus
-        if (view != null) {
-            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(view.windowToken, 0)
-        }
-    }
+//    override fun hideKeyboard() {
+//        val view = this.currentFocus
+//        if (view != null) {
+//            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//            imm.hideSoftInputFromWindow(view.windowToken, 0)
+//        }
+//    }
 
 //    fun getActivityComponent() : ActivityComponent {
 //        if(!::mActivityComponent.isInitialized){

@@ -2,6 +2,7 @@ package com.epitomecl.kmp.core.util.rpc
 
 import wf.bitcoin.javabitcoindrpcclient.BitcoinJSONRPCClient
 import com.epitomecl.kmpwallet.BuildConfig
+import wf.bitcoin.javabitcoindrpcclient.BitcoindRpcClient
 import java.net.MalformedURLException
 import java.net.URL
 
@@ -29,5 +30,18 @@ class BitcoinRPCClient : RPCClient {
     override fun getBlockCount() : Int {
         return client.blockCount
     }
+
+    override fun getBalance(): Double {
+        return client.getBalance("")
+    }
+
+    override fun sendFrom(fromAccount: String, toAddress: String, amount: Double) : String {
+        return client.sendFrom(fromAccount, toAddress, amount)
+    }
+
+    override fun getTransaction(txid: String) : BitcoindRpcClient.RawTransaction {
+        return client.getRawTransaction(txid)
+    }
+
 
 }

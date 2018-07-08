@@ -16,6 +16,9 @@ import javax.inject.Singleton
 
 @Module
 class ApiModule {
+
+    val baseUrl:String = "http://elegantuniv.com"
+
     @Provides
     fun providePayloadManager() = PayloadManager.getInstance()
 

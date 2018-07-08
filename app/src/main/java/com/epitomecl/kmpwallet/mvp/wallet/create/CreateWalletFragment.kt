@@ -13,17 +13,21 @@ import com.epitomecl.kmp.core.wallet.CryptoType
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_createwallet.*
 
-class CreateWalletFragment : BaseFragment(),
+class CreateWalletFragment : BaseFragment<CreateWalletContract.View, CreateWalletPresenter>(),
         CreateWalletContract.View {
 
     private lateinit var cryptoType : CryptoType
 
-    var mPresenter: CreateWalletContract.Presenter = CreateWalletPresenter()
+    var mPresenter: CreateWalletPresenter = CreateWalletPresenter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater.inflate(R.layout.fragment_createwallet, container, false)
         return view
     }
+
+    override fun createPresenter() = mPresenter
+
+    override fun getMvpView() = this
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val anim = TranslateAnimation(1000f, // fromXDelta

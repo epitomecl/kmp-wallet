@@ -1,6 +1,9 @@
 package com.epitomecl.kmpwallet.mvp.send
 
 import android.util.Log
+import com.epitomecl.kmp.core.util.rpc.BitcoinRPCClient
+import com.epitomecl.kmp.core.util.rpc.KmpRPCClient
+import com.epitomecl.kmp.core.wallet.CryptoType
 import com.epitomecl.kmpwallet.data.Constants
 import com.epitomecl.kmpwallet.data.payments.SendDataManager
 import com.epitomecl.kmpwallet.mvp.base.BasePresenterImpl
@@ -11,6 +14,7 @@ import piuk.blockchain.androidcore.data.payload.PayloadDataManager
 import piuk.blockchain.androidcore.utils.helperfunctions.unsafeLazy
 import timber.log.Timber
 import javax.inject.Inject
+import kotlin.concurrent.thread
 
 class SendPresenter @Inject constructor(
         private val payloadDataManager: PayloadDataManager,
@@ -50,6 +54,25 @@ class SendPresenter @Inject constructor(
 //                })
 //            )
 //    }
+
+    fun getTransactionViaRpc(txid : String) {
+        ///should convert it to rxbus for ui thread
+        Thread(Runnable {
+
+            val txinfo = KmpRPCClient.get(CryptoType.BITCOIN)?.getTransaction(txid)
+            Log.d(Constants.TAG, txinfo.toString());
+            mView?.onSendSuccess(txid.toString())
+        }).start()
+    }
+
+    fun sendFromBTCViaRpc(fromAccount : String, toAddress: String, amount: Double) {
+        Thread(Runnable {
+            val txid : String? = KmpRPCClient.get(CryptoType.BITCOIN)?.sendFrom(fromAccount, toAddress, amount)
+
+            mView?.onSendSuccess(txid)
+        }).start()
+    }
+
 
     fun submitBitcoinTransaction() {
         mView?.showLoading()

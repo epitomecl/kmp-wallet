@@ -12,7 +12,6 @@ abstract class BaseFragmentOld<in V : BaseView, T : BasePresenter<in V>>
     protected abstract var mPresenter: T
     private lateinit var mActivity: BaseActivityOld<V, T>
 
-    override fun getContext(): Context = mActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,9 +45,9 @@ abstract class BaseFragmentOld<in V : BaseView, T : BasePresenter<in V>>
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 
-    override fun hideKeyboard() {
-        mActivity.hideKeyboard()
-    }
+//    override fun hideKeyboard() {
+//        mActivity.hideKeyboard()
+//    }
 
     override fun onDestroy() {
         super.onDestroy()

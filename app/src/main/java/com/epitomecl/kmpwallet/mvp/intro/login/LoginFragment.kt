@@ -11,15 +11,19 @@ import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import com.epitomecl.kmpwallet.mvp.intro.IntroActivity
 import kotlinx.android.synthetic.main.fragment_login.*
 
-class LoginFragment : BaseFragment(),
+class LoginFragment : BaseFragment<LoginContract.View, LoginPresenter>(),
         LoginContract.View {
 
-    var mPresenter: LoginContract.Presenter = LoginPresenter()
+    var mPresenter: LoginPresenter = LoginPresenter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater.inflate(R.layout.fragment_login, container, false)
         return view
     }
+
+    override fun createPresenter() = mPresenter
+
+    override fun getMvpView() = this
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val anim = TranslateAnimation(1000f, // fromXDelta

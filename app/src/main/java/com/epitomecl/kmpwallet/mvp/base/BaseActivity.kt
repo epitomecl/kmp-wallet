@@ -11,7 +11,6 @@ abstract class BaseActivity
 
 //    private lateinit var mActivityComponent: ActivityComponent
 
-    override fun getContext(): Context = this
 
     override fun showError(error: String?) {
         Toast.makeText(this, error, Toast.LENGTH_LONG).show()
@@ -33,7 +32,7 @@ abstract class BaseActivity
         //
     }
 
-    override fun hideKeyboard() {
+    fun hideKeyboard() {
         val view = this.currentFocus
         if (view != null) {
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

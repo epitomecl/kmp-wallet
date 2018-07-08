@@ -7,7 +7,6 @@ import android.content.Context
  */
 
 interface BaseView {
-    fun getContext(): Context
 
     fun showError(error: String?)
     fun showMessage(message: String)
@@ -16,6 +15,4 @@ interface BaseView {
     fun hideLoading()
 
     fun onFailureRequest(msg: String)
-
-    fun hideKeyboard()
 }
