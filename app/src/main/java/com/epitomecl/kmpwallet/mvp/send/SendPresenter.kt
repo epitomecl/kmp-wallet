@@ -7,12 +7,16 @@ import com.epitomecl.kmp.core.wallet.CryptoType
 import com.epitomecl.kmpwallet.data.Constants
 import com.epitomecl.kmpwallet.data.payments.SendDataManager
 import com.epitomecl.kmpwallet.mvp.base.BasePresenterImpl
+import com.epitomecl.kmpwallet.mvp.base.RxCallbackWrapper
 import info.blockchain.wallet.payload.data.Account
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import org.bitcoinj.core.ECKey
 import piuk.blockchain.androidcore.data.payload.PayloadDataManager
 import piuk.blockchain.androidcore.utils.helperfunctions.unsafeLazy
 import timber.log.Timber
+import wf.bitcoin.javabitcoindrpcclient.BitcoindRpcClient
 import javax.inject.Inject
 import kotlin.concurrent.thread
 
@@ -25,11 +29,7 @@ class SendPresenter @Inject constructor(
     private val pendingTransaction by unsafeLazy { PendingTransaction() }
 
 //    private val verifiedSecondPassword: String? = null
-
-
-//    @Inject
-//    internal lateinit var payloadDataManager: PayloadDataManager
-
+    
 
 //    override fun send(from: String, to: String, amount: String, fee: Long) {
 //        var amountAsLong = amount.toLongOrNull()
@@ -56,21 +56,32 @@ class SendPresenter @Inject constructor(
 //    }
 
     fun getTransactionViaRpc(txid : String) {
-        ///should convert it to rxbus for ui thread
-        Thread(Runnable {
+        addDisposable(
+                Observable.fromCallable { KmpRPCClient.get(CryptoType.BITCOIN)?.getTransaction(txid) }
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(object : RxCallbackWrapper<BitcoindRpcClient.RawTransaction>(this){
+                            override fun onNext(t: BitcoindRpcClient.RawTransaction) {
+                                Log.d(Constants.TAG, t.toString());
+                                mView?.onSendSuccess(t.toString())
+                            }
+                        })
+        )
 
-            val txinfo = KmpRPCClient.get(CryptoType.BITCOIN)?.getTransaction(txid)
-            Log.d(Constants.TAG, txinfo.toString());
-            mView?.onSendSuccess(txid.toString())
-        }).start()
     }
 
     fun sendFromBTCViaRpc(fromAccount : String, toAddress: String, amount: Double) {
-        Thread(Runnable {
-            val txid : String? = KmpRPCClient.get(CryptoType.BITCOIN)?.sendFrom(fromAccount, toAddress, amount)
-
-            mView?.onSendSuccess(txid)
-        }).start()
+        addDisposable(
+                Observable.fromCallable { KmpRPCClient.get(CryptoType.BITCOIN)?.sendFrom(fromAccount, toAddress, amount) }
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(object : RxCallbackWrapper<String>(this){
+                            override fun onNext(t: String) {
+                                Log.d(Constants.TAG, t);
+                                mView?.onSendSuccess(t)
+                            }
+                        })
+        )
     }
 
 
