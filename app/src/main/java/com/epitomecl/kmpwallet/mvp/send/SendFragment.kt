@@ -53,7 +53,7 @@ class SendFragment : BaseFragment<SendContract.View, SendPresenter>(),
         btnSend.setOnClickListener {
 
             if(checkFields()){
-                mPresenter.submitBitcoinTransaction()
+                mPresenter.sendFromBTCViaRpc(etFrom.text.toString(), etTo.text.toString(), etAmount.toString().toDouble())
             }
 
         }
@@ -71,7 +71,10 @@ class SendFragment : BaseFragment<SendContract.View, SendPresenter>(),
             DialogUtils.setAlertDialog(context, "to address 를 확인해주세요!")
             return false
         }
-        ////amount, fee and etc...
+
+        if(etAmount.text.toString().length==0 && etAmount.text.toString().toDouble()<=0){
+            DialogUtils.setAlertDialog(context, "Amount를 확인해주세요!")
+        }
 
         return true
     }

@@ -29,7 +29,7 @@ class SendPresenter @Inject constructor(
     private val pendingTransaction by unsafeLazy { PendingTransaction() }
 
 //    private val verifiedSecondPassword: String? = null
-    
+
 
 //    override fun send(from: String, to: String, amount: String, fee: Long) {
 //        var amountAsLong = amount.toLongOrNull()
