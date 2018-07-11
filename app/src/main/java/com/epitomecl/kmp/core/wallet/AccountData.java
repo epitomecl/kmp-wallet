@@ -1,5 +1,6 @@
 package com.epitomecl.kmp.core.wallet;
 
+import com.epitomecl.kmpwallet.model.UTXO;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -39,6 +40,9 @@ public class AccountData {
 
     @JsonProperty("address_labels")
     private List<AddressLabel> addressLabels;
+
+    @JsonProperty("balance")
+    private List<UTXO> utxos;
 
     public String getLabel() {
         return label;
@@ -91,6 +95,14 @@ public class AccountData {
     public void setAddressLabels(
             List<AddressLabel> addressLabels) {
         this.addressLabels = addressLabels;
+    }
+
+    public List<UTXO> getUtxos() {
+        return utxos;
+    }
+
+    public void setUtxos(List<UTXO> utxos) {
+        this.utxos = utxos;
     }
 
     public static info.blockchain.wallet.payload.data.Account fromJson(String json) throws IOException {

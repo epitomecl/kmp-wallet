@@ -2,6 +2,7 @@ package com.epitomecl.kmpwallet.mvp.wallet.wallets.info
 
 import android.os.Bundle
 import android.widget.Toast
+import com.epitomecl.kmp.core.wallet.AccountData
 import com.epitomecl.kmp.core.wallet.HDWalletData
 import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.data.AppData
@@ -29,7 +30,7 @@ class InfoActivity : BaseActivity<InfoContract.View, InfoContract.Presenter>(),
             val label = intent.getStringExtra("walletlabel")
             val hdWalletData =  AppData.getHDWallets().find { v -> v.label.equals(label) }
             if (hdWalletData != null) {
-                mPresenter.setHDWalletData(hdWalletData)
+                mPresenter.setHDWallet(hdWalletData)
             }
             else {
                 Toast.makeText(this, "not found wallet label", Toast.LENGTH_SHORT).show()
@@ -67,6 +68,14 @@ class InfoActivity : BaseActivity<InfoContract.View, InfoContract.Presenter>(),
     }
 
     override fun getHDWalletData() : HDWalletData {
-        return mPresenter.getHDWalletData()
+        return mPresenter.getHDWallet()
+    }
+
+    override fun setAccount(account : AccountData) {
+        mPresenter.setAccount(account)
+    }
+
+    override fun getAccount() : AccountData {
+        return mPresenter.getAccount()
     }
 }

@@ -1,6 +1,7 @@
 package com.epitomecl.kmpwallet.mvp.wallet.wallets.info.accounts
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -9,7 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.TranslateAnimation
 import com.epitomecl.kmp.core.wallet.AccountData
+import com.epitomecl.kmp.core.wallet.HDWalletData
 import com.epitomecl.kmpwallet.R
+import com.epitomecl.kmpwallet.api.APIManager
+import com.epitomecl.kmpwallet.model.UTXO
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.InfoActivity
 import kotlinx.android.synthetic.main.fragment_accounts.*
@@ -42,28 +46,47 @@ class AccountsFragment : BaseFragment<AccountsContract.View,
         view.startAnimation(anim)
 
         rvAccounts.layoutManager = LinearLayoutManager(context)
-        rvAccounts.adapter = AccountItemAdapter((context as InfoActivity).getHDWalletData().accounts, context!!)
+        rvAccounts.adapter = AccountItemAdapter((context as InfoActivity).getHDWalletData().accounts, context!!, this)
     }
 
-    class AccountItemAdapter(private val items : List<AccountData>, val context: Context) : RecyclerView.Adapter<ViewHolder>() {
+    override fun onChangeSendTxOFragment(item: AccountData) {
+        (context as InfoActivity).setAccount(item)
+        (context as InfoActivity).onShowSendTxO()
+    }
+
+    class AccountItemAdapter(private val items : List<AccountData>, val context: Context, private val fragment: AccountsFragment) : RecyclerView.Adapter<ViewHolder>() {
 
         override fun getItemCount(): Int {
             return items.size
         }
 
         override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-            return ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_account, parent, false))
+            return ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_account, parent, false), fragment)
         }
 
         override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-            holder?.tvAccountLabel?.text = items[position].cache.receiveAccount
+            val accountData: AccountData = items[position]
+            holder?.tvAccountLabel?.text = accountData.cache.receiveAccount
             holder?.tvAccountBalance?.text = "0.0"
+            holder?.bind(accountData)
         }
     }
 
-    class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder (view: View, fragment: AccountsFragment) : RecyclerView.ViewHolder(view) {
+        val view = view
+        val fragment = fragment
         // hold ui elements
         val tvAccountLabel = view.tvAccountLabel
         val tvAccountBalance = view.tvAccountBalance
+
+        fun bind(item: AccountData) {
+            view.setOnClickListener({
+                var address = item.cache.receiveAccount
+                var xpub = item.xpub
+                item.utxos = APIManager.balance(xpub,"api_code")
+
+                fragment.onChangeSendTxOFragment(item)
+            })
+        }
     }
 }

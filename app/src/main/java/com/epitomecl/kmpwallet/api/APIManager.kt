@@ -65,14 +65,20 @@ object APIManager {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())!!
 
-    fun balance(address: String, api_code: String) =
-            mTestService.getBalanceEx(address, api_code)
+    fun balance(xpub: String, api_code: String) =
+            mTestService.getBalanceEx(xpub, api_code)
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())
                     .blockingSingle()
 
     fun spendTXOCount(address: String, api_code: String) =
             mTestService.getSpendTXOCount(address, api_code)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.io())
+                    .blockingSingle()
+
+    fun pushTX(hashtx: String, api_code: String) =
+            mTestService.pushTX(hashtx, api_code)
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())
                     .blockingSingle()
