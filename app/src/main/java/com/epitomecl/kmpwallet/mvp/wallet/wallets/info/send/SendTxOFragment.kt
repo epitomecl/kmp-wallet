@@ -20,6 +20,16 @@ import org.bitcoinj.script.Script
 import org.bitcoinj.script.ScriptBuilder
 import org.bitcoinj.wallet.SendRequest
 import org.spongycastle.util.encoders.Hex
+import org.bitcoinj.core.NetworkParameters
+import org.bitcoinj.crypto.DeterministicKey
+import org.bitcoinj.core.DumpedPrivateKey
+import org.bitcoinj.crypto.HDKeyDerivation
+import org.bitcoinj.core.AddressFormatException
+import org.bitcoinj.core.Base58
+import org.bitcoinj.params.BitcoinMainNetParams
+import org.bitcoinj.params.BitcoinTestNet3Params
+import java.nio.ByteBuffer
+
 
 class SendTxOFragment : BaseFragment<SendTxOContract.View,
         SendTxOContract.Presenter>(),
@@ -58,40 +68,20 @@ class SendTxOFragment : BaseFragment<SendTxOContract.View,
         //for send test
         var hdWalletData = (context as InfoActivity).getHDWalletData()
         var accountData = (context as InfoActivity).getAccount()
-        var privKeyString = accountData.xpriv
+        var privKeyString : String = accountData.xpriv
+        var pubKeyString : String = accountData.xpub
 
         var toAddress : String = etSendToAddress.text.toString()
         var amount : Long = etSendSatoshi.text.toString().toLong()
 
         var utxo: UTXO = accountData.utxos.get(0)
-        var index = utxo.index
-        var sha256hash = Sha256Hash.wrap(utxo.hash)
-        var builder = ScriptBuilder()
-        builder.data(HexUtils.decodeHex(utxo.scriptBytes.toCharArray()))
-        var script: Script = builder.build()
 
-        val params : NetworkParameters = NetworkParameters.testNet()
-        val dumpedPrivateKey : DumpedPrivateKey = DumpedPrivateKey.fromBase58(params, privKeyString);
-        val key : ECKey = dumpedPrivateKey.key
+        val hashtx = mPresenter.makeTx(privKeyString, pubKeyString, toAddress,
+                amount, utxo.scriptBytes , utxo.index, utxo.hash)
 
-        var recv : Address = Address(params, toAddress)
-        val amount_satoshis : Long = amount
+        val result : String = mPresenter.pushTx(hashtx)
 
-        val tx : Transaction = Transaction(params)
-
-        tx.addOutput(Coin.valueOf(amount_satoshis-4013), recv)
-        //tx.getHashAsString()
-
-        tx.getConfidence().setSource(TransactionConfidence.Source.SELF)
-        tx.setPurpose(Transaction.Purpose.USER_PAYMENT)
-
-        val outPoint : TransactionOutPoint = TransactionOutPoint(params, index as Long, sha256hash)
-        var txInput: TransactionInput = tx.addSignedInput(outPoint, script, key, Transaction.SigHash.ALL, true)
-
-        var hashtx: String = String(Hex.encode(tx.bitcoinSerialize()))
-        val tx_copy : Transaction = Transaction(params, Hex.decode(hashtx))
-
-        val result : String = mPresenter.send(hashtx)
         Toast.makeText(context, "send result: $result" + result, Toast.LENGTH_SHORT).show()
     }
+
 }

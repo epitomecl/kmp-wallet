@@ -177,6 +177,7 @@ dependencies {
 
     //rpc-client
     implementation 'wf.bitcoin:JavaBitcoindRpcClient:0.9.0'
+    implementation files('libs/MyWalletHD.jar')
 }
 
 kapt {

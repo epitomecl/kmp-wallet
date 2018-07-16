@@ -1,7 +1,6 @@
 package com.epitomecl.kmpwallet.mvp.wallet.wallets.info.accounts
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -10,10 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.TranslateAnimation
 import com.epitomecl.kmp.core.wallet.AccountData
-import com.epitomecl.kmp.core.wallet.HDWalletData
 import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.api.APIManager
-import com.epitomecl.kmpwallet.model.UTXO
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.InfoActivity
 import kotlinx.android.synthetic.main.fragment_accounts.*
