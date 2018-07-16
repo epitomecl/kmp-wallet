@@ -158,6 +158,7 @@ dependencies {
     implementation "com.amitshekhar.android:rx2-android-networking:${rx2FastAndroidNetworking}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+
     //wallet
     implementation "com.madgag.spongycastle:bcpkix-jdk15on:$spongycastleVersion"
     implementation "com.madgag.spongycastle:bcpg-jdk15on:$spongycastleVersion"

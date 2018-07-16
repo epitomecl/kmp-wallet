@@ -3,23 +3,27 @@ package com.epitomecl.kmpwallet.mvp.base
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.View
 import android.widget.Toast
 
-abstract class BaseFragment<V : BaseView, P : BasePresenterImpl<V>>
+/* deprecated */
+abstract class BaseFragmentOld<in V : BaseView, T : BasePresenter<in V>>
     : Fragment(), BaseView {
 
-
-    private lateinit var presenter: P
+    protected abstract var mPresenter: T
+    private lateinit var mActivity: BaseActivityOld<V, T>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        presenter = createPresenter()
-        presenter.attachView(getMvpView())
+        mPresenter.attachView(this as V)
     }
 
+    override fun onAttach(context : Context) {
+        super.onAttach(context)
+        if(context is BaseActivityOld<*, *>) {
+            this.mActivity = context as BaseActivityOld<V, T>
+        }
+    }
 
     override fun showLoading() {
         //
@@ -41,9 +45,13 @@ abstract class BaseFragment<V : BaseView, P : BasePresenterImpl<V>>
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 
+//    override fun hideKeyboard() {
+//        mActivity.hideKeyboard()
+//    }
+
     override fun onDestroy() {
         super.onDestroy()
-        presenter.detachView()
+        mPresenter.detachView()
     }
 
 //    fun getActivityComponent() : ActivityComponent? {
@@ -53,7 +61,4 @@ abstract class BaseFragment<V : BaseView, P : BasePresenterImpl<V>>
 //        return null
 //    }
 
-    protected abstract fun createPresenter() : P
-
-    protected abstract fun getMvpView() : V
 }

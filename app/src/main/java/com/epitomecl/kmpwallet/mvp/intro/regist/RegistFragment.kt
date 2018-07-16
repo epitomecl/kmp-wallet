@@ -11,22 +11,19 @@ import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import com.epitomecl.kmpwallet.mvp.intro.IntroActivity
 import kotlinx.android.synthetic.main.fragment_regist.*
 
-class RegistFragment : BaseFragment<RegistContract.View,
-        RegistContract.Presenter>(),
+class RegistFragment : BaseFragment<RegistContract.View, RegistPresenter>(),
         RegistContract.View {
 
-    override var mPresenter: RegistContract.Presenter = RegistPresenter()
+    var mPresenter: RegistPresenter = RegistPresenter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater.inflate(R.layout.fragment_regist, container, false)
-        var component = getActivityComponent()
-        if(component != null){
-            //component.inject(this)
-            mPresenter.attachView(this)
-        }
-
         return view
     }
+
+    override fun createPresenter() = mPresenter
+
+    override fun getMvpView() = this
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val anim = TranslateAnimation(1000f, // fromXDelta

@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import com.epitomecl.kmpwallet.di.ActivityContext
 import dagger.Module
 import dagger.Provides
+import info.blockchain.wallet.util.PrivateKeyFactory
 
 @Module
 class ActivityModule {
@@ -19,6 +20,4 @@ class ActivityModule {
 
     @Provides
     fun provideActivity() = mActivity
-
-
 }

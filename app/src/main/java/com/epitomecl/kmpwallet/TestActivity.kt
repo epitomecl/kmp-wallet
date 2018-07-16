@@ -3,26 +3,22 @@ package com.epitomecl.kmpwallet
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity
-import com.epitomecl.kmpwallet.data.KmpDataManager
 import com.epitomecl.kmpwallet.mvp.base.*
-import kotlinx.android.synthetic.main.activity_test.*
-import javax.inject.Inject
 
-class TestActivity : BaseActivityv2() {
+class TestActivity : BaseActivity() {
 
-    @Inject
-    lateinit var mDataManager: KmpDataManager
+//    @Inject
+//    lateinit var mDataManager: KmpDataManager
 
-    @Inject
-    lateinit var mPagerAdapter: MainPagerAdapter
+//    @Inject
+//    lateinit var mPagerAdapter: MainPagerAdapter
 
     var mViewPager: ViewPager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        getActivityComponent().inject(this)
+//        getActivityComponent().inject(this)
 
         setContentView(R.layout.activity_test)
         setSupportActionBar(findViewById(R.id.toolbar))
@@ -31,6 +27,7 @@ class TestActivity : BaseActivityv2() {
         tabLayout.addTab(tabLayout.newTab().setText("SEND"))
         tabLayout.addTab(tabLayout.newTab().setText("WALLET"))
 
+        val mPagerAdapter = MainPagerAdapter(this)
         mViewPager = findViewById(R.id.container)
         mPagerAdapter.setTabCount(tabLayout.tabCount)
         mViewPager!!.adapter = mPagerAdapter

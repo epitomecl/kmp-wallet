@@ -40,16 +40,16 @@
         android:imeOptions="actionNext"
         android:hint="Amount"
         />
-    <EditText
-        android:id="@+id/etFee"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:inputType="number"
-        android:singleLine="true"
-        android:imeOptions="actionSend"
-        android:hint="Fee"
-        />
+    <!--<EditText-->
+        <!--android:id="@+id/etFee"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:padding="15dp"-->
+        <!--android:inputType="number"-->
+        <!--android:singleLine="true"-->
+        <!--android:imeOptions="actionSend"-->
+        <!--android:hint="Fee"-->
+        <!--/>-->
 
     <Button
         android:id="@+id/btnSend"

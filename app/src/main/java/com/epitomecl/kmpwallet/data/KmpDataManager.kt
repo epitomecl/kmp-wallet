@@ -9,8 +9,8 @@ import java.math.BigInteger
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
-class KmpDataManager @Inject constructor() {
+
+class KmpDataManager constructor() {
 
     fun send(from : String, to : String, amount: Long, fee: Long) : Observable<JsonObject> {
         var ksend = KmpSend(from, to, amount, fee)

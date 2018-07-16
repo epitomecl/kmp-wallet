@@ -12,9 +12,9 @@ import com.epitomecl.kmpwallet.mvp.intro.regist.RegistFragment
 import com.epitomecl.kmpwallet.mvp.wallet.WalletActivity
 import kotlin.concurrent.thread
 
-class IntroActivity : BaseActivity<IntroContract.View, IntroContract.Presenter>(), IntroContract.View {
+class IntroActivity : BaseActivity(), IntroContract.View {
 
-    override var mPresenter: IntroContract.Presenter = IntroPresenter()
+    var mPresenter: IntroContract.Presenter = IntroPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
