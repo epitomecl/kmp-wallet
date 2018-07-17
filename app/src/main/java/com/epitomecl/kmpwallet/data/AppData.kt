@@ -102,6 +102,10 @@ class AppData(val application: Application, val sharedPreferences : SharedPrefer
             return mAppData.walletManager.wallets
         }
 
+        fun saveHDWallets() {
+            mAppData.wallets = mAppData.walletManager.toJson()
+        }
+
 //        fun getWallets() : String? {
 //            return mAppData.wallets
 //        }
@@ -109,6 +113,5 @@ class AppData(val application: Application, val sharedPreferences : SharedPrefer
 //        fun delWallets() {
 //            setWallets("")
 //        }
-
     }
 }

@@ -2,7 +2,6 @@ package com.epitomecl.kmpwallet.data
 
 import com.epitomecl.kmp.core.wallet.CryptoType
 import com.epitomecl.kmp.core.wallet.HDWalletData
-import com.google.gson.JsonArray
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -43,7 +42,7 @@ class WalletManager {
         wallets.add(hdWalletData)
     }
 
-    private fun toJson() : String {
+    fun toJson() : String {
         val objects = JSONObject()
         val array = JSONArray()
         wallets.forEach { e -> run {
@@ -64,4 +63,5 @@ class WalletManager {
         wallets.add(hdWalletData)
         return toJson()
     }
+
 }

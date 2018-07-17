@@ -44,8 +44,10 @@ class RegistFragment : BaseFragment<RegistContract.View, RegistPresenter>(),
             var pw = etRegistPass.text.toString()
 
             mPresenter.registUser(id, pw)
-
-            onChangeWalletActivity()
+                    .subscribe { s ->
+                        s.session
+                        onChangeWalletActivity()
+                    }
         }
     }
 

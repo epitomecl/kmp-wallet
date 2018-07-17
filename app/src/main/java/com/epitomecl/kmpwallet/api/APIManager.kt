@@ -1,6 +1,7 @@
 package com.epitomecl.kmpwallet.api
 
 import com.androidnetworking.interceptors.HttpLoggingInterceptor
+import com.epitomecl.kmpwallet.BuildConfig
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -10,7 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 object APIManager {
-    private const val SERVER_URI: String = ""
+    private const val SERVER_URI: String = BuildConfig.SERVER_URI
 
     private lateinit var mTestService: TestService
 
@@ -54,5 +55,31 @@ object APIManager {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())!!
 
+    fun login(id: String, pw: String) =
+        mTestService.postLogin(id, pw)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())!!
 
+    fun regist(id: String, pw: String) =
+            mTestService.postRegist(id, pw)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())!!
+
+    fun balance(xpub: String, api_code: String) =
+            mTestService.getBalanceEx(xpub, api_code)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.io())
+                    .blockingSingle()
+
+    fun spendTXOCount(address: String, api_code: String) =
+            mTestService.getSpendTXOCount(address, api_code)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.io())
+                    .blockingSingle()
+
+    fun pushTX(hashtx: String, api_code: String) =
+            mTestService.pushTX(hashtx, api_code)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.io())
+                    .blockingSingle()
 }

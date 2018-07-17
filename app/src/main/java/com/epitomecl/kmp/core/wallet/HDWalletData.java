@@ -1,5 +1,7 @@
 package com.epitomecl.kmp.core.wallet;
 
+import com.epitomecl.kmpwallet.api.APIManager;
+import com.epitomecl.kmpwallet.data.AppData;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -19,6 +21,7 @@ import info.blockchain.wallet.bip44.HDWallet;
 import info.blockchain.wallet.bip44.HDWalletFactory;
 import info.blockchain.wallet.exceptions.DecryptionException;
 import info.blockchain.wallet.exceptions.HDWalletException;
+import info.blockchain.wallet.payload.data.Cache;
 import info.blockchain.wallet.payment.SpendableUnspentOutputs;
 import info.blockchain.wallet.util.DoubleEncryptionFactory;
 import info.blockchain.wallet.util.PrivateKeyFactory;
@@ -344,10 +347,15 @@ public class HDWalletData {
             throw new HDWalletException("HD wallet not decrypted");
         }
 
+        Cache cache = new Cache();
+        cache.setReceiveAccount(hdAccount.getReceive().getAddressAt(0).getAddressBase58());
+        cache.setChangeAccount(hdAccount.getChange().getAddressAt(0).getAddressBase58());
+
         AccountData accountBody = new AccountData();
         accountBody.setLabel(label);
         accountBody.setXpub(hdAccount.getXpub());
         accountBody.setXpriv(hdAccount.getXPriv());
+        accountBody.setCache(cache);
 
         getAccounts().add(accountBody);
 
@@ -431,7 +439,7 @@ public class HDWalletData {
 
     public static HDWalletData restoreFromSeed(CryptoType cryptoType, String seedHex, String passphrase, String label, int accountNum)
             throws MnemonicException.MnemonicWordException, MnemonicException.MnemonicLengthException,
-            IOException {
+            IOException, HDWalletException, MnemonicException.MnemonicChecksumException, DecoderException {
         NetworkParameters param = getNetworkParameters(cryptoType);
 
         info.blockchain.wallet.bip44.HDWallet bip44Wallet;
@@ -452,10 +460,10 @@ public class HDWalletData {
         hdWalletData.setAccounts(new ArrayList<AccountData>());
 
         //Determine size of wallet accounts
-        //if (accountNum <= 0) {
-        //    accountNum = getDeterminedSizeFromServer(1, 5, 0, bip44Wallet);
-        //}
-        //bip44Wallet = new HDWallet(mc, param, seed, passphrase, accountNum);
+        if (accountNum <= 0) {
+            accountNum = getDeterminedSizeFromServer(1, 5, 0, bip44Wallet);
+        }
+        bip44Wallet = new HDWallet(mc, param, seed, passphrase, accountNum);
 
         //Set accounts
         int accountNumber = 1;
@@ -467,7 +475,12 @@ public class HDWalletData {
                 accountlabel = label + " " + accountNumber;
             }
 
-            hdWalletData.addAccount(accountlabel, xpriv, xpub);
+            Cache cache = new Cache();
+            cache.setReceiveAccount(account.getReceive().getAddressAt(0).getAddressBase58());
+            cache.setChangeAccount(account.getChange().getAddressAt(0).getAddressBase58());
+
+            AccountData accont = hdWalletData.addAccount(accountlabel, xpriv, xpub);
+            accont.setCache(cache);
             accountNumber++;
         }
 
@@ -477,14 +490,61 @@ public class HDWalletData {
         hdWalletData.setDefaultAccountIdx(0);
         hdWalletData.setLabel(label);
         hdWalletData.setCryptoType(cryptoType);
+        hdWalletData.instantiateBip44Wallet();
 
         return hdWalletData;
     }
 
-//    private static int getDeterminedSizeFromServer(int walletSize, int trySize, int currentGap, info.blockchain.wallet.bip44.HDWallet bip44Wallet) {
-//        //Todo: determine size of wallet accounts from the result of request with the server
-//        return 0;
-//    }
+    private static int getDeterminedSizeAddress() {
+
+        return 0;
+    }
+
+    private static int getDeterminedSizeFromServer(int walletSize, int trySize, int currentGap, HDWallet bip44Wallet) {
+        //Todo: determine size of wallet accounts from the result of request with the server
+
+//        LinkedList<String> xpubs = new LinkedList<>();
+        LinkedList<String> xpubs = new LinkedList<>();
+
+        for (int i = 0; i < trySize; i++) {
+            HDAccount account = bip44Wallet.addAccount();
+            xpubs.add(account.getXpub());
+        }
+
+//        Response<HashMap<String, Balance>> exe = blockExplorer
+//                .getBalance(xpubs, FilterType.RemoveUnspendable).execute();
+//
+//        if (!exe.isSuccessful()) {
+//            throw new Exception(exe.code() + " " + exe.errorBody().string());
+//        }
+
+//        HashMap<String, Balance> map = exe.body();
+
+        HashMap<String, Integer> map = new HashMap<>();
+        for (String xpub : xpubs) {
+            int s = APIManager.INSTANCE.spendTXOCount("","");
+            map.put(xpub, s);
+        }
+
+        final int lookAheadTotal = 10;
+        for (String xpub : xpubs) {
+
+            //If account has txs
+            //if (map.get(xpub).getTxCount() > 0L) {
+            if (map.get(xpub) > 0L) {
+                walletSize++;
+                currentGap = 0;
+            } else {
+                currentGap++;
+            }
+
+            if (currentGap >= lookAheadTotal) {
+                return walletSize;
+            }
+        }
+
+        return getDeterminedSizeFromServer(walletSize, trySize * 2, currentGap, bip44Wallet);
+    }
 
     private static int getDeterminedSize(int walletSize, int trySize, int currentGap, BlockExplorer blockExplorer, info.blockchain.wallet.bip44.HDWallet bip44Wallet) throws Exception {
 

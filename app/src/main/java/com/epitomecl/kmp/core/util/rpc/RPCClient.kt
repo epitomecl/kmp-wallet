@@ -5,6 +5,7 @@ import wf.bitcoin.javabitcoindrpcclient.BitcoindRpcClient
 interface RPCClient {
 
     fun getBlockCount() : Int
+    fun validateaddress(address : String) : String
 
     fun getBalance() : Double
 

@@ -31,6 +31,10 @@ class BitcoinRPCClient : RPCClient {
         return client.blockCount
     }
 
+    override fun validateaddress(address : String) : String {
+        return client.query("validateaddress", address).toString()
+    }
+
     override fun getBalance(): Double {
         return client.getBalance("")
     }
@@ -42,6 +46,4 @@ class BitcoinRPCClient : RPCClient {
     override fun getTransaction(txid: String) : BitcoindRpcClient.RawTransaction {
         return client.getRawTransaction(txid)
     }
-
-
 }
