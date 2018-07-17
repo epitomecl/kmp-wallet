@@ -11,26 +11,44 @@ import android.view.animation.TranslateAnimation
 import com.epitomecl.kmp.core.wallet.AccountData
 import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.api.APIManager
+import com.epitomecl.kmpwallet.di.Injector
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.InfoActivity
 import kotlinx.android.synthetic.main.fragment_accounts.*
 import kotlinx.android.synthetic.main.item_account.view.*
+import javax.inject.Inject
 
 
-class AccountsFragment : BaseFragment<AccountsContract.View,
-        AccountsContract.Presenter>(),
+class AccountsFragment : BaseFragment<AccountsContract.View, AccountsPresenter>(),
             AccountsContract.View {
 
-    override var mPresenter: AccountsContract.Presenter = AccountsPresenter()
+    companion object {
+        fun newInstance(): AccountsFragment {
+            val fragment = AccountsFragment()
+            val bundle = Bundle()
+            fragment.setArguments(bundle)
+            return fragment
+        }
+    }
+
+    @Inject
+    lateinit var mPresenter: AccountsPresenter
+
+    init {
+        Injector.getInstance().getPresenterComponent().inject(this)
+    }
+
+    override fun createPresenter() = mPresenter
+
+    override fun getMvpView() = this
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater.inflate(R.layout.fragment_accounts, container, false)
-        var component = getActivityComponent()
-        if(component != null){
-            //component.inject(this)
-            mPresenter.attachView(this)
-        }
-
+//        var component = getActivity()
+//        if(component != null){
+//            //component.inject(this)
+//            mPresenter.attachView(this)
+//        }
         return view
     }
 

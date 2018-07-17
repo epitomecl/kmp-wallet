@@ -11,6 +11,6 @@ object CreateAccountContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        fun createAccount(context: Context, label: String)
+        fun createAccount(context: Context?, label: String)
     }
 }

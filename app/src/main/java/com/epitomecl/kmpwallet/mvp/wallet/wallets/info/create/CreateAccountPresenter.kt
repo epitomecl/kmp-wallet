@@ -8,7 +8,7 @@ import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.InfoActivity
 class CreateAccountPresenter : BasePresenterImpl<CreateAccountContract.View>(),
         CreateAccountContract.Presenter {
 
-    override fun createAccount(context: Context, label: String) {
+    override fun createAccount(context: Context?, label: String) {
         (context as InfoActivity).getHDWalletData().addAccount(label)
         AppData.saveHDWallets()
     }

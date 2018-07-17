@@ -12,10 +12,10 @@ import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.create.CreateAccountFragm
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.send.SendTxOFragment
 import kotlinx.android.synthetic.main.activity_wallet_info.*
 
-class InfoActivity : BaseActivity<InfoContract.View, InfoContract.Presenter>(),
+class InfoActivity : BaseActivity(),
             InfoContract.View {
 
-    override var mPresenter: InfoContract.Presenter = InfoPresenter()
+    var mPresenter: InfoContract.Presenter = InfoPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +46,7 @@ class InfoActivity : BaseActivity<InfoContract.View, InfoContract.Presenter>(),
     override fun onShowAccounts()
     {
         supportFragmentManager.beginTransaction()
-                .replace(R.id.flWalletInfo, AccountsFragment())
+                .replace(R.id.flWalletInfo, AccountsFragment.newInstance())
                 .addToBackStack(null)
                 .commit()
     }
@@ -54,7 +54,7 @@ class InfoActivity : BaseActivity<InfoContract.View, InfoContract.Presenter>(),
     override fun onShowCreateAccount()
     {
         supportFragmentManager.beginTransaction()
-                .replace(R.id.flWalletInfo, CreateAccountFragment())
+                .replace(R.id.flWalletInfo, CreateAccountFragment.newInstance())
                 .addToBackStack(null)
                 .commit()
     }
@@ -62,7 +62,7 @@ class InfoActivity : BaseActivity<InfoContract.View, InfoContract.Presenter>(),
     override fun onShowSendTxO()
     {
         supportFragmentManager.beginTransaction()
-                .replace(R.id.flWalletInfo, SendTxOFragment())
+                .replace(R.id.flWalletInfo, SendTxOFragment.newInstance())
                 .addToBackStack(null)
                 .commit()
     }

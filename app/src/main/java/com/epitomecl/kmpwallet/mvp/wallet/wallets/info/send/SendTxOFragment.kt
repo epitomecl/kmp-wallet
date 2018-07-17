@@ -10,44 +10,47 @@ import android.widget.Toast
 import com.epitomecl.kmp.core.wallet.AccountData
 import com.epitomecl.kmp.core.wallet.HDWalletData
 import com.epitomecl.kmpwallet.R
+import com.epitomecl.kmpwallet.di.Injector
 import com.epitomecl.kmpwallet.model.UTXO
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.InfoActivity
-import info.blockchain.wallet.util.HexUtils
 import kotlinx.android.synthetic.main.fragment_sendtxo.*
-import org.bitcoinj.core.*
-import org.bitcoinj.script.Script
-import org.bitcoinj.script.ScriptBuilder
-import org.bitcoinj.wallet.SendRequest
-import org.spongycastle.util.encoders.Hex
-import org.bitcoinj.core.NetworkParameters
-import org.bitcoinj.crypto.DeterministicKey
-import org.bitcoinj.core.DumpedPrivateKey
-import org.bitcoinj.crypto.HDKeyDerivation
-import org.bitcoinj.core.AddressFormatException
-import org.bitcoinj.core.Base58
-import org.bitcoinj.params.BitcoinMainNetParams
-import org.bitcoinj.params.BitcoinTestNet3Params
-import java.nio.ByteBuffer
-
+import javax.inject.Inject
 
 class SendTxOFragment : BaseFragment<SendTxOContract.View,
-        SendTxOContract.Presenter>(),
+        SendTxOPresenter>(),
         SendTxOContract.View {
+
+    companion object {
+        fun newInstance(): SendTxOFragment {
+            val fragment = SendTxOFragment()
+            val bundle = Bundle()
+            fragment.setArguments(bundle)
+            return fragment
+        }
+    }
+
+    @Inject
+    lateinit var mPresenter: SendTxOPresenter
+
+    init {
+        Injector.getInstance().getPresenterComponent().inject(this)
+    }
+
+    override fun createPresenter() = mPresenter
+
+    override fun getMvpView() = this
 
     lateinit var sendAccount : AccountData
     lateinit var sendWallet : HDWalletData
 
-    override var mPresenter: SendTxOContract.Presenter = SendTxOPresenter()
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater.inflate(R.layout.fragment_sendtxo, container, false)
-        var component = getActivityComponent()
-        if(component != null){
-            //component.inject(this)
-            mPresenter.attachView(this)
-        }
-
+//        var component = getActivity()
+//        if(component != null){
+//            //component.inject(this)
+//            mPresenter.attachView(this)
+//        }
         return view
     }
 
