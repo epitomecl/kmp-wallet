@@ -1,6 +1,7 @@
 package com.epitomecl.kmpwallet.di.component
 
 import com.epitomecl.kmpwallet.TestActivity
+import com.epitomecl.kmpwallet.mvp.account.AccountFragment
 import com.epitomecl.kmpwallet.mvp.send.SendFragment
 import dagger.Subcomponent
 import piuk.blockchain.androidcore.injection.PresenterScope
@@ -11,4 +12,6 @@ interface PresenterComponent {
     fun inject(activity : TestActivity)
 
     fun inject(fragment : SendFragment)
+
+    fun inject(fragment : AccountFragment)
 }
