@@ -9,8 +9,9 @@ import org.bitcoinj.params.BitcoinMainNetParams
 import org.bitcoinj.script.Script
 import org.spongycastle.util.encoders.Hex
 import java.nio.ByteBuffer
+import javax.inject.Inject
 
-class SendTxOPresenter : BasePresenterImpl<SendTxOContract.View>(),
+class SendTxOPresenter @Inject constructor() : BasePresenterImpl<SendTxOContract.View>(),
         SendTxOContract.Presenter {
 
     override fun makeTx(privKeyString: String, pubKeyString: String, toAddress: String,

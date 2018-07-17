@@ -4,8 +4,9 @@ import android.content.Context
 import com.epitomecl.kmpwallet.data.AppData
 import com.epitomecl.kmpwallet.mvp.base.BasePresenterImpl
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.InfoActivity
+import javax.inject.Inject
 
-class CreateAccountPresenter : BasePresenterImpl<CreateAccountContract.View>(),
+class CreateAccountPresenter @Inject constructor() : BasePresenterImpl<CreateAccountContract.View>(),
         CreateAccountContract.Presenter {
 
     override fun createAccount(context: Context?, label: String) {
