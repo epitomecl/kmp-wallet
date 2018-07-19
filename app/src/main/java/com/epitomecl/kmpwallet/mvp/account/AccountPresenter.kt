@@ -8,4 +8,11 @@ class AccountPresenter @Inject constructor(
 ): BasePresenterImpl<AccountContract.View>(),
         AccountContract.Presenter {
 
+    /* refer from block.info */
+    internal fun createNewAccount(accountLabel : String) {
+        //check if the label already used.
+        ///
+
+
+    }
 }

@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.di.Injector
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
+import com.epitomecl.kmpwallet.util.DialogUtils
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.fragment_account_list.*
 
 class AccountFragment : BaseFragment<AccountContract.View, AccountPresenter>(),
         AccountContract.View {
@@ -29,7 +31,7 @@ class AccountFragment : BaseFragment<AccountContract.View, AccountPresenter>(),
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var view = inflater.inflate(R.layout.fragment_send, container, false)
+        var view = inflater.inflate(R.layout.fragment_account_list, container, false)
         return view
     }
 
@@ -40,5 +42,14 @@ class AccountFragment : BaseFragment<AccountContract.View, AccountPresenter>(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+    }
+
+    private fun createNewAccount() {
+        if(etAccountLabel.text.toString().length==0){
+            DialogUtils.setAlertDialog(context, "account label 을 확인해주세요!")
+            return;
+        }
+
+        mPresenter.createNewAccount(etAccountLabel.text.toString())
     }
 }
