@@ -6,7 +6,8 @@ import com.epitomecl.kmpwallet.mvp.base.BaseView
 
 object AccountContract {
     interface View : BaseView {
-
+        fun onSuccessAccountCreated()
+        fun onError(msg : String)
     }
 
     interface Presenter : BasePresenter<View> {

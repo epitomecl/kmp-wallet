@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.di.Injector
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
@@ -42,6 +43,9 @@ class AccountFragment : BaseFragment<AccountContract.View, AccountPresenter>(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        btnCreateAccount.setOnClickListener {
+            createNewAccount()
+        }
     }
 
     private fun createNewAccount() {
@@ -51,5 +55,13 @@ class AccountFragment : BaseFragment<AccountContract.View, AccountPresenter>(),
         }
 
         mPresenter.createNewAccount(etAccountLabel.text.toString())
+    }
+
+    override fun onSuccessAccountCreated() {
+        Toast.makeText(context, "Successfully created!!", Toast.LENGTH_LONG).show()
+    }
+
+    override fun onError(msg: String) {
+        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
     }
 }
