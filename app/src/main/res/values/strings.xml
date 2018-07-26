@@ -32,4 +32,18 @@
     <string name="label_create_account">Create new address</string>
     <string name="label_create_account_notice">This label is will not stored when back up wallet address.\nThese labels are temporary.</string>
 
+    <string-array name="mnemonic_word_requests">
+        <item>first word</item>
+        <item>second word</item>
+        <item>third word</item>
+        <item>fourth word</item>
+        <item>fifth word</item>
+        <item>sixth word</item>
+        <item>seventh word</item>
+        <item>eighth word</item>
+        <item>ninth word</item>
+        <item>tenth word</item>
+        <item>eleventh word</item>
+        <item>twelfth word</item>
+    </string-array>
 </resources>
