@@ -56,7 +56,19 @@ class BackupPresenter @Inject constructor(
     }
 
     private fun getBackupConfirmSequence() : List<Pair<Int, String>> {
-        return backupWalletUtil.getConfirmSequence(null)
+//        return backupWalletUtil.getConfirmSequence(null)
+
+        //testing mock
+        val seen = mutableListOf<Int>()
+        var i = 0
+        while (i < 3) {
+            val number = i
+            if (!seen.contains(number)) {
+                seen.add(number)
+                i++
+            }
+        }
+        return (0..2).map { seen[it] to "epito" }
     }
 
     override fun getWordForIndex(index: Int) = mnemonic!![index]

@@ -5,13 +5,15 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.app.AppCompatActivity
 import android.util.SparseArray
 import android.view.ViewGroup
+import com.epitomecl.kmpwallet.mvp.backup.BackupFragment
 import com.epitomecl.kmpwallet.mvp.send.SendFragment
 
 class MainPagerAdapter : FragmentPagerAdapter {
 
-    private val TAB_IDX_SEND = 0
-    private val TAB_IDX_WALLET = 1
-    private val TAB_IDX_ACCOUNT = 2
+    private val TAB_IDX_BACKUP = 0
+    private val TAB_IDX_SEND = 1
+    private val TAB_IDX_WALLET = 2
+    private val TAB_IDX_ACCOUNT = 3
 
     private var mTabCount: Int = 0
 
@@ -51,6 +53,7 @@ class MainPagerAdapter : FragmentPagerAdapter {
         var fragment = Fragment()
 
         when (position) {
+            TAB_IDX_BACKUP -> fragment = BackupFragment.newInstance()
             TAB_IDX_SEND -> fragment = SendFragment.newInstance()
 
 //            TAB_IDX_ACCOUNT -> fragment = AccountMainFragment.newInstance()

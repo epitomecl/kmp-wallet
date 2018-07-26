@@ -24,6 +24,7 @@ class TestActivity : BaseActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
 
         val tabLayout : TabLayout = findViewById(R.id.tabs)
+        tabLayout.addTab(tabLayout.newTab().setText("BACKUP"))
         tabLayout.addTab(tabLayout.newTab().setText("SEND"))
         tabLayout.addTab(tabLayout.newTab().setText("WALLET"))
 
