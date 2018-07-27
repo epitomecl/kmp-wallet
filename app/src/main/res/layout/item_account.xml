@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="40dp">
+    android:layout_height="60dp">
 
     <ImageView
         android:id="@+id/ivAccountIcon"
@@ -11,28 +11,52 @@
         android:layout_weight="1"
         app:srcCompat="@android:drawable/sym_contact_card" />
 
-    <TextView
-        android:id="@+id/tvAccountLabel"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:gravity="center_vertical"
-        android:text="Account Label" />
+        android:layout_weight="8"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvAccountBalance"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        <TextView
+            android:id="@+id/tvAccountLabel"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="Account Label" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvAccountBalance"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="right|center"
+                android:text="1.0"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tvCurrency"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left|center"
+                android:text="BTC"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnAccountSync"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_weight="1"
-        android:gravity="center"
-        android:text="1.0"
-        android:textSize="20sp" />
-    <TextView
-        android:id="@+id/tvCurrency"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="BTC"
-        android:textSize="20sp" />
+        android:text="Sync" />
 </LinearLayout>

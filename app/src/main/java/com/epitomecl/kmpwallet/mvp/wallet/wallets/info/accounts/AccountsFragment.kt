@@ -93,14 +93,24 @@ class AccountsFragment : BaseFragment<AccountsContract.View, AccountsPresenter>(
         // hold ui elements
         val tvAccountLabel = view.tvAccountLabel
         val tvAccountBalance = view.tvAccountBalance
+        val btnAccountSync = view.btnAccountSync
 
         fun bind(item: AccountData) {
-            view.setOnClickListener({
+            tvAccountLabel.setOnClickListener({
+                fragment.onChangeSendTxOFragment(item)
+            })
+
+            btnAccountSync.setOnClickListener({
                 var address = item.cache.receiveAccount
                 var xpub = item.xpub
                 item.utxos = APIManager.balance(xpub,"api_code")
 
-                fragment.onChangeSendTxOFragment(item)
+                var balance: Long = 0
+                item.utxos.forEach{ v->
+                    balance += v.value
+                }
+
+                tvAccountBalance.text = (balance.toDouble() / 100000000).toString()
             })
         }
     }
