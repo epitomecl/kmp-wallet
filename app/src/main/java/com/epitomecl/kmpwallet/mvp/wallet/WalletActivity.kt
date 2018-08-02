@@ -3,6 +3,7 @@ package com.epitomecl.kmpwallet.mvp.wallet
 import android.os.Bundle
 import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.mvp.base.BaseActivity
+import com.epitomecl.kmpwallet.mvp.wallet.create.BackupWalletFragment
 
 import com.epitomecl.kmpwallet.mvp.wallet.create.CreateWalletFragment
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.WalletsFragment
@@ -19,6 +20,7 @@ class WalletActivity : BaseActivity(),
 
         btnShowWalletList.setOnClickListener { onShowWalletList() }
         btnCreateWallet.setOnClickListener { onCreateWallet() }
+        btnBackupWallet.setOnClickListener { onBackupWallet() }
 
         onShowWalletList()
     }
@@ -40,7 +42,10 @@ class WalletActivity : BaseActivity(),
     }
 
     override fun onBackupWallet() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.flWallet, BackupWalletFragment())
+                .addToBackStack(null)
+                .commit()
     }
 
     override fun onAccount() {

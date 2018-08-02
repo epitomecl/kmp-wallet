@@ -1,11 +1,8 @@
 package com.epitomecl.kmpwallet.api
 
-import com.epitomecl.kmpwallet.model.Test
-import com.epitomecl.kmpwallet.model.UTXO
-import com.epitomecl.kmpwallet.model.UserVO
+import com.epitomecl.kmpwallet.model.*
 import io.reactivex.Observable
 import retrofit2.http.*
-import java.math.BigInteger
 
 interface TestService {
 
@@ -28,6 +25,16 @@ interface TestService {
                      @Field("api_code") api_code : String): Observable<List<UTXO>>
 
     @FormUrlEncoded
+    @POST("/activereceiveaddress")
+    fun getActiveReceiveAddress(@Field("xpub") xpub : String,
+                               @Field("api_code") api_code : String): Observable<ActiveAddress>
+
+    @FormUrlEncoded
+    @POST("/activechangeaddress")
+    fun getActiveChangeAddress(@Field("xpub") xpub : String,
+                     @Field("api_code") api_code : String): Observable<ActiveAddress>
+
+    @FormUrlEncoded
     @POST("/spendtxo-count")
     fun getSpendTXOCount(@Field("address") address : String,
                      @Field("api_code") api_code : String): Observable<Int>
@@ -35,5 +42,5 @@ interface TestService {
     @FormUrlEncoded
     @POST("/send")
     fun pushTX(@Field("hashtx") hashtx : String,
-                         @Field("api_code") api_code : String): Observable<String>
+                         @Field("api_code") api_code : String): Observable<SendTXResult>
 }

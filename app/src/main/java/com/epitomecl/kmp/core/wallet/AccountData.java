@@ -105,6 +105,14 @@ public class AccountData {
         this.utxos = utxos;
     }
 
+    public Long getBalance() {
+        Long balance = 0L;
+        for(UTXO utxo : utxos) {
+                balance += utxo.getValue();
+        }
+        return balance;
+    }
+
     public static info.blockchain.wallet.payload.data.Account fromJson(String json) throws IOException {
         return new ObjectMapper().readValue(json, info.blockchain.wallet.payload.data.Account.class);
     }

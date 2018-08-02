@@ -12,6 +12,8 @@ import com.epitomecl.kmp.core.wallet.AccountData
 import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.api.APIManager
 import com.epitomecl.kmpwallet.di.Injector
+import com.epitomecl.kmpwallet.model.ActiveAddress
+import com.epitomecl.kmpwallet.model.UTXO
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.InfoActivity
 import kotlinx.android.synthetic.main.fragment_accounts.*
@@ -100,18 +102,22 @@ class AccountsFragment : BaseFragment<AccountsContract.View, AccountsPresenter>(
                 fragment.onChangeSendTxOFragment(item)
             })
 
-            btnAccountSync.setOnClickListener({
-                var address = item.cache.receiveAccount
-                var xpub = item.xpub
-                item.utxos = APIManager.balance(xpub,"api_code")
+            tvAccountLabel.text = getActiveReceiveAddress(item)
+            tvAccountBalance.text = getBalance(item)
+        }
 
-                var balance: Long = 0
-                item.utxos.forEach{ v->
-                    balance += v.value
-                }
+        fun getBalance(item: AccountData) : String {
+            item.utxos = APIManager.balance(item.xpub,"api_code")
+            var balance: Long = item.balance
 
-                tvAccountBalance.text = (balance.toDouble() / 100000000).toString()
-            })
+            return UTXO.satoshiToCoin(balance).toString()
+        }
+
+        fun getActiveReceiveAddress(item: AccountData) : String {
+            val result : ActiveAddress = APIManager.activeReceiveAddress(item.xpub,"api_code")
+            item.cache.receiveAccount = result.address
+
+            return item.cache.receiveAccount
         }
     }
 }

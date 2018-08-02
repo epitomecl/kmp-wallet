@@ -64,4 +64,13 @@ class WalletManager {
         return toJson()
     }
 
+    fun restoreWallet(cryptoType : CryptoType, seed : String) {
+        var seedHex : String = seed
+        var accountNum : String = "5"
+        var label : String = "11111111"
+        var cryptoType : String = cryptoType.toString()
+
+        var hdWalletData = HDWalletData.restoreFromSeed(CryptoType.valueOf(cryptoType), seedHex, "", label, accountNum.toInt())
+        wallets.add(hdWalletData)
+    }
 }

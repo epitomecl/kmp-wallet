@@ -1,6 +1,7 @@
 package com.epitomecl.kmpwallet.mvp.wallet.wallets.info.send
 
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +12,16 @@ import com.epitomecl.kmp.core.wallet.AccountData
 import com.epitomecl.kmp.core.wallet.HDWalletData
 import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.di.Injector
+import com.epitomecl.kmpwallet.model.SendTXResult
 import com.epitomecl.kmpwallet.model.UTXO
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.InfoActivity
+import org.spongycastle.util.encoders.Hex
 import kotlinx.android.synthetic.main.fragment_sendtxo.*
 import javax.inject.Inject
+import org.bitcoinj.core.NetworkParameters
+import org.bitcoinj.core.Transaction
+
 
 class SendTxOFragment : BaseFragment<SendTxOContract.View,
         SendTxOPresenter>(),
@@ -62,7 +68,12 @@ class SendTxOFragment : BaseFragment<SendTxOContract.View,
         anim.duration = 300
         view.startAnimation(anim)
 
-        tvSendFromAddress.text = (context as InfoActivity).getAccount().cache.receiveAccount
+        val activity =  (context as InfoActivity)
+
+        val accountData : AccountData = activity.getAccount()
+
+        tvSendFromAddress.text = accountData.cache.receiveAccount
+        tvSendFromBalance.text = activity.getString(R.string.label_account_has) + " " + UTXO.satoshiToCoin(accountData.balance).toString() + " " + activity.getString(R.string.crypto_btc_big)
 
         btnSend.setOnClickListener { onSend() }
     }
@@ -75,16 +86,21 @@ class SendTxOFragment : BaseFragment<SendTxOContract.View,
         var pubKeyString : String = accountData.xpub
 
         var toAddress : String = etSendToAddress.text.toString()
-        var amount : Long = etSendSatoshi.text.toString().toLong()
-
-        var utxo: UTXO = accountData.utxos.get(0)
+        var send_satoshi : Long = etSendSatoshi.text.toString().toLong()
 
         val hashtx = mPresenter.makeTx(privKeyString, pubKeyString, toAddress,
-                amount, utxo.scriptBytes , utxo.index, utxo.hash)
+                send_satoshi, accountData.utxos)
 
-        val result : String = mPresenter.pushTx(hashtx)
+        val result : SendTXResult = mPresenter.pushTx(hashtx)
 
-        Toast.makeText(context, "send result: $result" + result, Toast.LENGTH_SHORT).show()
+        val tx = Transaction(NetworkParameters.testNet(), Hex.decode(hashtx))
+
+        if(tx.isPending) {
+            Toast.makeText(context, "send result: PENDING...", Toast.LENGTH_SHORT).show()
+        }
+        else {
+            Toast.makeText(context, "send result: REJECT", Toast.LENGTH_SHORT).show()
+        }
     }
 
 }

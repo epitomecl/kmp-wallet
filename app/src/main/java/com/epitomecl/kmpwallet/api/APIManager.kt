@@ -71,6 +71,18 @@ object APIManager {
                     .observeOn(Schedulers.io())
                     .blockingSingle()
 
+    fun activeReceiveAddress(xpub: String, api_code: String) =
+            mTestService.getActiveReceiveAddress(xpub, api_code)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.io())
+                    .blockingSingle()
+
+    fun activeChangeAddress(xpub: String, api_code: String) =
+            mTestService.getActiveChangeAddress(xpub, api_code)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.io())
+                    .blockingSingle()
+
     fun spendTXOCount(address: String, api_code: String) =
             mTestService.getSpendTXOCount(address, api_code)
                     .subscribeOn(Schedulers.io())

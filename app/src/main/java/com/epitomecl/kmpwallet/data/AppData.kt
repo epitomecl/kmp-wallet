@@ -66,6 +66,10 @@ class AppData(val application: Application, val sharedPreferences : SharedPrefer
         wallets = walletManager.createWallet(cryptoType, label)
     }
 
+    private fun restoreWallet(cryptoType : CryptoType, seed : String) {
+       walletManager.restoreWallet(cryptoType, seed)
+    }
+
     companion object {
         private lateinit var mAppData : AppData
 
@@ -96,6 +100,10 @@ class AppData(val application: Application, val sharedPreferences : SharedPrefer
 
         fun createWallet(cryptoType : CryptoType, label : String) {
             mAppData.createWallet(cryptoType, label)
+        }
+
+        fun restoreWallet(cryptoType : CryptoType, seed : String) {
+            mAppData.restoreWallet(cryptoType, seed)
         }
 
         fun getHDWallets() : List<HDWalletData> {

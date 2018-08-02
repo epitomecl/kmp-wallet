@@ -12,9 +12,18 @@
         android:gravity="center"
         android:text="from address: 1.0" />
 
+    <TextView
+        android:id="@+id/tvSendFromBalance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:gravity="center"
+        android:text="0.0" />
+
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginTop="40dp"
         android:layout_weight="0">
 
         <android.support.design.widget.TextInputEditText
@@ -36,7 +45,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:hint="to address" />
+            android:hint="to address"
+            android:text="mkdqYkMVb3kccmmAU6Z9kqx416K9sZt9vt" />
 
     </android.support.design.widget.TextInputLayout>
 
