@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-allopen'
 apply plugin: 'kotlin-kapt'
-apply from: 'jacoco.gradle'
+//apply from: 'jacoco.gradle'
 //apply from: '../quality/ktlint.gradle'
 
 android {
@@ -38,7 +38,7 @@ android {
         // Always show the result of every unit test, even if it passes.
         unitTests.all {
             testLogging {
-                events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+                //events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
             }
             reports.junitXml.destination = file('../build/test-results/')
         }
