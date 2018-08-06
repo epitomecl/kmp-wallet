@@ -76,6 +76,8 @@ dependencies {
 }
 
 test {
+    exclude 'com/epitomecl/wallet_blockinfo/**', 'info/blockchain/wallet/**'
+
     testLogging {
         events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
     }

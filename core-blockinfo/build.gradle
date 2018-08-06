@@ -37,8 +37,10 @@ android {
     testOptions {
         // Always show the result of every unit test, even if it passes.
         unitTests.all {
+            exclude 'piuk/blockchain/androidcore/**'
+
             testLogging {
-                //events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+                events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
             }
             reports.junitXml.destination = file('../build/test-results/')
         }
