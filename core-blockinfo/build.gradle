@@ -6,6 +6,10 @@ apply from: 'jacoco.gradle'
 //apply from: '../quality/ktlint.gradle'
 
 android {
+    lintOptions {
+        abortOnError false
+    }
+
     compileSdkVersion 27
     buildToolsVersion "27.0.3"
     defaultConfig {

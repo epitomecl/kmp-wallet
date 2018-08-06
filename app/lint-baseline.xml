@@ -2,21 +2,21 @@
 <issues format="4" by="lint 3.0.0-beta6">
 
     <issue
-        id="InvalidPackage"
+        id="InvalidPackage" severity="ignore"
         message="Invalid package reference in library; not included in Android: `javax.tools`. Referenced from `com.squareup.javapoet.JavaFile`.">
         <location
             file="../../../.gradle/caches/modules-2/files-2.1/com.squareup/javapoet/1.7.0/4fdcf1fc27c1a8f55d1109df986c923152f07759/javapoet-1.7.0.jar"/>
     </issue>
 
     <issue
-        id="InvalidPackage"
+        id="InvalidPackage" severity="ignore"
         message="Invalid package reference in library; not included in Android: `javax.naming.directory`. Referenced from `org.spongycastle.jce.provider.X509LDAPCertStoreSpi`.">
         <location
             file="../../../.gradle/caches/modules-2/files-2.1/com.madgag.spongycastle/prov/1.54.0.0/2761c67fdffa21ffcd73cfb8c3acd52ca8866694/prov-1.54.0.0.jar"/>
     </issue>
 
     <issue
-        id="InvalidPackage"
+        id="InvalidPackage" severity="ignore"
         message="Invalid package reference in library; not included in Android: `javax.naming`. Referenced from `org.spongycastle.jce.provider.X509LDAPCertStoreSpi`.">
         <location
             file="../../../.gradle/caches/modules-2/files-2.1/com.madgag.spongycastle/prov/1.54.0.0/2761c67fdffa21ffcd73cfb8c3acd52ca8866694/prov-1.54.0.0.jar"/>
