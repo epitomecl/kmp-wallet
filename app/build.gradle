@@ -21,6 +21,10 @@ android {
         }
     }
 
+    lintOptions {
+        abortOnError false
+    }
+
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.epitomecl.kmpwallet"
