@@ -21,7 +21,8 @@ task integTest(type: Test) {
     group = LifecycleBasePlugin.VERIFICATION_GROUP
     description = 'Runs the integration tests.'
 
-    maxHeapSize = '1024m'
+    maxHeapSize = '2048m'
+    jvmArgs '-XX:MaxPermSize=2048m'
 
     testClassesDir = sourceSets.integTest.output.classesDir
     classpath = sourceSets.integTest.runtimeClasspath
