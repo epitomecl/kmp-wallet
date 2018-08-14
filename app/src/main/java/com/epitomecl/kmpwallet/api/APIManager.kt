@@ -1,5 +1,6 @@
 package com.epitomecl.kmpwallet.api
 
+import android.support.annotation.VisibleForTesting
 import com.androidnetworking.interceptors.HttpLoggingInterceptor
 import com.epitomecl.kmpwallet.BuildConfig
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -18,6 +19,11 @@ object APIManager {
     init {
         val retrofit = initRetrofit()
         initServices(retrofit)
+    }
+
+    @VisibleForTesting
+    fun setTestService(testService: TestService) {
+        mTestService = testService
     }
 
     private fun initRetrofit(): Retrofit {

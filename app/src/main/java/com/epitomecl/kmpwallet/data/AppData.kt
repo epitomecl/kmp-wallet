@@ -1,13 +1,13 @@
 package com.epitomecl.kmpwallet.data
 
-import android.app.Application
+import android.content.Context
 import android.content.SharedPreferences
 import com.epitomecl.kmp.core.wallet.CryptoType
 import com.epitomecl.kmp.core.wallet.HDWalletData
 import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.util.SharedPreferenceSecure
 
-class AppData(val application: Application, val sharedPreferences : SharedPreferences) {
+class AppData(val application: Context, val sharedPreferences : SharedPreferences) {
 
     enum class LoginType {
         NOT_LOGIN,

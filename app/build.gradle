@@ -56,6 +56,10 @@ android {
             multiDexEnabled true
         }
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
     flavorDimensions "environment"
     productFlavors {
         development {
@@ -97,6 +101,7 @@ buildscript {
         // https://docs.fabric.io/android/changelog.html#fabric-gradle-plugin
         classpath 'io.fabric.tools:gradle:1.+'
         classpath "com.novoda:gradle-build-properties-plugin:$buildPropertiesVersion"
+
     }
 }
 
@@ -182,6 +187,16 @@ dependencies {
 
     //rpc-client
     implementation 'wf.bitcoin:JavaBitcoindRpcClient:0.9.0'
+
+    // Unit Test dependencies
+    testImplementation "junit:junit:4.12"
+    testImplementation "org.mockito:mockito-core:2.19.1"
+    testImplementation "org.hamcrest:hamcrest-junit:2.0.0.0"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:1.2.31"
+    testImplementation "org.amshove.kluent:kluent:1.19"
+    testImplementation("com.nhaarman:mockito-kotlin:1.5.0") {
+        ['kotlin-stdlib', 'kotlin-reflect'].each { exclude module: it }
+    }
 }
 
 kapt {
