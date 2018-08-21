@@ -16,7 +16,10 @@ import com.epitomecl.kmpwallet.model.UTXO
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.send.SendTxOPresenter
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.send.SendTxOPresenter_Factory
 import org.junit.Assert.assertEquals
+import org.junit.FixMethodOrder
+import org.junit.runners.MethodSorters
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class APIManagerTest : RxTestScheduler() {
 
     private val testService: TestService = mock()

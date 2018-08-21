@@ -15,8 +15,11 @@ import org.junit.runner.RunWith
 
 import org.junit.Assert.*
 import org.junit.Before
+import org.junit.FixMethodOrder
+import org.junit.runners.MethodSorters
 import org.slf4j.LoggerFactory
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4::class)
 class KmpWalletTest {
     private val log = LoggerFactory.getLogger(KmpWalletTest::class.java)
