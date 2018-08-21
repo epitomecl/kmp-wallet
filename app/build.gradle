@@ -83,7 +83,17 @@ android {
     }
     buildToolsVersion '27.0.3'
 
+    testOptions {
+        // Always show the result of every unit test, even if it passes.
+        unitTests.all {
+            testLogging {
+                events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+            }
+            reports.junitXml.destination = file('../build/test-results/')
+        }
+    }
 }
+
 
 buildscript {
     ext.buildPropertiesVersion = '0.4.1'
