@@ -7,6 +7,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.epitomecl.kmpwallet.R;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -19,6 +20,8 @@ public class AppDataTest {
 
     @Test
     public void loginTypeTest() {
+        System.out.println("loginAPITest BEGIN");
+
         AppData.LoginType loginType = AppData.LoginType.EMAIL_LOGIN;
 
         AppData.Companion.setLoginType(loginType);
@@ -27,4 +30,5 @@ public class AppDataTest {
 
         assertEquals(loginType, result);
     }
+
 }

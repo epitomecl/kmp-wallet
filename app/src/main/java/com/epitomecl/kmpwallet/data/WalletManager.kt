@@ -15,6 +15,7 @@ class WalletManager {
     }
 
     fun init(json : String?) {
+        wallets.clear()
         //var walletJson = "{ 'Wallets': [ {'Seed': 'KGGKGKUKGGKGKGK', 'AccountNum': '1', 'Label': 'Wallet Name1'}, {'Seed': 'KGGKGKUKGGKGKGK', 'AccountNum': '1', 'Label': 'Wallet Name1'} ] }"
         try {
             val objects = JSONObject(json)
@@ -59,8 +60,12 @@ class WalletManager {
     }
 
     fun createWallet(cryptoType : CryptoType, label : String) : String {
-        var hdWalletData = HDWalletData(cryptoType, label)
-        wallets.add(hdWalletData)
+        var hdWalletData : HDWalletData?
+        hdWalletData = findWallet(cryptoType, label)
+        if ( hdWalletData == null ) {
+            hdWalletData = HDWalletData(cryptoType, label)
+            wallets.add(hdWalletData)
+        }
         return toJson()
     }
 
@@ -72,5 +77,19 @@ class WalletManager {
 
         var hdWalletData = HDWalletData.restoreFromSeed(CryptoType.valueOf(cryptoType), seedHex, "", label, accountNum.toInt())
         wallets.add(hdWalletData)
+    }
+
+    private fun findWallet(cryptoType : CryptoType, label : String) : HDWalletData? {
+        return wallets.find { v -> v.label.equals(label) }
+    }
+
+    fun removeWallet(cryptoType : CryptoType, label : String) : Boolean {
+        var hdWalletData : HDWalletData?
+        hdWalletData = findWallet(cryptoType, label)
+        if ( hdWalletData != null ) {
+            wallets.remove(hdWalletData)
+            return true
+        }
+        return false
     }
 }

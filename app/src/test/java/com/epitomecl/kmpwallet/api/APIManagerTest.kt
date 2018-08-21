@@ -13,6 +13,8 @@ import com.epitomecl.kmpwallet.RxTestScheduler
 import com.epitomecl.kmpwallet.model.ActiveAddress
 import com.epitomecl.kmpwallet.model.SendTXResult
 import com.epitomecl.kmpwallet.model.UTXO
+import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.send.SendTxOPresenter
+import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.send.SendTxOPresenter_Factory
 import org.junit.Assert.assertEquals
 
 class APIManagerTest : RxTestScheduler() {
@@ -28,7 +30,7 @@ class APIManagerTest : RxTestScheduler() {
 
     @Test
     @Throws(Exception::class)
-    fun loginAPITest() {
+    fun test1LoginAPI() {
         //System.out.println("loginAPITest BEGIN")
 
         val id = "aaaa"
@@ -50,7 +52,7 @@ class APIManagerTest : RxTestScheduler() {
 
     @Test
     @Throws(Exception::class)
-    fun registAPITest() {
+    fun test2RegistAPI() {
         val id = "aaaa"
         val pw = "aaaa"
         val userVO = UserVO("user_session")
@@ -68,9 +70,9 @@ class APIManagerTest : RxTestScheduler() {
 
     @Test
     @Throws(Exception::class)
-    fun balanceAPITest() {
+    fun test3BalanceAPI() {
         val xpub = "tpubDDZWXtva1hncbfjckydHWua6Tp6gt8JPNrhQw63kGvSp6NeMQkiBbsQ3iofX1MUCR8vZzpwcKSLVdTSBtGLpDvQTnkxN5azfugVxJYG3Ytj"
-        val api_code = "v0.1"
+        val api_code = "api_code"
         val utxolist = mutableListOf<UTXO>()//mock(mutableListOf<UTXO>()::class)
         utxolist.add(UTXO("hash-string", 0, 10000, "scriptBytes-string", "mv4b1aMUXTonnX2MaBnkxTzwd76tykykTa"))
         utxolist.add(UTXO("hash-string", 0, 10000, "scriptBytes-string", "myGTTCSyiJasZYfFXtfYx7VvV3Pc9ao5N3 "))
@@ -89,9 +91,9 @@ class APIManagerTest : RxTestScheduler() {
 
     @Test
     @Throws(Exception::class)
-    fun activeReceiveAddressAPITest() {
+    fun test4ActiveReceiveAddressAPI() {
         val xpub = "tpubDDZWXtva1hncbfjckydHWua6Tp6gt8JPNrhQw63kGvSp6NeMQkiBbsQ3iofX1MUCR8vZzpwcKSLVdTSBtGLpDvQTnkxN5azfugVxJYG3Ytj"
-        val api_code = "v0.1"
+        val api_code = "api_code"
         val receive_address = ActiveAddress("mv4b1aMUXTonnX2MaBnkxTzwd76tykykTa")
 
         whenever(testService.getActiveReceiveAddress(xpub, api_code))
@@ -107,9 +109,9 @@ class APIManagerTest : RxTestScheduler() {
 
     @Test
     @Throws(Exception::class)
-    fun activeChangeAddressAPITest() {
+    fun test5ActiveChangeAddressAPI() {
         val xpub = "tpubDDZWXtva1hncbfjckydHWua6Tp6gt8JPNrhQw63kGvSp6NeMQkiBbsQ3iofX1MUCR8vZzpwcKSLVdTSBtGLpDvQTnkxN5azfugVxJYG3Ytj"
-        val api_code = "v0.1"
+        val api_code = "api_code"
         val change_address = ActiveAddress("myGTTCSyiJasZYfFXtfYx7VvV3Pc9ao5N3")
 
         whenever(testService.getActiveChangeAddress(xpub, api_code))
@@ -125,9 +127,9 @@ class APIManagerTest : RxTestScheduler() {
 
     @Test
     @Throws(Exception::class)
-    fun spendTXOCountAPITest() {
+    fun test6SpendTXOCountAPI() {
         val xpub = "tpubDDZWXtva1hncbfjckydHWua6Tp6gt8JPNrhQw63kGvSp6NeMQkiBbsQ3iofX1MUCR8vZzpwcKSLVdTSBtGLpDvQTnkxN5azfugVxJYG3Ytj"
-        val api_code = "v0.1"
+        val api_code = "api_code"
         val count = 2
 
         whenever(testService.getSpendTXOCount(xpub, api_code))
@@ -143,9 +145,9 @@ class APIManagerTest : RxTestScheduler() {
 
     @Test
     @Throws(Exception::class)
-    fun pushTXAPITest() {
+    fun test7PushTXAPI() {
         val xpub = "tpubDDZWXtva1hncbfjckydHWua6Tp6gt8JPNrhQw63kGvSp6NeMQkiBbsQ3iofX1MUCR8vZzpwcKSLVdTSBtGLpDvQTnkxN5azfugVxJYG3Ytj"
-        val api_code = "v0.1"
+        val api_code = "api_code"
         val sendTXResult = SendTXResult("hashtx-string")
 
         whenever(testService.pushTX(xpub, api_code))
@@ -157,5 +159,35 @@ class APIManagerTest : RxTestScheduler() {
         verifyNoMoreInteractions(testService)
 
         assertEquals(sendTXResult, result)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun test8SendTransaction() {
+        val api_code = "api_code"
+
+        val privKeyString: String = "tprv8gHuMFPCeZmGxb5c1q9ULTqTS67XxoR9kcWWXF45v3JQaf9AshgbXw41aerfn2mgpCW8YsGeWKFpTHyZPMB5Jc6vs3ofd6zdMBKxY5iVegR"
+        val pubKeyString: String = "tpubDCywVfRSnwSwr47PuUp4jsVa17dU88c4Kv7Hom6PLK6oR9PwW6WBiRfskp6HjSxgrdUvARkbNSW6cUwzgBmqSSyzeDFprTNezxXx9ASRtnd"
+        val toAddress: String = "n4DB2oaHBXCyTN2ZcnWovqdKwPNXxGHXtL"
+        val send_satoshi: Long = 100000000
+        val utxos: MutableList<UTXO> = mutableListOf()
+        utxos.add(UTXO("93833337cb17cd9ada0f69e0aeb1f62d4dc33174a71384a70303ef1f4b8665a5", 1, 110000000, "76a91408a71c9c0f7767b4738042c9fa7971944e4830a788ac", "mgJhtiYQQLhSXrEtDPNjNvmonnMXmLck5T"))
+        utxos.add(UTXO("596ec6b3dae4dbc2616e8c8d82be30171d1cfa73444c88a31284a7a87b770200", 1, 4500000, "76a91463d0466dd575c6769ca91f9412397f9f273dbb8188ac", "mpcihFg5FbBJshTvmhHiSvzV7PTtbeWdX5"))
+
+        val activeAddress = ActiveAddress("mw8QnsYdVrkH6tejhPT2YRF3F9iXSABHyN")
+        whenever(testService.getActiveChangeAddress(pubKeyString,api_code))
+                .thenReturn(Observable.just(activeAddress))
+
+        val presenter : SendTxOPresenter = SendTxOPresenter_Factory.create().get()
+        val hashtx: String = presenter.makeTx(privKeyString, pubKeyString, toAddress,
+                send_satoshi, utxos)
+
+        val sendTXResult = SendTXResult(hashtx)
+        whenever(testService.pushTX(hashtx,api_code))
+                .thenReturn(Observable.just(sendTXResult))
+
+        val result : SendTXResult = presenter.pushTx(hashtx)
+
+        assertEquals(hashtx, result.hashtx)
     }
 }

@@ -114,6 +114,11 @@ class AppData(val application: Context, val sharedPreferences : SharedPreference
             mAppData.wallets = mAppData.walletManager.toJson()
         }
 
+        fun resetHDWallets() {
+            mAppData.wallets = ""
+            mAppData.initWallets()
+        }
+
 //        fun getWallets() : String? {
 //            return mAppData.wallets
 //        }
