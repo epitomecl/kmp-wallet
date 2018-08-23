@@ -64,7 +64,8 @@ class CreateWalletFragment : BaseFragment<CreateWalletContract.View, CreateWalle
     }
 
     override fun createCryptoTypeSpinner() {
-        spCryptoType.adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, CryptoType.values())
+        val cryptoType : List<CryptoType> = listOf(CryptoType.BITCOIN_TESTNET)
+        spCryptoType.adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, cryptoType)
         spCryptoType.setPromptId(R.string.msg_select_crypto_type)
         spCryptoType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -76,7 +77,7 @@ class CreateWalletFragment : BaseFragment<CreateWalletContract.View, CreateWalle
             }
         }
 
-        setCryptoType(CryptoType.BITCOIN)
+        setCryptoType(CryptoType.BITCOIN_TESTNET)
     }
 
     override fun setCryptoType(type : CryptoType) {

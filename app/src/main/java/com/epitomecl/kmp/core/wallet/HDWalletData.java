@@ -209,10 +209,18 @@ public class HDWalletData {
                 label = defaultAccountName + " " + accountNumber;
             }
 
+            HDAccount hdAccount = this.HD.getAccount(0);
+
+            Cache cache = new Cache();
+            cache.setReceiveAccount(hdAccount.getReceive().getAddressAt(0).getAddressBase58());
+            cache.setChangeAccount(hdAccount.getChange().getAddressAt(0).getAddressBase58());
+
             AccountData accountBody = new AccountData();
             accountBody.setLabel(label);
-            accountBody.setXpriv(this.HD.getAccount(0).getXPriv());
-            accountBody.setXpub(this.HD.getAccount(0).getXpub());
+            accountBody.setXpriv(hdAccount.getXPriv());
+            accountBody.setXpub(hdAccount.getXpub());
+            accountBody.setCache(cache);
+
             accountBodyList.add(accountBody);
 
             accountNumber++;
