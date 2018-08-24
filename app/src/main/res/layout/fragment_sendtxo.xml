@@ -32,7 +32,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:hint="input send satoshi"
-            android:inputType="number" />
+            android:inputType="number"
+            android:text="0" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -45,8 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:hint="to address"
-            android:text="mkdqYkMVb3kccmmAU6Z9kqx416K9sZt9vt" />
+            android:hint="to address(ex:mkdqYkMVb3kccmmAU6Z9kqx416K9sZt9vt)" />
 
     </android.support.design.widget.TextInputLayout>
 

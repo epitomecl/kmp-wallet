@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_sendtxo.*
 import javax.inject.Inject
 import org.bitcoinj.core.NetworkParameters
 import org.bitcoinj.core.Transaction
+import java.math.BigInteger
 
 
 class SendTxOFragment : BaseFragment<SendTxOContract.View,
@@ -82,25 +83,44 @@ class SendTxOFragment : BaseFragment<SendTxOContract.View,
         //for send test
         var hdWalletData = (context as InfoActivity).getHDWalletData()
         var accountData = (context as InfoActivity).getAccount()
-        var privKeyString : String = accountData.xpriv
-        var pubKeyString : String = accountData.xpub
 
-        var toAddress : String = etSendToAddress.text.toString()
-        var send_satoshi : Long = etSendSatoshi.text.toString().toLong()
+        if(isValid(accountData)) {
+            var privKeyString : String = accountData.xpriv
+            var pubKeyString : String = accountData.xpub
 
-        val hashtx = mPresenter.makeTx(privKeyString, pubKeyString, toAddress,
-                send_satoshi, accountData.utxos)
+            var toAddress : String = etSendToAddress.text.toString()
+            var send_satoshi : Long = etSendSatoshi.text.toString().toLong()
 
-        val result : SendTXResult = mPresenter.pushTx(hashtx)
+            val hashtx = mPresenter.makeTx(privKeyString, pubKeyString, toAddress,
+                    send_satoshi, accountData.utxos)
 
-        val tx = Transaction(NetworkParameters.testNet(), Hex.decode(hashtx))
+            val result : SendTXResult = mPresenter.pushTx(hashtx)
 
-        if(tx.isPending) {
-            Toast.makeText(context, "send result: PENDING...", Toast.LENGTH_SHORT).show()
-        }
-        else {
-            Toast.makeText(context, "send result: REJECT", Toast.LENGTH_SHORT).show()
+            val tx = Transaction(NetworkParameters.testNet(), Hex.decode(hashtx))
+
+            if(tx.isPending) {
+                Toast.makeText(context, "send result: PENDING...", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                Toast.makeText(context, "send result: REJECT", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
+    private fun isValid(accountData : AccountData): Boolean {
+        if (etSendToAddress.text.length != 34) {
+            Toast.makeText(context, getString(R.string.msg_send_invalid_address), Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if(etSendSatoshi.text.toString().toBigInteger() == BigInteger.ZERO) {
+            Toast.makeText(context, getString(R.string.msg_send_zero_value), Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if(accountData.balance == 0L) {
+            Toast.makeText(context, getString(R.string.msg_send_invalid_account_balance), Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        return true
+    }
 }

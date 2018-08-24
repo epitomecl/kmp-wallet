@@ -21,6 +21,9 @@
 
     <string name="msg_select_crypto_type">Select CryptoType</string>
     <string name="msg_wallet_label_short">label is too short.</string>
+    <string name="msg_send_invalid_address">Invalid address</string>
+    <string name="msg_send_zero_value">Check send satosi</string>
+    <string name="msg_send_invalid_account_balance">Account balance is 0</string>
 
     <string name="hint_create_wallet_label">Wallet Label</string>
 

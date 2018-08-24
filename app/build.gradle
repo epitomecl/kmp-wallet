@@ -121,7 +121,7 @@ repositories {
 }
 
 ext {
-    supportLibVersion = '27.0.0'
+    supportLibVersion = '27.0.2'
     retrofitVersion = "2.2.0"
     dagger2Version = '2.14.1'
     rx2FastAndroidNetworking = '1.0.1'
