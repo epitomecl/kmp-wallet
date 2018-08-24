@@ -11,13 +11,30 @@
         android:layout_weight="1"
         app:srcCompat="@drawable/icon_bitcoin_core" />
 
-    <TextView
-        android:id="@+id/tvWalletLabel"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:gravity="center_vertical"
-        android:text="Wallet Label" />
+        android:layout_weight="8"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvWalletLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="Wallet Label" />
+
+        <TextView
+            android:id="@+id/tvWalletSeed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="left|center"
+            android:text="Wallet Seed"
+            android:textSize="12sp" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvCryptoType"
@@ -26,6 +43,6 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="BTC"
-        android:textSize="20sp" />
+        android:textSize="10sp" />
 
 </LinearLayout>

@@ -62,6 +62,7 @@ class WalletsFragment : BaseFragment<WalletsContract.View, WalletsPresenter>(),
             val hdWalletData: HDWalletData = items[position]
             holder?.tvWalletLabel?.text = hdWalletData.label
             holder?.tvCryptoType?.text = hdWalletData.cryptoType.toString()
+            holder?.tvWalletSeed?.text = String.format("seed: %s", hdWalletData.seedHex)
             holder?.bind(hdWalletData)
         }
 
@@ -73,6 +74,7 @@ class WalletsFragment : BaseFragment<WalletsContract.View, WalletsPresenter>(),
         // hold ui elements
         val tvWalletLabel = view.tvWalletLabel
         val tvCryptoType = view.tvCryptoType
+        val tvWalletSeed = view.tvWalletSeed
 
         fun bind(item: HDWalletData) {
             view.setOnClickListener({
