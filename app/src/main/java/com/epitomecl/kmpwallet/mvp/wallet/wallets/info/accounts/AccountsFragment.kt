@@ -13,7 +13,7 @@ import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.api.APIManager
 import com.epitomecl.kmpwallet.di.Injector
 import com.epitomecl.kmpwallet.model.ActiveAddress
-import com.epitomecl.kmpwallet.model.UTXO
+import com.epitomecl.kmp.core.wallet.UTXO
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.InfoActivity
 import kotlinx.android.synthetic.main.fragment_accounts.*

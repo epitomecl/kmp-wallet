@@ -100,4 +100,25 @@ object APIManager {
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())
                     .blockingSingle()
+
+    @VisibleForTesting
+    fun coinFromFaucet(address: String, api_code: String) =
+            mTestService.coinFromFaucet(address, api_code)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.io())
+                    .blockingSingle()
+
+    @VisibleForTesting
+    fun addressFaucet(api_code: String) =
+            mTestService.addressFaucet(api_code)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.io())
+                    .blockingSingle()
+
+    @VisibleForTesting
+    fun checkTX(txid: String, api_code: String) =
+            mTestService.checkTX(txid, api_code)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.io())
+                    .blockingSingle()
 }

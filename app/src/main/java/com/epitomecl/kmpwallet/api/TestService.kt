@@ -1,5 +1,7 @@
 package com.epitomecl.kmpwallet.api
 
+import android.support.annotation.VisibleForTesting
+import com.epitomecl.kmp.core.wallet.UTXO
 import com.epitomecl.kmpwallet.model.*
 import io.reactivex.Observable
 import retrofit2.http.*
@@ -43,4 +45,21 @@ interface TestService {
     @POST("/send")
     fun pushTX(@Field("hashtx") hashtx : String,
                          @Field("api_code") api_code : String): Observable<SendTXResult>
+
+    @VisibleForTesting
+    @FormUrlEncoded
+    @POST("/coinfromfaucet")
+    fun coinFromFaucet(@Field("address") address : String,
+               @Field("api_code") api_code : String): Observable<SendTXResult>
+
+    @VisibleForTesting
+    @FormUrlEncoded
+    @POST("/addressfaucet")
+    fun addressFaucet(@Field("api_code") api_code : String): Observable<ActiveAddress>
+
+    @VisibleForTesting
+    @FormUrlEncoded
+    @POST("/checktx")
+    fun checkTX(@Field("txid") txid : String,
+                @Field("api_code") api_code : String): Observable<List<UTXO>>
 }

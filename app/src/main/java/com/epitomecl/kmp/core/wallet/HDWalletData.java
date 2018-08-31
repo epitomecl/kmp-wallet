@@ -1,7 +1,6 @@
 package com.epitomecl.kmp.core.wallet;
 
 import com.epitomecl.kmpwallet.api.APIManager;
-import com.epitomecl.kmpwallet.data.AppData;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -26,7 +25,6 @@ import info.blockchain.wallet.payment.SpendableUnspentOutputs;
 import info.blockchain.wallet.util.DoubleEncryptionFactory;
 import info.blockchain.wallet.util.PrivateKeyFactory;
 import org.apache.commons.codec.DecoderException;
-import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.crypto.DeterministicKey;
@@ -99,10 +97,10 @@ public class HDWalletData {
             case BITCOIN:
             case ETHEREUM:          //Create etherium wallet code from <== EthereumWalletTest.java
             case ETHEREUM_TESTNET:
-                result = BitcoinMainNetParams.get();
+                result = NetworkParameters.prodNet();
                 break;
             case BITCOIN_TESTNET:
-                result = BitcoinTestNet3Params.get();
+                result = NetworkParameters.testNet3();
                 break;
             case BITCOIN_CASH:
                 result = BitcoinCashMainNetParams.get();

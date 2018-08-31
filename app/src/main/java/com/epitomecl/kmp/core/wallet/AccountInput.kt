@@ -1,4 +1,4 @@
-package com.epitomecl.kmpwallet.model
+package com.epitomecl.kmp.core.wallet
 
 import org.bitcoinj.crypto.DeterministicKey
 

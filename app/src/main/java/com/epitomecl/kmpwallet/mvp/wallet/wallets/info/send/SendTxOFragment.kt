@@ -1,8 +1,6 @@
 package com.epitomecl.kmpwallet.mvp.wallet.wallets.info.send
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +11,7 @@ import com.epitomecl.kmp.core.wallet.HDWalletData
 import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.di.Injector
 import com.epitomecl.kmpwallet.model.SendTXResult
-import com.epitomecl.kmpwallet.model.UTXO
+import com.epitomecl.kmp.core.wallet.UTXO
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.InfoActivity
 import org.spongycastle.util.encoders.Hex

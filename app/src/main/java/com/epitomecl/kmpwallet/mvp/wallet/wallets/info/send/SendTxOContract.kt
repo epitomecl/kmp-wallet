@@ -3,8 +3,7 @@ package com.epitomecl.kmpwallet.mvp.wallet.wallets.info.send
 import com.epitomecl.kmpwallet.model.SendTXResult
 import com.epitomecl.kmpwallet.mvp.base.BasePresenter
 import com.epitomecl.kmpwallet.mvp.base.BaseView
-import org.bitcoinj.core.Sha256Hash
-import com.epitomecl.kmpwallet.model.UTXO
+import com.epitomecl.kmp.core.wallet.UTXO
 
 object SendTxOContract {
     interface View : BaseView {

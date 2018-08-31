@@ -1,4 +1,4 @@
-package com.epitomecl.kmpwallet.model
+package com.epitomecl.kmp.core.wallet
 
 data class UTXO(
     val hash: String,

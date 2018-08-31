@@ -1,6 +1,5 @@
 package com.epitomecl.kmp.core.wallet;
 
-import com.epitomecl.kmpwallet.model.UTXO;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

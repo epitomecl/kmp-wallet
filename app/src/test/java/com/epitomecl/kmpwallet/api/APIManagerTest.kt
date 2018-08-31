@@ -12,7 +12,7 @@ import org.junit.Assert.assertArrayEquals
 import com.epitomecl.kmpwallet.RxTestScheduler
 import com.epitomecl.kmpwallet.model.ActiveAddress
 import com.epitomecl.kmpwallet.model.SendTXResult
-import com.epitomecl.kmpwallet.model.UTXO
+import com.epitomecl.kmp.core.wallet.UTXO
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.send.SendTxOPresenter
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.send.SendTxOPresenter_Factory
 import org.junit.Assert.assertEquals
