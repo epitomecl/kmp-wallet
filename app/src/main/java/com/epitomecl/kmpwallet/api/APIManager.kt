@@ -101,6 +101,36 @@ object APIManager {
                     .observeOn(Schedulers.io())
                     .blockingSingle()
 
+    fun getSharingDataList(index: Int, api_code: String) =
+            mTestService.getSharingDataList(index, api_code)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.io())
+                    .blockingSingle()
+
+    fun getSharingDataOne(index: Int, label: String, api_code: String) =
+            mTestService.getSharingDataOne(index, label, api_code)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.io())
+                    .blockingSingle()
+
+    fun getSharingDataTwo(index: Int, label: String, api_code: String) =
+            mTestService.getSharingDataTwo(index, label, api_code)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.io())
+                    .blockingSingle()
+
+    fun backupSharingDataOne(index: Int, label: String, shareddata: String, api_code: String) =
+            mTestService.backupSharingDataOne(index, label, shareddata, api_code)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.io())
+                    .blockingSingle()
+
+    fun backupSharingDataTwo(index: Int, label: String, shareddata: String, api_code: String) =
+            mTestService.backupSharingDataTwo(index, label, shareddata, api_code)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.io())
+                    .blockingSingle()
+
     @VisibleForTesting
     fun coinFromFaucet(address: String, api_code: String) =
             mTestService.coinFromFaucet(address, api_code)

@@ -45,8 +45,12 @@ class RegistFragment : BaseFragment<RegistContract.View, RegistPresenter>(),
 
             mPresenter.registUser(id, pw)
                     .subscribe { s ->
-                        s.session
-                        onChangeWalletActivity()
+                        if(s.session != null) {
+                            onChangeWalletActivity()
+                        }
+                        else {
+                            Toast.makeText(getContext() , "regist error. check id and pw.", Toast.LENGTH_SHORT).show()
+                        }
                     }
         }
     }

@@ -1,9 +1,12 @@
 package com.epitomecl.kmpwallet.mvp.wallet
 
 import android.os.Bundle
+import android.view.View
+import com.epitomecl.kmp.core.wallet.HDWalletData
 import com.epitomecl.kmpwallet.R
+import com.epitomecl.kmpwallet.data.AppData
 import com.epitomecl.kmpwallet.mvp.base.BaseActivity
-import com.epitomecl.kmpwallet.mvp.wallet.create.BackupWalletFragment
+import com.epitomecl.kmpwallet.mvp.wallet.create.RestoreWalletFragment
 
 import com.epitomecl.kmpwallet.mvp.wallet.create.CreateWalletFragment
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.WalletsFragment
@@ -18,11 +21,31 @@ class WalletActivity : BaseActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wallet)
 
-        btnShowWalletList.setOnClickListener { onShowWalletList() }
-        btnCreateWallet.setOnClickListener { onCreateWallet() }
-        btnBackupWallet.setOnClickListener { onBackupWallet() }
+        btnRestoreWallet.setOnClickListener { onRestoreWallet() }
+        btnCancelRestore.setOnClickListener { onCancelRestore() }
 
-        onShowWalletList()
+        supportFragmentManager.addOnBackStackChangedListener {
+            if(supportFragmentManager.backStackEntryCount == 0) {
+                init()
+            }
+        }
+
+        init()
+    }
+
+    private fun init() {
+        val wallets: List<HDWalletData> = AppData.getHDWallets()
+        if(wallets.isNotEmpty()) {
+            onShowWalletList()
+        }
+        else {
+            onCreateWallet()
+        }
+    }
+
+    private fun buttons(restore: Int, cancel: Int) {
+        btnRestoreWallet.visibility = restore
+        btnCancelRestore.visibility = cancel
     }
 
     override fun onShowWalletList()
@@ -35,20 +58,26 @@ class WalletActivity : BaseActivity(),
 
     override fun onCreateWallet()
     {
+        buttons(View.VISIBLE, View.GONE)
+
         supportFragmentManager.beginTransaction()
                 .replace(R.id.flWallet, CreateWalletFragment())
                 .addToBackStack(null)
                 .commit()
     }
 
-    override fun onBackupWallet() {
+    override fun onRestoreWallet() {
+        buttons(View.GONE, View.VISIBLE)
+
         supportFragmentManager.beginTransaction()
-                .replace(R.id.flWallet, BackupWalletFragment())
+                .replace(R.id.flWallet, RestoreWalletFragment())
                 .addToBackStack(null)
                 .commit()
     }
 
-    override fun onAccount() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onCancelRestore() {
+        buttons(View.VISIBLE, View.GONE)
+
+        supportFragmentManager.popBackStack()
     }
 }

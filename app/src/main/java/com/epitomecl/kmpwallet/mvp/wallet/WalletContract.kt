@@ -7,8 +7,8 @@ object WalletContract {
     interface View : BaseView {
         fun onShowWalletList()
         fun onCreateWallet()
-        fun onBackupWallet()
-        fun onAccount()
+        fun onRestoreWallet()
+        fun onCancelRestore()
     }
 
     interface Presenter : BasePresenter<View> {

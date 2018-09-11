@@ -32,32 +32,19 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnShowWalletList"
+                android:id="@+id/btnRestoreWallet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Wallets" />
+                android:text="Restore Wallet" />
 
             <Button
-                android:id="@+id/btnCreateWallet"
+                android:id="@+id/btnCancelRestore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Create" />
+                android:text="Cancel" />
 
-            <Button
-                android:id="@+id/btnBackupWallet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Backup" />
-
-            <Button
-                android:id="@+id/btnAccount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Account" />
         </LinearLayout>
     </FrameLayout>
 

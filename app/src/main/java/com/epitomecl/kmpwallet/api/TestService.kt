@@ -46,6 +46,37 @@ interface TestService {
     fun pushTX(@Field("hashtx") hashtx : String,
                          @Field("api_code") api_code : String): Observable<SendTXResult>
 
+    @FormUrlEncoded
+    @POST("/sharingdatalist")
+    fun getSharingDataList(@Field("index") index : Int,
+                        @Field("api_code") api_code : String): Observable<List<String>>
+
+    @FormUrlEncoded
+    @POST("/sharingdataone")
+    fun getSharingDataOne(@Field("index") index : Int,
+                           @Field("label") label : String,
+                           @Field("api_code") api_code : String): Observable<SecretSharingVO>
+
+    @FormUrlEncoded
+    @POST("/sharingdatatwo")
+    fun getSharingDataTwo(@Field("index") index : Int,
+                           @Field("label") label : String,
+                           @Field("api_code") api_code : String): Observable<SecretSharingVO>
+
+    @FormUrlEncoded
+    @POST("/backupsharingdataone")
+    fun backupSharingDataOne(@Field("index") index : Int,
+                          @Field("label") label : String,
+                          @Field("shareddata") shareddata : String,
+                          @Field("api_code") api_code : String): Observable<SecretSharingResult>
+
+    @FormUrlEncoded
+    @POST("/backupsharingdatatwo")
+    fun backupSharingDataTwo(@Field("index") index : Int,
+                          @Field("label") label : String,
+                          @Field("shareddata") shareddata : String,
+                          @Field("api_code") api_code : String): Observable<SecretSharingResult>
+
     @VisibleForTesting
     @FormUrlEncoded
     @POST("/coinfromfaucet")
