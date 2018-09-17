@@ -2,6 +2,7 @@ package com.epitomecl.kmpwallet.mvp.wallet.wallets.info
 
 import com.epitomecl.kmp.core.wallet.AccountData
 import com.epitomecl.kmp.core.wallet.HDWalletData
+import com.epitomecl.kmpwallet.data.AppData
 import com.epitomecl.kmpwallet.mvp.base.BasePresenterImpl
 
 class InfoPresenter : BasePresenterImpl<InfoContract.View>(),
@@ -24,5 +25,10 @@ class InfoPresenter : BasePresenterImpl<InfoContract.View>(),
 
     override fun getAccount() : AccountData {
         return accountData
+    }
+
+    override fun addAccount(label : String) {
+        hdWalletData.addAccount(label)
+        AppData.saveHDWallets()
     }
 }

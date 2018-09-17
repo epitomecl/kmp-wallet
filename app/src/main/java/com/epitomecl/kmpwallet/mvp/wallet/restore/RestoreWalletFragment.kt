@@ -11,14 +11,10 @@ import com.epitomecl.kmpwallet.R
 import android.view.animation.TranslateAnimation
 import android.widget.Button
 import android.widget.Toast
-import com.epitomecl.kmp.core.wallet.CryptoType
-import com.epitomecl.kmp.core.wallet.HDWalletData
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
-import com.epitomecl.kmpwallet.mvp.wallet.wallets.WalletsFragment
-import kotlinx.android.synthetic.main.fragment_backupwallet.*
+import com.epitomecl.kmpwallet.mvp.wallet.WalletActivity
 import kotlinx.android.synthetic.main.fragment_restorewallet.*
 import kotlinx.android.synthetic.main.item_restoredwallet.view.*
-import kotlinx.android.synthetic.main.item_wallet.view.*
 
 class RestoreWalletFragment : BaseFragment<RestoreWalletContract.View, RestoreWalletPresenter>(),
         RestoreWalletContract.View {
@@ -42,27 +38,22 @@ class RestoreWalletFragment : BaseFragment<RestoreWalletContract.View, RestoreWa
         anim.duration = 300
         view.startAnimation(anim)
 
-        rvRestoredWallets.layoutManager = LinearLayoutManager(context)
-        rvRestoredWallets.adapter = RestoredWalletsItemAdapter(mPresenter.restoredWallets(), context!!, this)
-    }
-
-    override fun onClickRestore() {
-        if (isValidLabel()) {
-            //mPresenter.restoreWallet(CryptoType.BITCOIN_TESTNET, etRestoreSeed.text.toString())
-            fragmentManager?.popBackStack()
+        val restoredWallets: List<String> = mPresenter.restoredWallets()
+        if(restoredWallets.isNotEmpty()) {
+            rvRestoredWallets.layoutManager = LinearLayoutManager(context)
+            rvRestoredWallets.adapter = RestoredWalletsItemAdapter(restoredWallets, context!!, this)
+        }
+        else {
+            Toast.makeText(context, getString(R.string.msg_restored_wallet_not_exist), Toast.LENGTH_SHORT).show()
+            (context as WalletActivity).onCancelRestore()
         }
     }
 
-    override fun isValidLabel(): Boolean {
-//        if (etRestoreSeed.text.length > 0) {
-//            return true
-//        }
-
-        Toast.makeText(context, getString(R.string.msg_wallet_label_short), Toast.LENGTH_SHORT).show()
-
-        return false
+    override fun restoreWallet(label: String) {
+        if(mPresenter.restoreWallet(label)){
+            (context as WalletActivity).onShowWalletList()
+        }
     }
-
 
     class RestoredWalletsItemAdapter(private val items : List<String>, private val context: Context, private val fragment: RestoreWalletFragment) : RecyclerView.Adapter<ViewHolder>() {
 
@@ -91,7 +82,8 @@ class RestoreWalletFragment : BaseFragment<RestoreWalletContract.View, RestoreWa
 
         fun bind() {
             btnRestore.setOnClickListener {
-                //tvWalletLabel
+                val label: String = tvWalletLabel.text.toString()
+                fragment.restoreWallet(label)
             }
         }
     }

@@ -21,6 +21,7 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnegative;
@@ -125,14 +126,14 @@ public abstract class Scheme {
 
         //for Android API 24, java 1.8 under
         //final int[] lengths = parts.values().stream().mapToInt(v -> v.length).distinct().toArray();
-        ArrayList<Integer> partLengths = new ArrayList<>();
+        //checkArgument(lengths.length == 1, "Varying lengths of part values");
+        List<Integer> partLengths = new ArrayList<>();
         for(Map.Entry<Integer, byte[]> entry : parts.entrySet())
         {
             partLengths.add(entry.getValue().length);
         }
-        final int[] lengths = ArrayUtils.toPrimitive((Integer[])partLengths.toArray());
+        final int[] lengths = ArrayUtils.toPrimitive(partLengths.toArray(new Integer[partLengths.size()]));
 
-        checkArgument(lengths.length == 1, "Varying lengths of part values");
         final byte[] secret = new byte[lengths[0]];
         for (int i = 0; i < secret.length; i++) {
             final byte[][] points = new byte[parts.size()][2];

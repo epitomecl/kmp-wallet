@@ -15,12 +15,17 @@
     <string name="crypto_eth_test_big">ETH TESTNET</string>
 
     <string name="key_logintype">loginType</string>
+    <string name="key_user_index">userIndex</string>
     <string name="key_login_id">loginId</string>
     <string name="key_login_pw">loginPw</string>
     <string name="key_wallets">wallets</string>
 
     <string name="msg_select_crypto_type">Select CryptoType</string>
     <string name="msg_wallet_label_short">label is too short.</string>
+    <string name="msg_restored_wallet_not_exist">restored wallet is not exist.</string>
+    <string name="msg_restored_wallet_label_exist">this wallet label already exists.</string>
+    <string name="msg_backup_wallet_success">wallet backup success.</string>
+    <string name="msg_backup_wallet_fail">wallet backup fail.</string>
     <string name="msg_send_invalid_address">Invalid address</string>
     <string name="msg_send_zero_value">Check send satosi</string>
     <string name="msg_send_invalid_account_balance">Account balance is 0</string>

@@ -8,7 +8,7 @@ import com.epitomecl.kmpwallet.mvp.base.BaseView
 object InfoContract {
     interface View : BaseView {
         fun onShowAccounts()
-        fun onShowCreateAccount()
+        fun onCreateAccount()
         fun onShowSendTxO()
         fun getHDWalletData() : HDWalletData
         fun setAccount(account : AccountData)
@@ -20,5 +20,6 @@ object InfoContract {
         fun getHDWallet() : HDWalletData
         fun setAccount(accountData : AccountData)
         fun getAccount() : AccountData
+        fun addAccount(label : String)
     }
 }

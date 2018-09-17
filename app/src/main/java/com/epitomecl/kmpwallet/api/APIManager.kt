@@ -131,6 +131,18 @@ object APIManager {
                     .observeOn(Schedulers.io())
                     .blockingSingle()
 
+    fun getEncrypted(index: Int, label: String, api_code: String) =
+            mTestService.getEncrypted(index, label, api_code)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.io())
+                    .blockingSingle()
+
+    fun setEncrypted(index: Int, label: String, encrypted: String, api_code: String) =
+            mTestService.setEncrypted(index, label, encrypted, api_code)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.io())
+                    .blockingSingle()
+
     @VisibleForTesting
     fun coinFromFaucet(address: String, api_code: String) =
             mTestService.coinFromFaucet(address, api_code)

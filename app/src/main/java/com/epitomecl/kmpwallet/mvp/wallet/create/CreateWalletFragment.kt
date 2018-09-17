@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.epitomecl.kmp.core.wallet.CryptoType
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
+import com.epitomecl.kmpwallet.mvp.wallet.WalletActivity
 import kotlinx.android.synthetic.main.fragment_createwallet.*
 
 class CreateWalletFragment : BaseFragment<CreateWalletContract.View, CreateWalletPresenter>(),
@@ -49,7 +50,7 @@ class CreateWalletFragment : BaseFragment<CreateWalletContract.View, CreateWalle
     override fun onClickCreate() {
         if (isValidLabel()) {
             mPresenter.createWallet(cryptoType, etWalletLabel.text.toString())
-            fragmentManager?.popBackStack()
+            (context as WalletActivity).onCancelRestore()
         }
     }
 

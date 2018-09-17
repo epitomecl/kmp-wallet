@@ -23,6 +23,10 @@ abstract class BaseActivityOld<in V : BaseView, T : BasePresenter<in V>>
         Toast.makeText(this, error, Toast.LENGTH_LONG).show()
     }
 
+    override fun showError(resId: Int) {
+        Toast.makeText(this, getText(resId), Toast.LENGTH_LONG).show()
+    }
+
     override fun showMessage(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }

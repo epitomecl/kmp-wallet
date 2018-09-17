@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.view.animation.TranslateAnimation
 import android.widget.Toast
 import com.epitomecl.kmpwallet.R
+import com.epitomecl.kmpwallet.data.AppData
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import com.epitomecl.kmpwallet.mvp.intro.IntroActivity
 import kotlinx.android.synthetic.main.fragment_regist.*
@@ -46,6 +47,7 @@ class RegistFragment : BaseFragment<RegistContract.View, RegistPresenter>(),
             mPresenter.registUser(id, pw)
                     .subscribe { s ->
                         if(s.session != null) {
+                            AppData.setUserIndex(s.index)
                             onChangeWalletActivity()
                         }
                         else {

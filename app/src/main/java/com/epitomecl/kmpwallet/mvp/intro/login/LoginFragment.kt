@@ -51,6 +51,7 @@ class LoginFragment : BaseFragment<LoginContract.View, LoginPresenter>(),
             mPresenter.loginUser(id, pw)
                 .subscribe { s ->
                     if(s.session != null) {
+                        AppData.setUserIndex(s.index)
                         (getContext() as IntroActivity).onChangeWalletActivity()
                     }
                     else {

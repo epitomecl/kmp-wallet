@@ -8,7 +8,6 @@ import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.data.AppData
 import com.epitomecl.kmpwallet.mvp.base.BaseActivity
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.accounts.AccountsFragment
-import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.create.CreateAccountFragment
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.send.SendTxOFragment
 import kotlinx.android.synthetic.main.activity_wallet_info.*
 
@@ -21,10 +20,7 @@ class InfoActivity : BaseActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wallet_info)
 
-        btnNewAddress.setOnClickListener { onShowCreateAccount() }
-        btnSendCoin.setOnClickListener { onShowSendTxO() }
-        btnBackupSeed.setOnClickListener {  }
-        btnDeleteWallet.setOnClickListener {  }
+        btnNewAddress.setOnClickListener { onCreateAccount() }
 
         if (intent.hasExtra("walletlabel")) {
             val label = intent.getStringExtra("walletlabel")
@@ -51,12 +47,12 @@ class InfoActivity : BaseActivity(),
                 .commit()
     }
 
-    override fun onShowCreateAccount()
+    override fun onCreateAccount()
     {
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.flWalletInfo, CreateAccountFragment.newInstance())
-                .addToBackStack(null)
-                .commit()
+        mPresenter.addAccount("")
+
+        supportFragmentManager.popBackStack()
+        onShowAccounts()
     }
 
     override fun onShowSendTxO()

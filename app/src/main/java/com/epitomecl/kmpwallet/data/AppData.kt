@@ -37,6 +37,13 @@ class AppData(val application: Context, val sharedPreferences : SharedPreference
             field = value
         }
 
+    private var userIndex : Int? = -1
+        get() = prefs.getInt(application.getString(R.string.key_user_index), -1)
+        set(value) {
+            prefs.edit().putInt(application.getString(R.string.key_user_index), value as Int).commit()
+            field = value
+        }
+
     private var loginId : String? = ""
         get() = prefs.getString(application.getString(R.string.key_login_id), "")
         set(value) {
@@ -66,8 +73,8 @@ class AppData(val application: Context, val sharedPreferences : SharedPreference
         wallets = walletManager.createWallet(cryptoType, label)
     }
 
-    private fun restoreWallet(cryptoType : CryptoType, seed : String) {
-       walletManager.restoreWallet(cryptoType, seed)
+    private fun restoreWallet(cryptoType : CryptoType, seed : String, label : String) {
+       walletManager.restoreWallet(cryptoType, seed, label)
     }
 
     companion object {
@@ -80,6 +87,14 @@ class AppData(val application: Context, val sharedPreferences : SharedPreference
 
         fun setLoginType(loginType : LoginType) {
             mAppData.logintype = loginType.ordinal
+        }
+
+        fun getUserIndex() : Int? {
+            return mAppData.userIndex
+        }
+
+        fun setUserIndex(index: Int) {
+            mAppData.userIndex = index
         }
 
         fun getLoginId() : String? {
@@ -102,8 +117,8 @@ class AppData(val application: Context, val sharedPreferences : SharedPreference
             mAppData.createWallet(cryptoType, label)
         }
 
-        fun restoreWallet(cryptoType : CryptoType, seed : String) {
-            mAppData.restoreWallet(cryptoType, seed)
+        fun restoreWallet(cryptoType : CryptoType, seed : String, label : String) {
+            mAppData.restoreWallet(cryptoType, seed, label)
         }
 
         fun getHDWallets() : List<HDWalletData> {

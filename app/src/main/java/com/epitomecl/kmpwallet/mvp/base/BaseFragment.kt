@@ -37,6 +37,10 @@ abstract class BaseFragment<V : BaseView, P : BasePresenterImpl<V>>
         Toast.makeText(context, error, Toast.LENGTH_LONG).show()
     }
 
+    override fun showError(resId: Int) {
+        Toast.makeText(context, context?.getText(resId), Toast.LENGTH_LONG).show()
+    }
+
     override fun showMessage(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }

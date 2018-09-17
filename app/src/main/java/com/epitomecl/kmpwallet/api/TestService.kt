@@ -77,6 +77,19 @@ interface TestService {
                           @Field("shareddata") shareddata : String,
                           @Field("api_code") api_code : String): Observable<SecretSharingResult>
 
+    @FormUrlEncoded
+    @POST("/getencrypted")
+    fun getEncrypted(@Field("index") index : Int,
+                     @Field("label") label : String,
+                     @Field("api_code") api_code : String): Observable<EncryptedResult>
+
+    @FormUrlEncoded
+    @POST("/setencrypted")
+    fun setEncrypted(@Field("index") index : Int,
+                     @Field("label") label : String,
+                     @Field("encrypted") encrypted : String,
+                     @Field("api_code") api_code : String): Observable<EncryptedResult>
+
     @VisibleForTesting
     @FormUrlEncoded
     @POST("/coinfromfaucet")

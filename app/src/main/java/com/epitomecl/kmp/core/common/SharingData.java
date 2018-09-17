@@ -5,8 +5,11 @@ import com.epitomecl.kmp.core.util.shamir.Scheme;
 import info.blockchain.wallet.crypto.AESUtil;
 import org.bitcoinj.core.ECKey;
 import org.spongycastle.crypto.InvalidCipherTextException;
+import org.spongycastle.util.encoders.Hex;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.Map;
 
 public class SharingData {

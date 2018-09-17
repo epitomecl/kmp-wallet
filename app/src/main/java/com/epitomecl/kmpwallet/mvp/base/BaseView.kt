@@ -9,6 +9,7 @@ import android.content.Context
 interface BaseView {
 
     fun showError(error: String?)
+    fun showError(resId: Int)
     fun showMessage(message: String)
 
     fun showLoading()

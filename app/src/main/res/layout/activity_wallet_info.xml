@@ -9,14 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
-
-        <!-- <fragment
-            android:id="@+id/fragmentAccounts"
-            android:name="com.epitomecl.kmpwallet.mvp.wallet.wallets.AccountsFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            tools:layout="@layout/fragment_accounts" /> -->
     </FrameLayout>
 
     <FrameLayout
@@ -36,26 +28,6 @@
                 android:layout_weight="1"
                 android:text="New Addr" />
 
-            <Button
-                android:id="@+id/btnSendCoin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Send" />
-
-            <Button
-                android:id="@+id/btnBackupSeed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Backup" />
-
-            <Button
-                android:id="@+id/btnDeleteWallet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Delete" />
         </LinearLayout>
     </FrameLayout>
 </LinearLayout>
