@@ -1,15 +1,16 @@
 package com.epitomecl.kmpwallet.mvp.wallet.restore
 
+import com.epitomecl.kmp.core.wallet.CryptoType
 import com.epitomecl.kmpwallet.mvp.base.BasePresenter
 import com.epitomecl.kmpwallet.mvp.base.BaseView
 
-object RestoreWalletContract {
+object WalletFromSeedContract {
     interface View : BaseView {
-        fun restoreWallet(label: String)
+        fun onClickRestore()
+        fun isValidLabel(): Boolean
     }
 
     interface Presenter : BasePresenter<View> {
-        fun restoredWallets() : List<String>
-        fun restoreWallet(label: String): Boolean
+        fun restoreWallet(cryptoType: CryptoType, seed: String): Boolean
     }
 }

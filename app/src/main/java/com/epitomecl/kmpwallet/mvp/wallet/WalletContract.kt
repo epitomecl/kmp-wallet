@@ -9,6 +9,7 @@ object WalletContract {
         fun onShowWalletList()
         fun onCreateWallet()
         fun onRestoreWallet()
+        fun onWalletFromSeed()
         fun onBackupWallet()
         fun onCancelRestore()
     }

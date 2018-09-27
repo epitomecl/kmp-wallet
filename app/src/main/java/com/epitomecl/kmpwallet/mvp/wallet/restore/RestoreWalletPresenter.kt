@@ -1,4 +1,4 @@
-package com.epitomecl.kmpwallet.mvp.wallet.create
+package com.epitomecl.kmpwallet.mvp.wallet.restore
 
 import com.epitomecl.kmp.core.common.SharingData
 import com.epitomecl.kmp.core.wallet.CryptoType

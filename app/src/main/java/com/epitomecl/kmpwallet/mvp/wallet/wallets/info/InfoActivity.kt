@@ -1,6 +1,7 @@
 package com.epitomecl.kmpwallet.mvp.wallet.wallets.info
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.epitomecl.kmp.core.wallet.AccountData
 import com.epitomecl.kmp.core.wallet.HDWalletData
@@ -21,6 +22,7 @@ class InfoActivity : BaseActivity(),
         setContentView(R.layout.activity_wallet_info)
 
         btnNewAddress.setOnClickListener { onCreateAccount() }
+        btnSendCancel.setOnClickListener { onSendCancel() }
 
         if (intent.hasExtra("walletlabel")) {
             val label = intent.getStringExtra("walletlabel")
@@ -39,12 +41,21 @@ class InfoActivity : BaseActivity(),
         onShowAccounts()
     }
 
+    private fun buttons(newaddress: Int, cancel: Int) {
+        btnNewAddress.visibility = newaddress
+        btnSendCancel.visibility = cancel
+    }
+
     override fun onShowAccounts()
     {
+        buttons(View.VISIBLE, View.GONE)
+
         supportFragmentManager.beginTransaction()
                 .replace(R.id.flWalletInfo, AccountsFragment.newInstance())
                 .addToBackStack(null)
                 .commit()
+
+        supportFragmentManager.executePendingTransactions()
     }
 
     override fun onCreateAccount()
@@ -57,10 +68,16 @@ class InfoActivity : BaseActivity(),
 
     override fun onShowSendTxO()
     {
+        buttons(View.GONE, View.VISIBLE)
+
         supportFragmentManager.beginTransaction()
                 .replace(R.id.flWalletInfo, SendTxOFragment.newInstance())
                 .addToBackStack(null)
                 .commit()
+    }
+
+    override fun onSendCancel() {
+        onShowAccounts()
     }
 
     override fun getHDWalletData() : HDWalletData {

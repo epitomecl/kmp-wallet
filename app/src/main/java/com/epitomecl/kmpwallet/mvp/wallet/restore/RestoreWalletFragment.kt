@@ -1,4 +1,4 @@
-package com.epitomecl.kmpwallet.mvp.wallet.create
+package com.epitomecl.kmpwallet.mvp.wallet.restore
 
 import android.content.Context
 import android.os.Bundle

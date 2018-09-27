@@ -10,6 +10,7 @@ object InfoContract {
         fun onShowAccounts()
         fun onCreateAccount()
         fun onShowSendTxO()
+        fun onSendCancel()
         fun getHDWalletData() : HDWalletData
         fun setAccount(account : AccountData)
         fun getAccount() : AccountData
