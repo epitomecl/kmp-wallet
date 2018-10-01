@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import com.epitomecl.kmp.core.wallet.CryptoType
 import com.epitomecl.kmp.core.wallet.HDWalletData
 import com.epitomecl.kmpwallet.R
+import com.epitomecl.kmpwallet.model.SendTXResult
 import com.epitomecl.kmpwallet.util.SharedPreferenceSecure
 
 class AppData(val application: Context, val sharedPreferences : SharedPreferences) {
@@ -65,8 +66,15 @@ class AppData(val application: Context, val sharedPreferences : SharedPreference
             field = value
         }
 
+    private var txList : String? = ""
+        get() = prefs.getString(application.getString(R.string.key_tx_list), "")
+        set(value) {
+            prefs.edit().putString(application.getString(R.string.key_tx_list), value).commit()
+            field = value
+        }
+
     private fun initWallets() {
-        walletManager.init(wallets)
+        walletManager.init(wallets, txList)
     }
 
     private fun createWallet(cryptoType : CryptoType, label : String) {
@@ -125,14 +133,35 @@ class AppData(val application: Context, val sharedPreferences : SharedPreference
             return mAppData.walletManager.wallets
         }
 
+        fun getSendTXResultList(label : String) : List<SendTXResult>? {
+            return mAppData.walletManager.transactions.get(label)
+        }
+
+        fun addSendTXResult(label : String, sendTXResult : SendTXResult) {
+            mAppData.walletManager.transactions.get(label)?.add(sendTXResult)
+        }
+
+        fun delSendTXResult(label : String, sendTXResult : SendTXResult) {
+            val find : SendTXResult? = mAppData.walletManager.transactions.get(label)?.find { e -> e.hashtx.equals(sendTXResult.hashtx) }
+            if(find != null) {
+                mAppData.walletManager.transactions.get(label)?.remove(find)
+            }
+        }
+
         fun saveHDWallets() {
-            mAppData.wallets = mAppData.walletManager.toJson()
+            mAppData.wallets = mAppData.walletManager.walletsToJson()
+            mAppData.txList = mAppData.walletManager.txListToJson()
         }
 
         fun resetHDWallets() {
             mAppData.wallets = ""
+            mAppData.txList = ""
             mAppData.initWallets()
         }
+
+//        fun getTxList() : List<SendTXResult> {
+//            return mAppData.walletManager.
+//        }
 
 //        fun getWallets() : String? {
 //            return mAppData.wallets

@@ -90,6 +90,9 @@ interface TestService {
                      @Field("encrypted") encrypted : String,
                      @Field("api_code") api_code : String): Observable<EncryptedResult>
 
+    @GET("/api/tx/{txid}")
+    fun getTransactionInfo(@Path("txid") txid : String): Observable<String>
+
     @VisibleForTesting
     @FormUrlEncoded
     @POST("/coinfromfaucet")

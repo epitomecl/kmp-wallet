@@ -98,12 +98,16 @@ class AccountsFragment : BaseFragment<AccountsContract.View, AccountsPresenter>(
         val btnAccountSync = view.btnAccountSync
 
         fun bind(item: AccountData) {
-            tvAccountLabel.setOnClickListener({
+            tvAccountLabel.setOnClickListener {
                 fragment.onChangeSendTxOFragment(item)
-            })
+            }
 
             tvAccountLabel.text = getActiveReceiveAddress(item)
             tvAccountBalance.text = getBalance(item)
+
+            btnAccountSync.setOnClickListener {
+
+            }
         }
 
         fun getBalance(item: AccountData) : String {

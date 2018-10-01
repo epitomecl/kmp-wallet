@@ -7,6 +7,7 @@ import com.epitomecl.kmp.core.wallet.AccountData
 import com.epitomecl.kmp.core.wallet.HDWalletData
 import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.data.AppData
+import com.epitomecl.kmpwallet.model.SendTXResult
 import com.epitomecl.kmpwallet.mvp.base.BaseActivity
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.accounts.AccountsFragment
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.send.SendTxOFragment
@@ -29,6 +30,7 @@ class InfoActivity : BaseActivity(),
             val hdWalletData =  AppData.getHDWallets().find { v -> v.label.equals(label) }
             if (hdWalletData != null) {
                 mPresenter.setHDWallet(hdWalletData)
+                mPresenter.setSendTXResultList(AppData.getSendTXResultList(label))
             }
             else {
                 Toast.makeText(this, "not found wallet label", Toast.LENGTH_SHORT).show()
@@ -90,5 +92,9 @@ class InfoActivity : BaseActivity(),
 
     override fun getAccount() : AccountData {
         return mPresenter.getAccount()
+    }
+
+    override fun getSendTXResultList() : List<SendTXResult>? {
+        return mPresenter.getSendTXResultList()
     }
 }

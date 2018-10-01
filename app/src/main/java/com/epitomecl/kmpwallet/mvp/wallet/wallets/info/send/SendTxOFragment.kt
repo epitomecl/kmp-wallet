@@ -1,6 +1,9 @@
 package com.epitomecl.kmpwallet.mvp.wallet.wallets.info.send
 
+import android.content.Context
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +15,16 @@ import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.di.Injector
 import com.epitomecl.kmpwallet.model.SendTXResult
 import com.epitomecl.kmp.core.wallet.UTXO
+import com.epitomecl.kmpwallet.api.APIManager
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.InfoActivity
 import org.spongycastle.util.encoders.Hex
 import kotlinx.android.synthetic.main.fragment_sendtxo.*
+import kotlinx.android.synthetic.main.item_sendtx_result.view.*
 import javax.inject.Inject
 import org.bitcoinj.core.NetworkParameters
 import org.bitcoinj.core.Transaction
+import org.json.JSONObject
 import java.math.BigInteger
 
 
@@ -75,6 +81,9 @@ class SendTxOFragment : BaseFragment<SendTxOContract.View,
         tvSendFromBalance.text = activity.getString(R.string.label_account_has) + " " + UTXO.satoshiToCoin(accountData.balance).toString() + " " + activity.getString(R.string.crypto_btc_big)
 
         btnSend.setOnClickListener { onSend() }
+
+        rvSendTXResult.layoutManager = LinearLayoutManager(context)
+        rvSendTXResult.adapter = SendTXResultItemAdapter((context as InfoActivity).getSendTXResultList(), context!!, this)
     }
 
     override fun onSend() {
@@ -94,13 +103,18 @@ class SendTxOFragment : BaseFragment<SendTxOContract.View,
 
             val result : SendTXResult = mPresenter.pushTx(hashtx)
 
-            val tx = Transaction(NetworkParameters.testNet(), Hex.decode(hashtx))
+            if(result.error != null) {
+                val tx = Transaction(NetworkParameters.testNet(), Hex.decode(hashtx))
 
-            if(tx.isPending) {
-                Toast.makeText(context, "send result: PENDING...", Toast.LENGTH_SHORT).show()
+                if(tx.isPending) {
+                    Toast.makeText(context, "send result: PENDING...", Toast.LENGTH_SHORT).show()
+                }
+                else {
+                    Toast.makeText(context, "send result: REJECT", Toast.LENGTH_SHORT).show()
+                }
             }
             else {
-                Toast.makeText(context, "send result: REJECT", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "send result: ERROR => " + result.error, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -120,5 +134,57 @@ class SendTxOFragment : BaseFragment<SendTxOContract.View,
         }
 
         return true
+    }
+
+
+    class SendTXResultItemAdapter(private val items : List<SendTXResult>?, val context: Context, private val fragment: SendTxOFragment) : RecyclerView.Adapter<ViewHolder>() {
+
+        override fun getItemCount(): Int {
+            if(items != null) {
+                return items.size
+            }
+            return 0
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
+            return ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_sendtx_result, parent, false), fragment)
+        }
+
+        override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
+            val sendTXResult: SendTXResult = items!![position]
+            holder?.tvTXID?.text = ""
+            holder?.tvSendToAddress?.text = ""
+            holder?.tvSendAmount?.text = "0.0"
+            holder?.bind(sendTXResult)
+        }
+    }
+
+    class ViewHolder (view: View, fragment: SendTxOFragment) : RecyclerView.ViewHolder(view) {
+        val view = view
+        val fragment = fragment
+        // hold ui elements
+        val tvTXID = view.tvTXID
+        val tvSendToAddress = view.tvSendToAddress
+        val tvSendAmount = view.tvSendAmount
+        val tvSendTXConfirm = view.tvSendTXConfirm
+
+        fun bind(item: SendTXResult) {
+            val tx = Transaction(NetworkParameters.testNet(), Hex.decode(item.hashtx))
+
+            tvTXID.text = tx.hashAsString
+            tvSendToAddress.text = tx.getOutput(1).getAddressFromP2PKHScript(NetworkParameters.testNet())?.toBase58()
+            tvSendAmount.text = tx.getOutput(1).value.toFriendlyString()
+
+            val json_tx : String = APIManager.getTransactionInfo(tx.hashAsString)
+            if(json_tx!= null) {
+                val objects = JSONObject(json_tx)
+                val confirmations = objects.optString("confirmations") + " Confirm"
+
+                tvSendTXConfirm.text = confirmations
+            }
+            else {
+                tvSendTXConfirm.text = "0 Confirm"
+            }
+        }
     }
 }

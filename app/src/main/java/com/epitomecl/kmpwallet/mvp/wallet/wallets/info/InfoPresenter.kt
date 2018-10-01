@@ -3,6 +3,7 @@ package com.epitomecl.kmpwallet.mvp.wallet.wallets.info
 import com.epitomecl.kmp.core.wallet.AccountData
 import com.epitomecl.kmp.core.wallet.HDWalletData
 import com.epitomecl.kmpwallet.data.AppData
+import com.epitomecl.kmpwallet.model.SendTXResult
 import com.epitomecl.kmpwallet.mvp.base.BasePresenterImpl
 
 class InfoPresenter : BasePresenterImpl<InfoContract.View>(),
@@ -10,6 +11,7 @@ class InfoPresenter : BasePresenterImpl<InfoContract.View>(),
 
     lateinit var hdWalletData : HDWalletData
     lateinit var accountData : AccountData
+    private var txList : List<SendTXResult>? = null
 
     override fun setHDWallet(hdWalletData : HDWalletData) {
         this.hdWalletData = hdWalletData
@@ -24,11 +26,19 @@ class InfoPresenter : BasePresenterImpl<InfoContract.View>(),
     }
 
     override fun getAccount() : AccountData {
-        return accountData
+        return this.accountData
     }
 
     override fun addAccount(label : String) {
-        hdWalletData.addAccount(label)
+        this.hdWalletData.addAccount(label)
         AppData.saveHDWallets()
+    }
+
+    override fun getSendTXResultList() : List<SendTXResult>? {
+        return this.txList
+    }
+
+    override fun setSendTXResultList(txList : List<SendTXResult>?) {
+        this.txList = txList
     }
 }

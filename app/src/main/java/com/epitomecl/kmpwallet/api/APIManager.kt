@@ -15,10 +15,12 @@ object APIManager {
     private const val SERVER_URI: String = BuildConfig.SERVER_URI
 
     private lateinit var mTestService: TestService
+    private lateinit var mBlockExplorerService: TestService
 
     init {
-        val retrofit = initRetrofit()
-        initServices(retrofit)
+        val retrofit = initRetrofit(SERVER_URI)
+        val retrofitBlockExplorer = initRetrofit("https://testnet.blockexplorer.com:443")
+        initServices(retrofit, retrofitBlockExplorer)
     }
 
     @VisibleForTesting
@@ -26,7 +28,7 @@ object APIManager {
         mTestService = testService
     }
 
-    private fun initRetrofit(): Retrofit {
+    private fun initRetrofit(baseUri: String): Retrofit {
         val interceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
@@ -42,7 +44,7 @@ object APIManager {
             addInterceptor(interceptor)
         }
 
-        return Retrofit.Builder().baseUrl(SERVER_URI)
+        return Retrofit.Builder().baseUrl(baseUri)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(createMoshiConverter())
                 .client(client.build())
@@ -51,9 +53,9 @@ object APIManager {
 
     private fun createMoshiConverter(): MoshiConverterFactory = MoshiConverterFactory.create()
 
-    private fun initServices(retrofit: Retrofit) {
+    private fun initServices(retrofit: Retrofit, retrofitBlockExplorer: Retrofit) {
         mTestService = retrofit.create(TestService::class.java)
-
+        mBlockExplorerService = retrofitBlockExplorer.create(TestService::class.java)
     }
 
     fun loadTest(param: Number) =
@@ -139,6 +141,12 @@ object APIManager {
 
     fun setEncrypted(index: Int, label: String, encrypted: String, api_code: String) =
             mTestService.setEncrypted(index, label, encrypted, api_code)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.io())
+                    .blockingSingle()
+
+    fun getTransactionInfo(txid: String) =
+            mBlockExplorerService.getTransactionInfo(txid)
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())
                     .blockingSingle()

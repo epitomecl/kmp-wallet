@@ -19,6 +19,7 @@
     <string name="key_login_id">loginId</string>
     <string name="key_login_pw">loginPw</string>
     <string name="key_wallets">wallets</string>
+    <string name="key_tx_list">txList</string>
 
     <string name="msg_select_crypto_type">Select CryptoType</string>
     <string name="msg_wallet_label_short">label is too short.</string>

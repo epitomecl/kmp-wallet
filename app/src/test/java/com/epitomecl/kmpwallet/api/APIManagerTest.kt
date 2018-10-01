@@ -38,7 +38,7 @@ class APIManagerTest : RxTestScheduler() {
 
         val id = "aaaa"
         val pw = "aaaa"
-        val userVO = UserVO("user_session")
+        val userVO = UserVO("user_session", 1, id)
 
         whenever(testService.postLogin(id, pw))
                 .thenReturn(Observable.just(userVO))
@@ -58,7 +58,7 @@ class APIManagerTest : RxTestScheduler() {
     fun test2RegistAPI() {
         val id = "aaaa"
         val pw = "aaaa"
-        val userVO = UserVO("user_session")
+        val userVO = UserVO("user_session", 1, id)
 
         whenever(testService.postRegist(id, pw))
                 .thenReturn(Observable.just(userVO))
@@ -151,7 +151,7 @@ class APIManagerTest : RxTestScheduler() {
     fun test7PushTXAPI() {
         val xpub = "tpubDDZWXtva1hncbfjckydHWua6Tp6gt8JPNrhQw63kGvSp6NeMQkiBbsQ3iofX1MUCR8vZzpwcKSLVdTSBtGLpDvQTnkxN5azfugVxJYG3Ytj"
         val api_code = "api_code"
-        val sendTXResult = SendTXResult("hashtx-string")
+        val sendTXResult = SendTXResult("hashtx-string", "")
 
         whenever(testService.pushTX(xpub, api_code))
                 .thenReturn(Observable.just(sendTXResult))
@@ -185,7 +185,7 @@ class APIManagerTest : RxTestScheduler() {
         val hashtx: String = presenter.makeTx(privKeyString, pubKeyString, toAddress,
                 send_satoshi, utxos)
 
-        val sendTXResult = SendTXResult(hashtx)
+        val sendTXResult = SendTXResult(hashtx, "")
         whenever(testService.pushTX(hashtx,api_code))
                 .thenReturn(Observable.just(sendTXResult))
 
