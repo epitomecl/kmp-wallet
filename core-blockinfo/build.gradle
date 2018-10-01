@@ -11,7 +11,7 @@ android {
     }
 
     compileSdkVersion 27
-    buildToolsVersion "27.0.3"
+    buildToolsVersion '28.0.2'
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 27
@@ -76,7 +76,7 @@ dependencies {
     testImplementation "junit:junit:4.12"
     testImplementation "org.mockito:mockito-core:2.8.47"
     testImplementation "org.hamcrest:hamcrest-junit:2.0.0.0"
-    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:1.2.31"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:1.2.51"
     testImplementation "org.amshove.kluent:kluent:1.19"
     testImplementation("com.nhaarman:mockito-kotlin:1.5.0") {
         ['kotlin-stdlib', 'kotlin-reflect'].each { exclude module: it }

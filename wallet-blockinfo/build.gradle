@@ -10,7 +10,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.31"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.51"
     }
 }
 
@@ -42,7 +42,7 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 
 dependencies {
     // Expose Kotlin to all parent modules
-    api "org.jetbrains.kotlin:kotlin-stdlib:1.2.31"
+    api "org.jetbrains.kotlin:kotlin-stdlib:1.2.51"
     api files('libs/bitcoinj-core-0.15-SNAPSHOT.jar')
     api files('libs/api-client-0.1.16-SNAPSHOT.jar')
     api "org.web3j:core-android:2.2.1"
