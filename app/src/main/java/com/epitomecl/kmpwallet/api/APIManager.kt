@@ -10,6 +10,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
 
 object APIManager {
     private const val SERVER_URI: String = BuildConfig.SERVER_URI
@@ -33,7 +34,11 @@ object APIManager {
             level = HttpLoggingInterceptor.Level.BODY
         }
 
-        val client = OkHttpClient.Builder().apply {
+        val client = OkHttpClient.Builder()
+                .connectTimeout(1, TimeUnit.MINUTES)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .apply {
             networkInterceptors().add(Interceptor { chain ->
                 val original = chain.request()
                 val request = original.newBuilder()

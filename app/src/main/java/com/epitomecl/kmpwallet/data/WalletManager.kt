@@ -96,7 +96,9 @@ class WalletManager {
             wallet.put("Label", e.key)
 
             e.value.forEach { e -> run {
-                transactions.put(e.hashtx)
+                val hashtx = JSONObject()
+                hashtx.put("HashTX", e.hashtx)
+                transactions.put(hashtx)
             }}
 
             wallet.put("Transactions",transactions)

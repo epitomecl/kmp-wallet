@@ -26,7 +26,7 @@ class TXBuilder {
         change_satoshi = Math.abs(change_satoshi)
 
         val tx : Transaction = Transaction(params)
-        tx.getConfidence().setSource(TransactionConfidence.Source.SELF)
+        tx.getConfidence().setSource(TransactionConfidence.Source.UNKNOWN)
         tx.setPurpose(Transaction.Purpose.USER_PAYMENT)
 
         var toAddress : Address = Address(params, toAddress)

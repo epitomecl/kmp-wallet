@@ -138,7 +138,14 @@ class AppData(val application: Context, val sharedPreferences : SharedPreference
         }
 
         fun addSendTXResult(label : String, sendTXResult : SendTXResult) {
-            mAppData.walletManager.transactions.get(label)?.add(sendTXResult)
+            if(getSendTXResultList(label) == null) {
+                val list : MutableList<SendTXResult> = mutableListOf()
+                list.add(sendTXResult)
+                mAppData.walletManager.transactions.put(label, list)
+            }
+            else {
+                mAppData.walletManager.transactions.get(label)?.add(sendTXResult)
+            }
         }
 
         fun delSendTXResult(label : String, sendTXResult : SendTXResult) {

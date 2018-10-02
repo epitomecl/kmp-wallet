@@ -4,6 +4,8 @@ import android.support.annotation.VisibleForTesting
 import com.epitomecl.kmp.core.wallet.UTXO
 import com.epitomecl.kmpwallet.model.*
 import io.reactivex.Observable
+import okhttp3.ResponseBody
+import retrofit2.Response
 import retrofit2.http.*
 
 interface TestService {
@@ -91,7 +93,7 @@ interface TestService {
                      @Field("api_code") api_code : String): Observable<EncryptedResult>
 
     @GET("/api/tx/{txid}")
-    fun getTransactionInfo(@Path("txid") txid : String): Observable<String>
+    fun getTransactionInfo(@Path("txid") txid : String): Observable<Response<ResponseBody>>
 
     @VisibleForTesting
     @FormUrlEncoded

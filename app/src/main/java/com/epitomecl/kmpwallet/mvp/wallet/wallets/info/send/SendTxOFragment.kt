@@ -16,15 +16,18 @@ import com.epitomecl.kmpwallet.di.Injector
 import com.epitomecl.kmpwallet.model.SendTXResult
 import com.epitomecl.kmp.core.wallet.UTXO
 import com.epitomecl.kmpwallet.api.APIManager
+import com.epitomecl.kmpwallet.data.AppData
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.InfoActivity
 import org.spongycastle.util.encoders.Hex
 import kotlinx.android.synthetic.main.fragment_sendtxo.*
 import kotlinx.android.synthetic.main.item_sendtx_result.view.*
+import okhttp3.ResponseBody
 import javax.inject.Inject
 import org.bitcoinj.core.NetworkParameters
 import org.bitcoinj.core.Transaction
 import org.json.JSONObject
+import retrofit2.Response
 import java.math.BigInteger
 
 
@@ -101,21 +104,30 @@ class SendTxOFragment : BaseFragment<SendTxOContract.View,
             val hashtx = mPresenter.makeTx(privKeyString, pubKeyString, toAddress,
                     send_satoshi, accountData.utxos)
 
-            val result : SendTXResult = mPresenter.pushTx(hashtx)
+            try {
+                val result : SendTXResult = mPresenter.pushTx(hashtx)
 
-            if(result.error != null) {
-                val tx = Transaction(NetworkParameters.testNet(), Hex.decode(hashtx))
+                if(result.error != null) {
+                    val tx = Transaction(NetworkParameters.testNet(), Hex.decode(hashtx))
 
-                if(tx.isPending) {
-                    Toast.makeText(context, "send result: PENDING...", Toast.LENGTH_SHORT).show()
+                    if(tx.isPending) {
+                        Toast.makeText(context, "send result: PENDING...", Toast.LENGTH_SHORT).show()
+                    }
+                    else {
+                        Toast.makeText(context, "send result: REJECT", Toast.LENGTH_SHORT).show()
+                    }
                 }
                 else {
-                    Toast.makeText(context, "send result: REJECT", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "send result: ERROR => " + result.error, Toast.LENGTH_SHORT).show()
                 }
+            } catch (e: Exception) {
+
             }
-            else {
-                Toast.makeText(context, "send result: ERROR => " + result.error, Toast.LENGTH_SHORT).show()
-            }
+
+            val sendResult : SendTXResult = SendTXResult(hashtx, "")
+            AppData.addSendTXResult(hdWalletData.label, sendResult)
+            AppData.saveHDWallets()
+            (context as InfoActivity).onShowAccounts()
         }
     }
 
@@ -172,12 +184,12 @@ class SendTxOFragment : BaseFragment<SendTxOContract.View,
             val tx = Transaction(NetworkParameters.testNet(), Hex.decode(item.hashtx))
 
             tvTXID.text = tx.hashAsString
-            tvSendToAddress.text = tx.getOutput(1).getAddressFromP2PKHScript(NetworkParameters.testNet())?.toBase58()
-            tvSendAmount.text = tx.getOutput(1).value.toFriendlyString()
+            tvSendToAddress.text = tx.getOutput(0).getAddressFromP2PKHScript(NetworkParameters.testNet())?.toBase58()
+            tvSendAmount.text = tx.getOutput(0).value.toFriendlyString()
 
-            val json_tx : String = APIManager.getTransactionInfo(tx.hashAsString)
+            val json_tx : Response<ResponseBody> = APIManager.getTransactionInfo(tx.hashAsString)
             if(json_tx!= null) {
-                val objects = JSONObject(json_tx)
+                val objects = JSONObject(json_tx.body()?.string())
                 val confirmations = objects.optString("confirmations") + " Confirm"
 
                 tvSendTXConfirm.text = confirmations
