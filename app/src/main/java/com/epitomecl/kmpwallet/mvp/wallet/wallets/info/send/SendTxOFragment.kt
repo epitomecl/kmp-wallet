@@ -76,7 +76,7 @@ class SendTxOFragment : BaseFragment<SendTxOContract.View,
         anim.duration = 300
         view.startAnimation(anim)
 
-        val activity =  (context as InfoActivity)
+        val activity =  getInfoActivity()
 
         val accountData : AccountData = activity.getAccount()
 
@@ -86,13 +86,13 @@ class SendTxOFragment : BaseFragment<SendTxOContract.View,
         btnSend.setOnClickListener { onSend() }
 
         rvSendTXResult.layoutManager = LinearLayoutManager(context)
-        rvSendTXResult.adapter = SendTXResultItemAdapter((context as InfoActivity).getSendTXResultList(), context!!, this)
+        rvSendTXResult.adapter = SendTXResultItemAdapter(getInfoActivity().getSendTXResultList(), context!!, this)
     }
 
     override fun onSend() {
         //for send test
-        var hdWalletData = (context as InfoActivity).getHDWalletData()
-        var accountData = (context as InfoActivity).getAccount()
+        var hdWalletData = getInfoActivity().getHDWalletData()
+        var accountData = getInfoActivity().getAccount()
 
         if(isValid(accountData)) {
             var privKeyString : String = accountData.xpriv
@@ -127,7 +127,7 @@ class SendTxOFragment : BaseFragment<SendTxOContract.View,
             val sendResult : SendTXResult = SendTXResult(hashtx, "")
             AppData.addSendTXResult(hdWalletData.label, sendResult)
             AppData.saveHDWallets()
-            (context as InfoActivity).onShowAccounts()
+            getInfoActivity().onShowAccounts()
         }
     }
 
@@ -148,6 +148,9 @@ class SendTxOFragment : BaseFragment<SendTxOContract.View,
         return true
     }
 
+    private fun getInfoActivity() : InfoActivity {
+        return (activity as InfoActivity)
+    }
 
     class SendTXResultItemAdapter(private val items : List<SendTXResult>?, val context: Context, private val fragment: SendTxOFragment) : RecyclerView.Adapter<ViewHolder>() {
 
@@ -190,9 +193,15 @@ class SendTxOFragment : BaseFragment<SendTxOContract.View,
             val json_tx : Response<ResponseBody> = APIManager.getTransactionInfo(tx.hashAsString)
             if(json_tx!= null) {
                 val objects = JSONObject(json_tx.body()?.string())
-                val confirmations = objects.optString("confirmations") + " Confirm"
+                val confirmations = objects.optString("confirmations")
 
-                tvSendTXConfirm.text = confirmations
+                tvSendTXConfirm.text = confirmations  + " Confirm"
+
+                if(confirmations.toInt() > 6) {
+                    //remove send transaction that found more then 6 confirms
+                    val label : String = fragment.getInfoActivity().getHDWalletData().label
+                    AppData.delSendTXResult(label, item)
+                }
             }
             else {
                 tvSendTXConfirm.text = "0 Confirm"
