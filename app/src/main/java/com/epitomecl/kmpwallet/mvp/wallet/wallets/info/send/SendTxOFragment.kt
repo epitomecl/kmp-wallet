@@ -85,8 +85,9 @@ class SendTxOFragment : BaseFragment<SendTxOContract.View,
 
         btnSend.setOnClickListener { onSend() }
 
+        val items : List<SendTXResult>? = getInfoActivity().getSendTXResultList()?.toMutableList()
         rvSendTXResult.layoutManager = LinearLayoutManager(context)
-        rvSendTXResult.adapter = SendTXResultItemAdapter(getInfoActivity().getSendTXResultList(), context!!, this)
+        rvSendTXResult.adapter = SendTXResultItemAdapter(items, context!!, this)
     }
 
     override fun onSend() {
@@ -170,6 +171,7 @@ class SendTxOFragment : BaseFragment<SendTxOContract.View,
             holder?.tvTXID?.text = ""
             holder?.tvSendToAddress?.text = ""
             holder?.tvSendAmount?.text = "0.0"
+            holder?.tvSendTXConfirm?.text = "0 Confirm"
             holder?.bind(sendTXResult)
         }
     }
@@ -192,19 +194,21 @@ class SendTxOFragment : BaseFragment<SendTxOContract.View,
 
             val json_tx : Response<ResponseBody> = APIManager.getTransactionInfo(tx.hashAsString)
             if(json_tx!= null) {
-                val objects = JSONObject(json_tx.body()?.string())
-                val confirmations = objects.optString("confirmations")
+                val label : String = fragment.getInfoActivity().getHDWalletData().label
+                var confirm : Int = 6
 
-                tvSendTXConfirm.text = confirmations  + " Confirm"
+                if(json_tx.body() != null) {
+                    val objects = JSONObject(json_tx.body()?.string())
+                    val confirmations = objects.optString("confirmations")
+                    confirm = confirmations.toInt()
 
-                if(confirmations.toInt() > 6) {
+                    tvSendTXConfirm.text = confirmations  + " Confirm"
+                }
+
+                if(confirm >= 6) {
                     //remove send transaction that found more then 6 confirms
-                    val label : String = fragment.getInfoActivity().getHDWalletData().label
                     AppData.delSendTXResult(label, item)
                 }
-            }
-            else {
-                tvSendTXConfirm.text = "0 Confirm"
             }
         }
     }

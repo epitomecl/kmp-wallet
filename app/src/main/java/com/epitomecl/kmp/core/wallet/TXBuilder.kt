@@ -6,8 +6,9 @@ import org.bitcoinj.script.Script
 import org.bitcoinj.wallet.KeyChain
 import org.spongycastle.util.encoders.Hex
 
-class TXBuilder {
+class TXBuilder (api : IAPIManager) {
 
+    private var api : IAPIManager = api
     private var change_satoshi : Long = 0
 
     fun makeTx(privKeyString: String, pubKeyString: String, toAddress: String, changeAddress: String,
@@ -69,15 +70,18 @@ class TXBuilder {
         val result = mutableListOf<AccountInput>()
 
         val key = deriver.getKey(purpose)
-        val address = key.toAddress(params).toBase58();
-        val find : UTXO? = utxos.find { v -> v.toAddress.equals(address) }
+        val address = key.toAddress(params).toBase58()
+        val find : List<UTXO> = utxos.filter { v -> v.toAddress.equals(address) }
+        val spentTxoCount : Int = api.spendTXOCount(address)
 
-        if(find != null) {
-            change_satoshi -= find.value.toLong()
-            utxos.remove(find)
+        if(find.isNotEmpty()) {
+            find.forEach { e -> run {
+                change_satoshi -= e.value.toLong()
+                utxos.remove(e)
 
-            val input = AccountInput(find, key)
-            result.add(input)
+                val input = AccountInput(e, key)
+                result.add(input)
+            }}
         }
 
         if(change_satoshi < 0) {
@@ -85,7 +89,7 @@ class TXBuilder {
         }
 
         val childKeyNode = deriver.getChildKeyNode(purpose)
-        if (result.size == 0) {
+        if ((result.size == 0) && (spentTxoCount == 0)) {
             childKeyNode.addGap()
             if (childKeyNode.gap >= 20) {
                 return result

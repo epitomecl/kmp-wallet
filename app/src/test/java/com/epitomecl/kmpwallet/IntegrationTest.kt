@@ -47,7 +47,7 @@ class IntegrationTest {
         val utxos: MutableList<UTXO> = mutableListOf()
         utxos.add(utxo!!)
 
-        val txBuilder: TXBuilder = TXBuilder()
+        val txBuilder: TXBuilder = TXBuilder(APIManager)
         val hashtx = txBuilder.makeTx(privKeyString, pubKeyString,
                 toAddress, changeAddress.address,
                 send_satoshi, utxos)

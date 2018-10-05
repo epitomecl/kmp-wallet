@@ -146,12 +146,14 @@ class AppData(val application: Context, val sharedPreferences : SharedPreference
             else {
                 mAppData.walletManager.transactions.get(label)?.add(sendTXResult)
             }
+            mAppData.txList = mAppData.walletManager.txListToJson()
         }
 
         fun delSendTXResult(label : String, sendTXResult : SendTXResult) {
             val find : SendTXResult? = mAppData.walletManager.transactions.get(label)?.find { e -> e.hashtx.equals(sendTXResult.hashtx) }
             if(find != null) {
                 mAppData.walletManager.transactions.get(label)?.remove(find)
+                mAppData.txList = mAppData.walletManager.txListToJson()
             }
         }
 

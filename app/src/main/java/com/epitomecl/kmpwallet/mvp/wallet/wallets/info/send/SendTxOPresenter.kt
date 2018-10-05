@@ -16,7 +16,7 @@ class SendTxOPresenter @Inject constructor() : BasePresenterImpl<SendTxOContract
 
         val changeAddress = getChangeAddress(pubKeyString)
 
-        val txBuilder : TXBuilder = TXBuilder()
+        val txBuilder : TXBuilder = TXBuilder(APIManager)
 
         val hashtx = txBuilder.makeTx(privKeyString, pubKeyString,
                                     toAddress, changeAddress,
