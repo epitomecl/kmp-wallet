@@ -26,8 +26,6 @@ class IntroActivity : BaseActivity(), IntroContract.View {
         else {
             onLogin()
         }
-
-        checkBitcoinBlock()
     }
 
     override fun showState(state: String) {
@@ -55,15 +53,5 @@ class IntroActivity : BaseActivity(), IntroContract.View {
     override fun onChangeWalletActivity() {
         val intent = Intent(this, WalletActivity::class.java)
         startActivity(intent)
-    }
-
-    private fun checkBitcoinBlock() {
-//        thread{
-//            var blockCount = KmpRPCClient.get(CryptoType.BITCOIN)?.getBlockCount()
-//            blockCount.toString()
-//
-//            var result = KmpRPCClient.get(CryptoType.BITCOIN)?.validateaddress("n14GGH3QU4bG66S7ptKpixmLUjbtM4woBY")
-//            result = ""
-//        }
     }
 }
