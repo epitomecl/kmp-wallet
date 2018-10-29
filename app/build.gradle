@@ -81,7 +81,7 @@ android {
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/rxjava.properties'
     }
-    buildToolsVersion '28.0.2'
+    buildToolsVersion '28.0.3'
 
     testOptions {
         // Always show the result of every unit test, even if it passes.
