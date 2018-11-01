@@ -2,15 +2,12 @@ package com.epitomecl.kmpwallet.mvp.intro
 
 import android.content.Intent
 import android.os.Bundle
-import com.epitomecl.kmp.core.util.rpc.KmpRPCClient
-import com.epitomecl.kmp.core.wallet.CryptoType
 import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.data.AppData
 import com.epitomecl.kmpwallet.mvp.base.BaseActivity
 import com.epitomecl.kmpwallet.mvp.intro.login.LoginFragment
 import com.epitomecl.kmpwallet.mvp.intro.regist.RegistFragment
 import com.epitomecl.kmpwallet.mvp.wallet.WalletActivity
-import kotlin.concurrent.thread
 
 class IntroActivity : BaseActivity(), IntroContract.View {
 

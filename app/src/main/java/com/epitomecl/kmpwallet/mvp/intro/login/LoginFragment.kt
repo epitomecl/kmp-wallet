@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.view.animation.TranslateAnimation
 import android.widget.Toast
 import com.epitomecl.kmpwallet.R
-import com.epitomecl.kmpwallet.api.APIManager
 import com.epitomecl.kmpwallet.data.AppData
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import com.epitomecl.kmpwallet.mvp.intro.IntroActivity

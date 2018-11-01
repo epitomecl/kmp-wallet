@@ -141,7 +141,7 @@ class SendTxOFragment : BaseFragment<SendTxOContract.View,
             Toast.makeText(context, getString(R.string.msg_send_zero_value), Toast.LENGTH_SHORT).show()
             return false
         }
-        if(accountData.balance == 0L) {
+        if(accountData.balance == BigInteger.ZERO) {
             Toast.makeText(context, getString(R.string.msg_send_invalid_account_balance), Toast.LENGTH_SHORT).show()
             return false
         }

@@ -10,6 +10,6 @@ object AccountsContract {
     }
 
     interface Presenter : BasePresenter<View> {
-
+        //
     }
 }

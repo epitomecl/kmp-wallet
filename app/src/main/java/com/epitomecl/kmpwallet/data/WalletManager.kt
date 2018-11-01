@@ -2,6 +2,7 @@ package com.epitomecl.kmpwallet.data
 
 import com.epitomecl.kmp.core.wallet.CryptoType
 import com.epitomecl.kmp.core.wallet.HDWalletData
+import com.epitomecl.kmpwallet.api.APIManager
 import com.epitomecl.kmpwallet.model.SendTXResult
 import org.json.JSONArray
 import org.json.JSONException
@@ -46,7 +47,7 @@ class WalletManager {
         var label : String = jsonObject.optString("Label")
         var cryptoType : String = jsonObject.optString("CryptoType")
 
-        var hdWalletData = HDWalletData.restoreFromSeed(CryptoType.valueOf(cryptoType), seedHex, "", label, accountNum.toInt())
+        var hdWalletData = HDWalletData.restoreFromSeed(CryptoType.valueOf(cryptoType), seedHex, "", label, accountNum.toInt(), APIManager)
         wallets.add(hdWalletData)
     }
 
@@ -126,7 +127,7 @@ class WalletManager {
         var label : String = label
         var cryptoType : String = cryptoType.toString()
 
-        var hdWalletData = HDWalletData.restoreFromSeed(CryptoType.valueOf(cryptoType), seedHex, "", label, accountNum.toInt())
+        var hdWalletData = HDWalletData.restoreFromSeed(CryptoType.valueOf(cryptoType), seedHex, "", label, accountNum.toInt(), APIManager)
         wallets.add(hdWalletData)
     }
 

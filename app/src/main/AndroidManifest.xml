@@ -32,10 +32,6 @@
         <activity
             android:name=".mvp.wallet.wallets.info.InfoActivity" />
 
-        <activity android:name=".TestActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="32d24edbaa09beeddf4288a136d4e6430d2ead23" />

@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import com.epitomecl.kmpwallet.di.component.ApplicationComponent
 import com.epitomecl.kmpwallet.di.component.DaggerApplicationComponent
 import com.epitomecl.kmpwallet.di.component.PresenterComponent
-import com.epitomecl.kmpwallet.di.module.ApiModule
 import com.epitomecl.kmpwallet.di.module.AppModule
 
 enum class Injector {
@@ -24,15 +23,13 @@ enum class Injector {
 
     fun init(applicationContext: Context, sharedPreferences: SharedPreferences) {
         val applicationModule = AppModule(applicationContext as Application, sharedPreferences)
-        val apiModule = ApiModule()
 
-        initAppComponent(applicationModule, apiModule)
+        initAppComponent(applicationModule)
     }
 
-    protected fun initAppComponent(applicationModule: AppModule, apiModule: ApiModule) {
+    protected fun initAppComponent(applicationModule: AppModule) {
         appComponent = DaggerApplicationComponent.builder()
                 .appModule(applicationModule)
-                .apiModule(apiModule)
                 .build()
 
         getPresenterComponent()

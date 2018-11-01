@@ -5,8 +5,6 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.app.AppCompatActivity
 import android.util.SparseArray
 import android.view.ViewGroup
-import com.epitomecl.kmpwallet.mvp.backup.BackupFragment
-import com.epitomecl.kmpwallet.mvp.send.SendFragment
 
 class MainPagerAdapter : FragmentPagerAdapter {
 
@@ -53,11 +51,9 @@ class MainPagerAdapter : FragmentPagerAdapter {
         var fragment = Fragment()
 
         when (position) {
-            TAB_IDX_BACKUP -> fragment = BackupFragment.newInstance()
-            TAB_IDX_SEND -> fragment = SendFragment.newInstance()
-
+//            TAB_IDX_BACKUP -> fragment = BackupFragment.newInstance()
+//            TAB_IDX_SEND -> fragment = SendFragment.newInstance()
 //            TAB_IDX_ACCOUNT -> fragment = AccountMainFragment.newInstance()
-//
 //            TAB_IDX_WALLET -> fragment = WalletFragment.newInstance()
         }
 

@@ -5,5 +5,5 @@ import javax.inject.Inject
 
 class AccountsPresenter @Inject constructor(): BasePresenterImpl<AccountsContract.View>(),
         AccountsContract.Presenter {
-
+    //
 }

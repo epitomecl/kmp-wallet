@@ -1,0 +1,64 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-kapt'
+
+sourceCompatibility = "8"
+targetCompatibility = "8"
+
+kapt {
+    useBuildCache = true
+}
+
+configurations {
+    // Initializes placeholders for the demoDebugCompile and fullReleaseCompile
+    // dependency configurations.
+    coreBuild {}
+}
+
+ext {
+    dagger2Version = '2.14.1'
+    guavaVersion = '26.0-jre'
+    commonsLang3Version = '3.1'
+    autoValueVersion = '1.4.1'
+    commonsCodecVerson = '1.10'
+    jacksonVersion = '2.9.5'
+    bitcoinjVersion = '0.14.7'
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    implementation "com.google.auto.value:auto-value:$autoValueVersion"
+    implementation "org.apache.commons:commons-lang3:$commonsLang3Version"
+
+    //Json(fasterxml)
+    implementation "commons-codec:commons-codec:$commonsCodecVerson"
+    implementation "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
+    implementation "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
+    implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+
+    //bitcoinj
+    implementation "org.bitcoinj:bitcoinj-core:$bitcoinjVersion"
+    implementation "io.reactivex.rxjava2:rxjava:2.0.7"
+    implementation "com.google.guava:guava:$guavaVersion"
+
+    //injection
+    implementation "com.google.dagger:dagger:$dagger2Version"
+    kapt "com.google.dagger:dagger-compiler:$dagger2Version"
+    kapt "com.google.dagger:dagger-android-processor:$dagger2Version"
+}
+
+repositories {
+    mavenCentral()
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}

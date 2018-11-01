@@ -1,1 +1,1 @@
-include ':app', ':core-blockinfo', ':wallet-blockinfo'
+include ':app', ':kmp_core'

@@ -18,6 +18,7 @@ import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.InfoActivity
 import kotlinx.android.synthetic.main.fragment_accounts.*
 import kotlinx.android.synthetic.main.item_account.view.*
+import java.math.BigInteger
 import javax.inject.Inject
 
 
@@ -112,7 +113,7 @@ class AccountsFragment : BaseFragment<AccountsContract.View, AccountsPresenter>(
 
         fun getBalance(item: AccountData) : String {
             item.utxos = APIManager.balance(item.xpub,"api_code")
-            var balance: Long = item.balance
+            var balance: BigInteger = item.balance
 
             return UTXO.satoshiToCoin(balance).toString()
         }
