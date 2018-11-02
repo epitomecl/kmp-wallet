@@ -22,13 +22,13 @@ import org.junit.runners.MethodSorters
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class APIManagerTest : RxTestScheduler() {
 
-    private val testService: TestService = mock()
+    private val apiService: APIService = mock()
 
     @Before
     @Throws(Exception::class)
     override fun setUp() {
         super.setUp()
-        APIManager.setTestService(testService)
+        APIManager.setAPIService(apiService)
     }
 
     @Test
@@ -40,13 +40,13 @@ class APIManagerTest : RxTestScheduler() {
         val pw = "aaaa"
         val userVO = UserVO("user_session", 1, id)
 
-        whenever(testService.postLogin(id, pw))
+        whenever(apiService.postLogin(id, pw))
                 .thenReturn(Observable.just(userVO))
 
         val testObserver = APIManager.login(id, pw).test()
 
-        verify(testService).postLogin(id, pw)
-        verifyNoMoreInteractions(testService)
+        verify(apiService).postLogin(id, pw)
+        verifyNoMoreInteractions(apiService)
         testObserver.assertComplete()
         testObserver.assertValue(userVO)
 
@@ -60,13 +60,13 @@ class APIManagerTest : RxTestScheduler() {
         val pw = "aaaa"
         val userVO = UserVO("user_session", 1, id)
 
-        whenever(testService.postRegist(id, pw))
+        whenever(apiService.postRegist(id, pw))
                 .thenReturn(Observable.just(userVO))
 
         val testObserver = APIManager.regist(id, pw).test()
 
-        verify(testService).postRegist(id, pw)
-        verifyNoMoreInteractions(testService)
+        verify(apiService).postRegist(id, pw)
+        verifyNoMoreInteractions(apiService)
         testObserver.assertComplete()
         testObserver.assertValue(userVO)
     }
@@ -81,13 +81,13 @@ class APIManagerTest : RxTestScheduler() {
         utxolist.add(UTXO("hash-string", 0, 10000, "scriptBytes-string", "myGTTCSyiJasZYfFXtfYx7VvV3Pc9ao5N3 "))
         utxolist.add(UTXO("hash-string", 0, 10000, "scriptBytes-string", "mrBAtbFHhvj2zHxwETwiL9Hg818xGRA97h  "))
 
-        whenever(testService.getBalanceEx(xpub, api_code))
+        whenever(apiService.getBalanceEx(xpub, api_code))
                 .thenReturn(Observable.just(utxolist))
 
         val resultList : List<UTXO> = APIManager.balance(xpub, api_code)
 
-        verify(testService).getBalanceEx(xpub, api_code)
-        verifyNoMoreInteractions(testService)
+        verify(apiService).getBalanceEx(xpub, api_code)
+        verifyNoMoreInteractions(apiService)
 
         assertArrayEquals(utxolist.toTypedArray(), resultList.toTypedArray())
     }
@@ -99,13 +99,13 @@ class APIManagerTest : RxTestScheduler() {
         val api_code = "api_code"
         val receive_address = ActiveAddress("mv4b1aMUXTonnX2MaBnkxTzwd76tykykTa")
 
-        whenever(testService.getActiveReceiveAddress(xpub, api_code))
+        whenever(apiService.getActiveReceiveAddress(xpub, api_code))
                 .thenReturn(Observable.just(receive_address))
 
         val result : ActiveAddress = APIManager.activeReceiveAddress(xpub, api_code)
 
-        verify(testService).getActiveReceiveAddress(xpub, api_code)
-        verifyNoMoreInteractions(testService)
+        verify(apiService).getActiveReceiveAddress(xpub, api_code)
+        verifyNoMoreInteractions(apiService)
 
         assertEquals(receive_address, result)
     }
@@ -117,13 +117,13 @@ class APIManagerTest : RxTestScheduler() {
         val api_code = "api_code"
         val change_address = ActiveAddress("myGTTCSyiJasZYfFXtfYx7VvV3Pc9ao5N3")
 
-        whenever(testService.getActiveChangeAddress(xpub, api_code))
+        whenever(apiService.getActiveChangeAddress(xpub, api_code))
                 .thenReturn(Observable.just(change_address))
 
         val result : ActiveAddress = APIManager.activeChangeAddress(xpub, api_code)
 
-        verify(testService).getActiveChangeAddress(xpub, api_code)
-        verifyNoMoreInteractions(testService)
+        verify(apiService).getActiveChangeAddress(xpub, api_code)
+        verifyNoMoreInteractions(apiService)
 
         assertEquals(change_address, result)
     }
@@ -135,13 +135,13 @@ class APIManagerTest : RxTestScheduler() {
         val api_code = "api_code"
         val count = 2
 
-        whenever(testService.getSpendTXOCount(xpub, api_code))
+        whenever(apiService.getSpendTXOCount(xpub, api_code))
                 .thenReturn(Observable.just(count))
 
         val result : Int = APIManager.spendTXOCount(xpub, api_code)
 
-        verify(testService).getSpendTXOCount(xpub, api_code)
-        verifyNoMoreInteractions(testService)
+        verify(apiService).getSpendTXOCount(xpub, api_code)
+        verifyNoMoreInteractions(apiService)
 
         assertEquals(count, result)
     }
@@ -153,13 +153,13 @@ class APIManagerTest : RxTestScheduler() {
         val api_code = "api_code"
         val sendTXResult = SendTXResult("hashtx-string", "")
 
-        whenever(testService.pushTX(xpub, api_code))
+        whenever(apiService.pushTX(xpub, api_code))
                 .thenReturn(Observable.just(sendTXResult))
 
         val result : SendTXResult = APIManager.pushTX(xpub, api_code)
 
-        verify(testService).pushTX(xpub, api_code)
-        verifyNoMoreInteractions(testService)
+        verify(apiService).pushTX(xpub, api_code)
+        verifyNoMoreInteractions(apiService)
 
         assertEquals(sendTXResult, result)
     }
@@ -178,7 +178,7 @@ class APIManagerTest : RxTestScheduler() {
         utxos.add(UTXO("596ec6b3dae4dbc2616e8c8d82be30171d1cfa73444c88a31284a7a87b770200", 1, 4500000, "76a91463d0466dd575c6769ca91f9412397f9f273dbb8188ac", "mpcihFg5FbBJshTvmhHiSvzV7PTtbeWdX5"))
 
         val activeAddress = ActiveAddress("mw8QnsYdVrkH6tejhPT2YRF3F9iXSABHyN")
-        whenever(testService.getActiveChangeAddress(pubKeyString,api_code))
+        whenever(apiService.getActiveChangeAddress(pubKeyString,api_code))
                 .thenReturn(Observable.just(activeAddress))
 
         val presenter : SendTxOPresenter = SendTxOPresenter_Factory.create().get()
@@ -186,7 +186,7 @@ class APIManagerTest : RxTestScheduler() {
                 send_satoshi, utxos)
 
         val sendTXResult = SendTXResult(hashtx, "")
-        whenever(testService.pushTX(hashtx,api_code))
+        whenever(apiService.pushTX(hashtx,api_code))
                 .thenReturn(Observable.just(sendTXResult))
 
         val result : SendTXResult = presenter.pushTx(hashtx)

@@ -16,8 +16,8 @@ import java.util.concurrent.TimeUnit
 object APIManager : IAPIManager {
     private const val SERVER_URI: String = BuildConfig.SERVER_URI
 
-    private lateinit var mTestService: TestService
-    private lateinit var mBlockExplorerService: TestService
+    private lateinit var mAPIService: APIService
+    private lateinit var mBlockExplorerService: APIService
 
     init {
         val retrofit = initRetrofit(SERVER_URI)
@@ -26,8 +26,8 @@ object APIManager : IAPIManager {
     }
 
     @VisibleForTesting
-    fun setTestService(testService: TestService) {
-        mTestService = testService
+    fun setAPIService(apiService: APIService) {
+        mAPIService = apiService
     }
 
     private fun initRetrofit(baseUri: String): Retrofit {
@@ -60,45 +60,45 @@ object APIManager : IAPIManager {
     private fun createMoshiConverter(): MoshiConverterFactory = MoshiConverterFactory.create()
 
     private fun initServices(retrofit: Retrofit, retrofitBlockExplorer: Retrofit) {
-        mTestService = retrofit.create(TestService::class.java)
-        mBlockExplorerService = retrofitBlockExplorer.create(TestService::class.java)
+        mAPIService = retrofit.create(APIService::class.java)
+        mBlockExplorerService = retrofitBlockExplorer.create(APIService::class.java)
     }
 
     fun loadTest(param: Number) =
-            mTestService.getTest(param)
+            mAPIService.getTest(param)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())!!
 
     fun login(id: String, pw: String) =
-        mTestService.postLogin(id, pw)
+            mAPIService.postLogin(id, pw)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())!!
 
     fun regist(id: String, pw: String) =
-            mTestService.postRegist(id, pw)
+            mAPIService.postRegist(id, pw)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())!!
 
     fun balance(xpub: String, api_code: String) =
-            mTestService.getBalanceEx(xpub, api_code)
+            mAPIService.getBalanceEx(xpub, api_code)
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())
                     .blockingSingle()
 
     fun activeReceiveAddress(xpub: String, api_code: String) =
-            mTestService.getActiveReceiveAddress(xpub, api_code)
+            mAPIService.getActiveReceiveAddress(xpub, api_code)
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())
                     .blockingSingle()
 
     fun activeChangeAddress(xpub: String, api_code: String) =
-            mTestService.getActiveChangeAddress(xpub, api_code)
+            mAPIService.getActiveChangeAddress(xpub, api_code)
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())
                     .blockingSingle()
 
     fun spendTXOCount(address: String, api_code: String) =
-            mTestService.getSpendTXOCount(address, api_code)
+            mAPIService.getSpendTXOCount(address, api_code)
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())
                     .blockingSingle()
@@ -108,49 +108,49 @@ object APIManager : IAPIManager {
     }
 
     fun pushTX(hashtx: String, api_code: String) =
-            mTestService.pushTX(hashtx, api_code)
+            mAPIService.pushTX(hashtx, api_code)
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())
                     .blockingSingle()
 
     fun getSharingDataList(index: Int, api_code: String) =
-            mTestService.getSharingDataList(index, api_code)
+            mAPIService.getSharingDataList(index, api_code)
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())
                     .blockingSingle()
 
     fun getSharingDataOne(index: Int, label: String, api_code: String) =
-            mTestService.getSharingDataOne(index, label, api_code)
+            mAPIService.getSharingDataOne(index, label, api_code)
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())
                     .blockingSingle()
 
     fun getSharingDataTwo(index: Int, label: String, api_code: String) =
-            mTestService.getSharingDataTwo(index, label, api_code)
+            mAPIService.getSharingDataTwo(index, label, api_code)
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())
                     .blockingSingle()
 
     fun backupSharingDataOne(index: Int, label: String, shareddata: String, api_code: String) =
-            mTestService.backupSharingDataOne(index, label, shareddata, api_code)
+            mAPIService.backupSharingDataOne(index, label, shareddata, api_code)
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())
                     .blockingSingle()
 
     fun backupSharingDataTwo(index: Int, label: String, shareddata: String, api_code: String) =
-            mTestService.backupSharingDataTwo(index, label, shareddata, api_code)
+            mAPIService.backupSharingDataTwo(index, label, shareddata, api_code)
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())
                     .blockingSingle()
 
     fun getEncrypted(index: Int, label: String, api_code: String) =
-            mTestService.getEncrypted(index, label, api_code)
+            mAPIService.getEncrypted(index, label, api_code)
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())
                     .blockingSingle()
 
     fun setEncrypted(index: Int, label: String, encrypted: String, api_code: String) =
-            mTestService.setEncrypted(index, label, encrypted, api_code)
+            mAPIService.setEncrypted(index, label, encrypted, api_code)
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())
                     .blockingSingle()
@@ -163,21 +163,21 @@ object APIManager : IAPIManager {
 
     @VisibleForTesting
     fun coinFromFaucet(address: String, api_code: String) =
-            mTestService.coinFromFaucet(address, api_code)
+            mAPIService.coinFromFaucet(address, api_code)
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())
                     .blockingSingle()
 
     @VisibleForTesting
     fun addressFaucet(api_code: String) =
-            mTestService.addressFaucet(api_code)
+            mAPIService.addressFaucet(api_code)
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())
                     .blockingSingle()
 
     @VisibleForTesting
     fun checkTX(txid: String, api_code: String) =
-            mTestService.checkTX(txid, api_code)
+            mAPIService.checkTX(txid, api_code)
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())
                     .blockingSingle()
