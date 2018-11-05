@@ -19,10 +19,7 @@ class KMPWalletApp : Application() {
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
-
-        if (BuildConfig.DEBUG){ //&& !AndroidUtils.is21orHigher()) {
-            MultiDex.install(base)
-        }
+        MultiDex.install(this)
     }
 
     override fun onCreate() {

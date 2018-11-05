@@ -16,7 +16,7 @@ configurations {
 }
 
 ext {
-    dagger2Version = '2.14.1'
+    dagger2Version = '2.19'
     guavaVersion = '26.0-jre'
     commonsLang3Version = '3.1'
     autoValueVersion = '1.4.1'
@@ -26,8 +26,9 @@ ext {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    //implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$rootProject.ext.kotlin_version"
 
     implementation "com.google.auto.value:auto-value:$autoValueVersion"
     implementation "org.apache.commons:commons-lang3:$commonsLang3Version"
@@ -39,8 +40,9 @@ dependencies {
     implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
 
     //bitcoinj
-    implementation "org.bitcoinj:bitcoinj-core:$bitcoinjVersion"
-    implementation "io.reactivex.rxjava2:rxjava:2.0.7"
+    implementation ("org.bitcoinj:bitcoinj-core:$bitcoinjVersion") {
+        exclude module: 'scrypt'
+    }
     implementation "com.google.guava:guava:$guavaVersion"
 
     //injection
@@ -51,14 +53,4 @@ dependencies {
 
 repositories {
     mavenCentral()
-}
-compileKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-}
-compileTestKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
 }

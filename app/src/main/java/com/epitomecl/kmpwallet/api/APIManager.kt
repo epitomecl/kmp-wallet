@@ -1,15 +1,15 @@
 package com.epitomecl.kmpwallet.api
 
 import android.support.annotation.VisibleForTesting
-import com.androidnetworking.interceptors.HttpLoggingInterceptor
 import com.epitomecl.kmp.core.wallet.IAPIManager
 import com.epitomecl.kmpwallet.BuildConfig
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
