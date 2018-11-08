@@ -30,7 +30,7 @@ class IntroActivity : BaseActivity(), IntroContract.View {
     }
 
     override fun onLogin() {
-        setTitle("Login");
+        setTitle(getString(R.string.label_intro_login));
 
         supportFragmentManager.beginTransaction()
                 .replace(R.id.flIntro, LoginFragment())
@@ -39,7 +39,7 @@ class IntroActivity : BaseActivity(), IntroContract.View {
     }
 
     override fun onRegist() {
-        setTitle("Regist");
+        setTitle(getString(R.string.label_intro_regist));
 
         supportFragmentManager.beginTransaction()
                 .replace(R.id.flIntro, RegistFragment())

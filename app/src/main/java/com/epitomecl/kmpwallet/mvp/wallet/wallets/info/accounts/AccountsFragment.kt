@@ -85,7 +85,7 @@ class AccountsFragment : BaseFragment<AccountsContract.View, AccountsPresenter>(
         override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
             val accountData: AccountData = items[position]
             holder?.tvAccountLabel?.text = accountData.cache.receiveAccount
-            holder?.tvAccountBalance?.text = "0.0"
+            holder?.tvAccountBalance?.text = context.getString(R.string.zero_balance)
             holder?.bind(accountData)
         }
     }

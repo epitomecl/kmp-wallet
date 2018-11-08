@@ -8,7 +8,7 @@ import com.epitomecl.kmp.core.wallet.AccountKeyDerivation
 import com.epitomecl.kmp.core.wallet.CryptoType
 import com.epitomecl.kmp.core.wallet.HDWalletData
 import com.epitomecl.kmpwallet.R
-import org.bitcoinj.params.BitcoinTestNet3Params
+import org.bitcoinj.params.TestNet3Params
 import org.bitcoinj.wallet.KeyChain
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -30,7 +30,7 @@ class KmpWalletTest {
 
     @Before
     internal fun setUp() {
-        AppData.resetHDWallets()
+        AppData.wipeData()
     }
 
     @Test
@@ -56,7 +56,7 @@ class KmpWalletTest {
     @Test
     fun test3ReceiveAddress() {
         val xpub : String = "tpubDDdUfUJ5n4T9A72TvxD1GnqLLRDfkw1YrCNFFzJdosnder8FL71yLPxPbixLHe1WDSm4tuNEJVmxFvAJmYSpQ7sPc3U9pym6xNRqEDMx6sb"
-        val deriver  = AccountKeyDerivation(BitcoinTestNet3Params.get(), xpub)
+        val deriver  = AccountKeyDerivation(TestNet3Params.get(), xpub)
 
         val receiveAddress1 = deriver.getAddresses(KeyChain.KeyPurpose.RECEIVE_FUNDS)
         val receiveAddress2 = deriver.getAddresses(KeyChain.KeyPurpose.RECEIVE_FUNDS)
@@ -74,7 +74,7 @@ class KmpWalletTest {
     @Test
     fun test4ChangeAddress() {
         val xpub : String = "tpubDDdUfUJ5n4T9A72TvxD1GnqLLRDfkw1YrCNFFzJdosnder8FL71yLPxPbixLHe1WDSm4tuNEJVmxFvAJmYSpQ7sPc3U9pym6xNRqEDMx6sb"
-        val deriver  = AccountKeyDerivation(BitcoinTestNet3Params.get(), xpub)
+        val deriver  = AccountKeyDerivation(TestNet3Params.get(), xpub)
 
         val changeAddress1 = deriver.getAddresses(KeyChain.KeyPurpose.CHANGE)
         val changeAddress2 = deriver.getAddresses(KeyChain.KeyPurpose.CHANGE)

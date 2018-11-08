@@ -10,9 +10,6 @@ import retrofit2.http.*
 
 interface APIService {
 
-    @GET("/test")
-    fun getTest(@Path("param") param : Number): Observable<Test>
-
     @FormUrlEncoded
     @POST("/login")
     fun postLogin(@Field("id") id : String,

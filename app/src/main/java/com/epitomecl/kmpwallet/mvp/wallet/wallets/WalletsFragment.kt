@@ -44,7 +44,7 @@ class WalletsFragment : BaseFragment<WalletsContract.View, WalletsPresenter>(),
 
     override fun onChangeInfoActivity(item: HDWalletData) {
         val intent = Intent(context, InfoActivity::class.java)
-        intent.putExtra("walletlabel", item.label)
+        intent.putExtra(getString(R.string.walletlabel), item.label)
         startActivity(intent)
     }
 
@@ -62,7 +62,7 @@ class WalletsFragment : BaseFragment<WalletsContract.View, WalletsPresenter>(),
             val hdWalletData: HDWalletData = items[position]
             holder?.tvWalletLabel?.text = hdWalletData.label
             holder?.tvCryptoType?.text = hdWalletData.cryptoType.toString()
-            holder?.tvWalletSeed?.text = String.format("seed: %s", hdWalletData.seedHex)
+            holder?.tvWalletSeed?.text = String.format(context.getString(R.string.label_seed), hdWalletData.seedHex)
             holder?.bind(hdWalletData)
         }
 
@@ -79,10 +79,6 @@ class WalletsFragment : BaseFragment<WalletsContract.View, WalletsPresenter>(),
         fun bind(item: HDWalletData) {
             view.setOnClickListener({
                 fragment.onChangeInfoActivity(item)
-//                Toast.makeText(
-//                        view.context,
-//                        "Label: " + item.label + "/n CryptoType: " + item.cryptoType.toString(),
-//                        Toast.LENGTH_LONG).show()
             })
         }
     }

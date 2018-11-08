@@ -30,13 +30,14 @@ class WalletPresenter : BasePresenterImpl<WalletContract.View>(),
         val parts: Map<Int, ByteArray> = sharingData.getSharingParts()
         val one = Hex.toHexString(parts.get(1))
         val two = Hex.toHexString(parts.get(2))
+        val ok = (mView as WalletActivity).getString(R.string.result_ok)
 
         val resultOne: SecretSharingResult = APIManager.backupSharingDataOne(index, label, one, "api_code")
-        if(resultOne.result.equals("ok")) {
+        if(resultOne.result.equals(ok)) {
             val resultTwo: SecretSharingResult = APIManager.backupSharingDataTwo(index, label, two, "api_code")
-            if(resultTwo.result.equals("ok")) {
+            if(resultTwo.result.equals(ok)) {
                 val resultEncrypted: EncryptedResult = APIManager.setEncrypted(index, label, sharingData.encrypted, "api_code")
-                if(resultEncrypted.result.equals("ok")) {
+                if(resultEncrypted.result.equals(ok)) {
                     mView?.showError(R.string.msg_backup_wallet_success)
                     return true
                 }

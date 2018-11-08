@@ -13,9 +13,6 @@
         android:roundIcon="@drawable/icon_epitomecl_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-
-        </activity>
 
         <activity
             android:name=".mvp.intro.IntroActivity">

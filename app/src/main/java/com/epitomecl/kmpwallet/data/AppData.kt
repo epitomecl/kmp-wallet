@@ -162,10 +162,17 @@ class AppData(val application: Context, val sharedPreferences : SharedPreference
             mAppData.txList = mAppData.walletManager.txListToJson()
         }
 
-        fun resetHDWallets() {
+        private fun resetHDWallets() {
             mAppData.wallets = ""
             mAppData.txList = ""
             mAppData.initWallets()
+        }
+
+        fun wipeData() {
+            resetHDWallets()
+            setLoginType(AppData.LoginType.NOT_LOGIN)
+            setUserIndex(-1)
+            setLoginId("")
         }
 
 //        fun getTxList() : List<SendTXResult> {

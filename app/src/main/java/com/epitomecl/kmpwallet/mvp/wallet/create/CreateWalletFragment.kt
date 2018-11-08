@@ -12,6 +12,7 @@ import android.widget.Toast
 import com.epitomecl.kmp.core.wallet.CryptoType
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import com.epitomecl.kmpwallet.mvp.wallet.WalletActivity
+import com.epitomecl.kmpwallet.util.DialogUtils
 import kotlinx.android.synthetic.main.fragment_createwallet.*
 
 class CreateWalletFragment : BaseFragment<CreateWalletContract.View, CreateWalletPresenter>(),
@@ -59,8 +60,7 @@ class CreateWalletFragment : BaseFragment<CreateWalletContract.View, CreateWalle
             return true
         }
 
-        Toast.makeText(context, getString(R.string.msg_wallet_label_short), Toast.LENGTH_SHORT).show()
-
+        DialogUtils.setAlertDialog(context, getString(R.string.msg_wallet_label_short))
         return false
     }
 

@@ -11,7 +11,6 @@ abstract class BaseActivity
 
 //    private lateinit var mActivityComponent: ActivityComponent
 
-
     override fun showError(error: String?) {
         Toast.makeText(this, error, Toast.LENGTH_LONG).show()
     }

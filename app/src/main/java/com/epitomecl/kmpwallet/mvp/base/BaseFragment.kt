@@ -9,9 +9,7 @@ import android.widget.Toast
 abstract class BaseFragment<V : BaseView, P : BasePresenterImpl<V>>
     : Fragment(), BaseView {
 
-
     private lateinit var presenter: P
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +17,6 @@ abstract class BaseFragment<V : BaseView, P : BasePresenterImpl<V>>
         presenter = createPresenter()
         presenter.attachView(getMvpView())
     }
-
 
     override fun showLoading() {
         //

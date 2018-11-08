@@ -61,6 +61,7 @@ android {
             dimension "environment"
             buildConfigString "SEKRIT", buildProperties.secrets['SEKRIT']
             buildConfigString "SERVER_URI", buildProperties.secrets['SERVER_URI']
+            buildConfigString "BLOCKEXPLORER_URI", buildProperties.secrets['BLOCKEXPLORER_URI']
         }
     }
     sourceSets {

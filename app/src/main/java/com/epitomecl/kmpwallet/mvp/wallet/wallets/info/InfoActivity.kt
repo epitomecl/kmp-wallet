@@ -11,6 +11,7 @@ import com.epitomecl.kmpwallet.model.SendTXResult
 import com.epitomecl.kmpwallet.mvp.base.BaseActivity
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.accounts.AccountsFragment
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.send.SendTxOFragment
+import com.epitomecl.kmpwallet.util.DialogUtils
 import kotlinx.android.synthetic.main.activity_wallet_info.*
 
 class InfoActivity : BaseActivity(),
@@ -25,19 +26,19 @@ class InfoActivity : BaseActivity(),
         btnNewAddress.setOnClickListener { onCreateAccount() }
         btnSendCancel.setOnClickListener { onSendCancel() }
 
-        if (intent.hasExtra("walletlabel")) {
-            val label = intent.getStringExtra("walletlabel")
+        if (intent.hasExtra(getString(R.string.walletlabel))) {
+            val label = intent.getStringExtra(getString(R.string.walletlabel))
             val hdWalletData =  AppData.getHDWallets().find { v -> v.label.equals(label) }
             if (hdWalletData != null) {
                 mPresenter.setHDWallet(hdWalletData)
                 mPresenter.setSendTXResultList(AppData.getSendTXResultList(label))
             }
             else {
-                Toast.makeText(this, "not found wallet label", Toast.LENGTH_SHORT).show()
+                DialogUtils.setAlertDialog(this, getString(R.string.msg_info_not_found_wallet))
             }
         }
         else {
-            Toast.makeText(this, "intent has not key-value data", Toast.LENGTH_SHORT).show()
+            DialogUtils.setAlertDialog(this, getString(R.string.msg_info_has_not_key))
         }
 
         onShowAccounts()

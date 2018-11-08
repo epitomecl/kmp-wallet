@@ -10,6 +10,7 @@ import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.data.AppData
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import com.epitomecl.kmpwallet.mvp.intro.IntroActivity
+import com.epitomecl.kmpwallet.util.DialogUtils
 import kotlinx.android.synthetic.main.fragment_regist.*
 
 class RegistFragment : BaseFragment<RegistContract.View, RegistPresenter>(),
@@ -51,7 +52,7 @@ class RegistFragment : BaseFragment<RegistContract.View, RegistPresenter>(),
                             onChangeWalletActivity()
                         }
                         else {
-                            Toast.makeText(getContext() , "regist error. check id and pw.", Toast.LENGTH_SHORT).show()
+                            DialogUtils.setAlertDialog(context, getString(R.string.msg_alert_regist_error))
                         }
                     }
         }
@@ -71,11 +72,11 @@ class RegistFragment : BaseFragment<RegistContract.View, RegistPresenter>(),
 
     private fun isvalidRegistData(): Boolean {
         if (etRegistId.text.length < 4) {
-            Toast.makeText(context, "user id is too short.", Toast.LENGTH_SHORT).show()
+            DialogUtils.setAlertDialog(context, getString(R.string.msg_alert_userid_short))
             return false
         }
         else if (etRegistPass.text.length < 4) {
-            Toast.makeText(context, "password is too short.", Toast.LENGTH_SHORT).show()
+            DialogUtils.setAlertDialog(context, getString(R.string.msg_alert_password_short))
             return false
         }
 

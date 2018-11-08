@@ -1,6 +1,7 @@
 package com.epitomecl.kmpwallet.mvp.wallet.restore
 
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -13,6 +14,7 @@ import android.widget.Button
 import android.widget.Toast
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import com.epitomecl.kmpwallet.mvp.wallet.WalletActivity
+import com.epitomecl.kmpwallet.util.DialogUtils
 import kotlinx.android.synthetic.main.fragment_restorewallet.*
 import kotlinx.android.synthetic.main.item_restoredwallet.view.*
 
@@ -44,8 +46,9 @@ class RestoreWalletFragment : BaseFragment<RestoreWalletContract.View, RestoreWa
             rvRestoredWallets.adapter = RestoredWalletsItemAdapter(restoredWallets, context!!, this)
         }
         else {
-            Toast.makeText(context, getString(R.string.msg_restored_wallet_not_exist), Toast.LENGTH_SHORT).show()
-            (context as WalletActivity).onCancelRestore()
+            DialogUtils.setAlertDialog(context, getString(R.string.msg_restored_wallet_not_exist), DialogInterface.OnClickListener { dialog, which ->
+                (context as WalletActivity).onCancelRestore()
+            })
         }
     }
 

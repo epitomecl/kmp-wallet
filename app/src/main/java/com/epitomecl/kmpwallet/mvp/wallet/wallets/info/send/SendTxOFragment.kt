@@ -19,6 +19,7 @@ import com.epitomecl.kmpwallet.api.APIManager
 import com.epitomecl.kmpwallet.data.AppData
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.InfoActivity
+import com.epitomecl.kmpwallet.util.DialogUtils
 import org.spongycastle.util.encoders.Hex
 import kotlinx.android.synthetic.main.fragment_sendtxo.*
 import kotlinx.android.synthetic.main.item_sendtx_result.view.*
@@ -112,17 +113,17 @@ class SendTxOFragment : BaseFragment<SendTxOContract.View,
                     val tx = Transaction(NetworkParameters.testNet(), Hex.decode(hashtx))
 
                     if(tx.isPending) {
-                        Toast.makeText(context, "send result: PENDING...", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, getString(R.string.msg_send_result) + getString(R.string.msg_send_result_pending), Toast.LENGTH_LONG).show()
                     }
                     else {
-                        Toast.makeText(context, "send result: REJECT", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, getString(R.string.msg_send_result) + getString(R.string.msg_send_result_reject), Toast.LENGTH_LONG).show()
                     }
                 }
                 else {
-                    Toast.makeText(context, "send result: ERROR => " + result.error, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.msg_send_result) + getString(R.string.msg_send_result_error) + result.error, Toast.LENGTH_LONG).show()
                 }
             } catch (e: Exception) {
-
+                Toast.makeText(context, getString(R.string.msg_send_result) + getString(R.string.msg_send_result_exception) + e.message, Toast.LENGTH_LONG).show()
             }
 
             val sendResult : SendTXResult = SendTXResult(hashtx, "")
@@ -134,15 +135,15 @@ class SendTxOFragment : BaseFragment<SendTxOContract.View,
 
     private fun isValid(accountData : AccountData): Boolean {
         if (etSendToAddress.text.length != 34) {
-            Toast.makeText(context, getString(R.string.msg_send_invalid_address), Toast.LENGTH_SHORT).show()
+            DialogUtils.setAlertDialog(context, getString(R.string.msg_send_invalid_address))
             return false
         }
         if(etSendSatoshi.text.toString().toBigInteger() == BigInteger.ZERO) {
-            Toast.makeText(context, getString(R.string.msg_send_zero_value), Toast.LENGTH_SHORT).show()
+            DialogUtils.setAlertDialog(context, getString(R.string.msg_send_zero_value))
             return false
         }
         if(accountData.balance == BigInteger.ZERO) {
-            Toast.makeText(context, getString(R.string.msg_send_invalid_account_balance), Toast.LENGTH_SHORT).show()
+            DialogUtils.setAlertDialog(context, getString(R.string.msg_send_invalid_account_balance))
             return false
         }
 
@@ -170,8 +171,8 @@ class SendTxOFragment : BaseFragment<SendTxOContract.View,
             val sendTXResult: SendTXResult = items!![position]
             holder?.tvTXID?.text = ""
             holder?.tvSendToAddress?.text = ""
-            holder?.tvSendAmount?.text = "0.0"
-            holder?.tvSendTXConfirm?.text = "0 Confirm"
+            holder?.tvSendAmount?.text = context.getString(R.string.zero_balance)
+            holder?.tvSendTXConfirm?.text = 0.toString() + context.getString(R.string.confirm)
             holder?.bind(sendTXResult)
         }
     }
@@ -199,10 +200,10 @@ class SendTxOFragment : BaseFragment<SendTxOContract.View,
 
                 if(json_tx.body() != null) {
                     val objects = JSONObject(json_tx.body()?.string())
-                    val confirmations = objects.optString("confirmations")
+                    val confirmations = objects.optString(fragment.getString(R.string.confirmations))
                     confirm = confirmations.toInt()
 
-                    tvSendTXConfirm.text = confirmations  + " Confirm"
+                    tvSendTXConfirm.text = confirmations  + fragment.getString(R.string.confirm)
                 }
 
                 if(confirm >= 6) {

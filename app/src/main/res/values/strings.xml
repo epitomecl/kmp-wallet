@@ -6,6 +6,15 @@
     <string name="KMP">KMP</string>
     <string name="utf8_small">utf-8</string>
     <string name="pbewithmd5anddes">PBEWithMD5AndDES</string>
+    <string name="zero_balance">0.0</string>
+    <string name="confirm"> Confirm</string>
+    <string name="confirmations"> confirmations</string>
+    <string name="walletlabel">walletlabel</string>
+    <string name="result_ok">ok</string>
+
+    <string name="alert">Alert</string>
+    <string name="alert_ok">OK</string>
+    <string name="alert_cancel">Cancel</string>
 
     <string name="crypto_btc_big">BTC</string>
     <string name="crypto_btc_test_big">BTC TESTNET</string>
@@ -21,6 +30,15 @@
     <string name="key_wallets">wallets</string>
     <string name="key_tx_list">txList</string>
 
+    <string name="msg_login_error">login error. check id and pw.</string>
+    <string name="msg_alert_wipedata">Caution!! All saved data is deleted and can not be recovered!! Are you sure you want to delete?</string>
+    <string name="msg_alert_finish_wipedata">All data has been deleted.</string>
+    <string name="msg_alert_userid_short">user id is too short.</string>
+    <string name="msg_alert_password_short">password is too short.</string>
+
+    <string name="msg_alert_regist_error">regist error. may be this account aleady exists. check id and pw.</string>
+    <string name="msg_alert_encrypt_error">can\'t find encrypted data.</string>
+    <string name="msg_alert_restore_error">can\'t find restored wallet.</string>
     <string name="msg_select_crypto_type">Select CryptoType</string>
     <string name="msg_wallet_label_short">label is too short.</string>
     <string name="msg_restored_wallet_not_exist">restored wallet is not exist.</string>
@@ -29,9 +47,21 @@
     <string name="msg_backup_wallet_fail">wallet backup fail.</string>
     <string name="msg_send_invalid_address">Invalid address</string>
     <string name="msg_send_zero_value">Check send satosi</string>
+    <string name="msg_send_result">send result: </string>
+    <string name="msg_send_result_pending">PENDING</string>
+    <string name="msg_send_result_reject">REJECT</string>
+    <string name="msg_send_result_error">ERROR =></string>
+    <string name="msg_send_result_exception">EXCEPTION =></string>
     <string name="msg_send_invalid_account_balance">Account balance is 0</string>
+    <string name="msg_info_not_found_wallet">not found wallet label</string>
+    <string name="msg_info_has_not_key">intent has not key-value data</string>
 
     <string name="hint_create_wallet_label">Wallet Label</string>
+
+    <string name="label_intro_login">Login</string>
+    <string name="label_intro_regist">Regist</string>
+
+    <string name="label_restored_from_seed">restored from seed</string>
 
     <string name="label_create_wallet_step1">1. Select wallet type</string>
     <string name="label_create_wallet_step2">2. Input wallet label</string>
@@ -42,6 +72,8 @@
     <string name="label_create_account_notice">This label is will not stored when back up wallet address.\nThese labels are temporary.</string>
 
     <string name="label_account_has">has</string>
+
+    <string name="label_seed">seed: %s</string>
 
     <string-array name="mnemonic_word_requests">
         <item>first word</item>

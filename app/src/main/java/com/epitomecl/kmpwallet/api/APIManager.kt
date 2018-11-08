@@ -15,13 +15,14 @@ import java.util.concurrent.TimeUnit
 
 object APIManager : IAPIManager {
     private const val SERVER_URI: String = BuildConfig.SERVER_URI
+    private const val BLOCKEXPLORER_URI: String = BuildConfig.BLOCKEXPLORER_URI
 
     private lateinit var mAPIService: APIService
     private lateinit var mBlockExplorerService: APIService
 
     init {
         val retrofit = initRetrofit(SERVER_URI)
-        val retrofitBlockExplorer = initRetrofit("https://testnet.blockexplorer.com:443")
+        val retrofitBlockExplorer = initRetrofit(BLOCKEXPLORER_URI)
         initServices(retrofit, retrofitBlockExplorer)
     }
 
@@ -63,11 +64,6 @@ object APIManager : IAPIManager {
         mAPIService = retrofit.create(APIService::class.java)
         mBlockExplorerService = retrofitBlockExplorer.create(APIService::class.java)
     }
-
-    fun loadTest(param: Number) =
-            mAPIService.getTest(param)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())!!
 
     fun login(id: String, pw: String) =
             mAPIService.postLogin(id, pw)

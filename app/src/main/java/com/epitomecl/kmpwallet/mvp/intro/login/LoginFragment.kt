@@ -1,5 +1,6 @@
 package com.epitomecl.kmpwallet.mvp.intro.login
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.data.AppData
 import com.epitomecl.kmpwallet.mvp.base.BaseFragment
 import com.epitomecl.kmpwallet.mvp.intro.IntroActivity
+import com.epitomecl.kmpwallet.util.DialogUtils
 import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : BaseFragment<LoginContract.View, LoginPresenter>(),
@@ -39,6 +41,7 @@ class LoginFragment : BaseFragment<LoginContract.View, LoginPresenter>(),
         btnLogin.setOnClickListener { onLogin() }
         btnLoginCancel.setOnClickListener { onLoginCancel() }
         btnChangeRegist.setOnClickListener { onChangeRegist() }
+        btnWipeData.setOnClickListener { onWipeData() }
     }
 
     fun onLogin() {
@@ -54,7 +57,7 @@ class LoginFragment : BaseFragment<LoginContract.View, LoginPresenter>(),
                         (getContext() as IntroActivity).onChangeWalletActivity()
                     }
                     else {
-                        Toast.makeText(getContext() , "login error. check id and pw.", Toast.LENGTH_SHORT).show()
+                        DialogUtils.setAlertDialog(context, getString(R.string.msg_login_error))
                     }
                 }
         }
@@ -68,16 +71,30 @@ class LoginFragment : BaseFragment<LoginContract.View, LoginPresenter>(),
         (getContext() as IntroActivity).onRegist()
     }
 
+    fun onWipeData() {
+        DialogUtils.setConfirmDialog(context, getString(R.string.msg_alert_wipedata), DialogInterface.OnClickListener { dialog, which ->
+                onConfirmWipeData()
+            }
+        )
+    }
+
     private fun isvalidLoginData(): Boolean {
         if (etLoginId.text.length < 4) {
-            Toast.makeText(context, "user id is too short.", Toast.LENGTH_SHORT).show()
+            DialogUtils.setAlertDialog(context, getString(R.string.msg_alert_userid_short))
             return false
         }
         else if (etLoginPass.text.length < 4) {
-            Toast.makeText(context, "password is too short.", Toast.LENGTH_SHORT).show()
+            DialogUtils.setAlertDialog(context, getString(R.string.msg_alert_password_short))
             return false
         }
 
         return true
+    }
+
+    private fun onConfirmWipeData() {
+        AppData.wipeData()
+        etLoginId.setText("")
+        etLoginPass.setText("")
+        DialogUtils.setAlertDialog(context,getString(R.string.msg_alert_finish_wipedata))
     }
 }

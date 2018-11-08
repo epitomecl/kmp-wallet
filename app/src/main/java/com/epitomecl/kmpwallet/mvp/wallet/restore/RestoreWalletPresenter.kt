@@ -2,6 +2,7 @@ package com.epitomecl.kmpwallet.mvp.wallet.restore
 
 import com.epitomecl.kmp.core.common.SharingData
 import com.epitomecl.kmp.core.wallet.CryptoType
+import com.epitomecl.kmpwallet.R
 import com.epitomecl.kmpwallet.api.APIManager
 import com.epitomecl.kmpwallet.data.AppData
 import com.epitomecl.kmpwallet.model.EncryptedResult
@@ -38,11 +39,11 @@ class RestoreWalletPresenter : BasePresenterImpl<RestoreWalletContract.View>(),
                 return true
             }
             else {
-                mView?.showError("can't find encrypted data.")
+                mView?.showError(R.string.msg_alert_encrypt_error)
             }
         }
         else {
-            mView?.showError("can't find restored wallet.")
+            mView?.showError(R.string.msg_alert_restore_error)
         }
         return false
     }
