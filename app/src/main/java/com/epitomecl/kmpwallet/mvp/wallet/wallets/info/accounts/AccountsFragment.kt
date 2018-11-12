@@ -107,7 +107,10 @@ class AccountsFragment : BaseFragment<AccountsContract.View, AccountsPresenter>(
             tvAccountBalance.text = getBalance(item)
 
             btnAccountSync.setOnClickListener {
-
+                val ft = fragment.fragmentManager?.beginTransaction()
+                ft?.detach(fragment)
+                ft?.attach(fragment)
+                ft?.commit()
             }
         }
 
