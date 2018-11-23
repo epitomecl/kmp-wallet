@@ -54,11 +54,11 @@ class WalletsFragment : BaseFragment<WalletsContract.View, WalletsPresenter>(),
             return items.size
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             return ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_wallet, parent, false), fragment)
         }
 
-        override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val hdWalletData: HDWalletData = items[position]
             holder?.tvWalletLabel?.text = hdWalletData.label
             holder?.tvCryptoType?.text = hdWalletData.cryptoType.toString()

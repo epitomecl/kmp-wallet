@@ -45,6 +45,8 @@ class KmpWalletTest {
 
     @Test
     fun test2createAccount() {
+        test1createWallet()
+
         val hdWalletData : HDWalletData = AppData.getHDWallets().get(0)
         val label : String = "test-account-label"
 

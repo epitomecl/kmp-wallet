@@ -1,5 +1,6 @@
 package com.epitomecl.kmpwallet.api
 
+import com.epitomecl.kmp.core.wallet.AccountKeyDerivation
 import com.epitomecl.kmpwallet.model.UserVO
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.verifyNoMoreInteractions
@@ -18,6 +19,7 @@ import com.epitomecl.kmpwallet.mvp.wallet.wallets.info.send.SendTxOPresenter_Fac
 import org.junit.Assert.assertEquals
 import org.junit.FixMethodOrder
 import org.junit.runners.MethodSorters
+import org.mockito.ArgumentMatchers.anyString
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class APIManagerTest : RxTestScheduler() {
@@ -180,6 +182,10 @@ class APIManagerTest : RxTestScheduler() {
         val activeAddress = ActiveAddress("mw8QnsYdVrkH6tejhPT2YRF3F9iXSABHyN")
         whenever(apiService.getActiveChangeAddress(pubKeyString,api_code))
                 .thenReturn(Observable.just(activeAddress))
+
+        val count = 0
+        whenever(apiService.getSpendTXOCount(anyString(), anyString()))
+                .thenReturn(Observable.just(count))
 
         val presenter : SendTxOPresenter = SendTxOPresenter_Factory.create().get()
         val hashtx: String = presenter.makeTx(privKeyString, pubKeyString, toAddress,

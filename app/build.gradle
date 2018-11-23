@@ -113,7 +113,7 @@ repositories {
 }
 
 ext {
-    supportLibVersion = '27.0.2'
+    supportLibVersion = '27.1.1'
     retrofitVersion = "2.2.0"
     dagger2Version = '2.19'
     okhttp3Version = '3.11.0'
