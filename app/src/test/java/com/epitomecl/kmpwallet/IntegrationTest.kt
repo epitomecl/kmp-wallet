@@ -13,6 +13,7 @@ import org.junit.Test
 import org.junit.runners.MethodSorters
 import org.bitcoinj.core.NetworkParameters
 import org.junit.Assert.assertNull
+import org.junit.Ignore
 import org.spongycastle.util.encoders.Hex
 
 
@@ -149,6 +150,7 @@ class IntegrationTest {
 //        System.out.format("test5CheckBackTransection END")
 //    }
 
+    @Ignore("Only test in local development environment.")
     @Test
     @Throws(Exception::class)
     fun testKmpWallet() {
