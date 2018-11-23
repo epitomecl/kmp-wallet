@@ -11,6 +11,11 @@ buildProperties {
 }
 
 android {
+    //build for jenkins
+    lintOptions {
+        abortOnError false
+    }
+
     splits {
         abi {
             enable true
